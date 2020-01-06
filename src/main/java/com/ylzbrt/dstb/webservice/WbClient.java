@@ -9,19 +9,21 @@ import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
  * @Date:Created in  2020/1/1
  * @Modified By:
  */
-public class wbclient {
-    public static String generateXml()
-    {
-        StringBuffer sb = new StringBuffer();
-        //头部
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                "<table>");
+public  class WbClient {
 
-        //尾部
-        sb.append("</table>")  ;
-        return sb.toString();
+    public static Client getWebService(){
+        JaxWsDynamicClientFactory dcflient = JaxWsDynamicClientFactory.newInstance();
+
+        Client client = dcflient.createClient("http://120.35.29.217:809/Convergence/webservice/ConvergenceService?wsdl");
+        return client;
     }
+
     public static void main(String[] args) throws Exception {
+        Client client = WbClient.getWebService();
+        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+        System.out.println("获取guid：" + guidObjects[0].toString());
+
+    }
 
         /*try {
             JaxWsDynamicClientFactory dcflient = JaxWsDynamicClientFactory.newInstance();
@@ -56,5 +58,5 @@ public class wbclient {
             e.printStackTrace();
         }*/
 
-    }
+
 }

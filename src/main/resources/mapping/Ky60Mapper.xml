@@ -161,4 +161,8 @@
       </if>
     </trim>
   </insert>
+
+  <select id="testReturnResult" parameterType="java.util.Map" statementType="CALLABLE">
+    {call test(#{code,mode=OUT,jdbcType=VARCHAR})}
+  </select>
 </mapper>

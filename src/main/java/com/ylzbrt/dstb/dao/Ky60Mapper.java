@@ -5,7 +5,10 @@ import com.ylzbrt.dstb.entity.Ky60Example;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+
 @Mapper
 @Repository
 public interface Ky60Mapper {
@@ -32,4 +35,6 @@ public interface Ky60Mapper {
      * @mbg.generated
      */
     List<Ky60> selectByExample(Ky60Example example);
+
+    void testReturnResult(Map mm) throws SQLException;
 }
