@@ -64,7 +64,7 @@ public class DsrwService {
      *  定点医疗机构和药店
      */
     @Async
-    @Scheduled(fixedRate = 200000)  //间隔200秒
+    @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
    public void dealKb01(){
      /*
         第一步：1.in case 备份上次更新数据 调用存储过程 获得执行结果
@@ -152,7 +152,7 @@ public class DsrwService {
      * 全省联网定点医疗机构和药店-QslwFwwdb0
      */
    @Async
-    @Scheduled(fixedRate = 200000)  //间隔200秒
+    @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
     public void dealQslwFwwdb0()   {
 
         String log = "推送成功";
@@ -234,7 +234,7 @@ public class DsrwService {
      * @throws Exception
      */
     @Async
-    @Scheduled(fixedRate = 200000)
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa02()  {
 
         String log = "推送成功";
@@ -312,7 +312,7 @@ public class DsrwService {
      * @throws Exception
      */
     @Async
-    @Scheduled(fixedRate = 200000)
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa17Yp() {
 
         String log = log = "推送成功";
@@ -393,7 +393,7 @@ public class DsrwService {
      * @throws Exception
      */
     @Async
-    @Scheduled(fixedRate = 200000)
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa03()   {
         String log = "";
         boolean flag = true;
@@ -471,7 +471,7 @@ public class DsrwService {
      * @throws Exception
      */
     @Async
-    @Scheduled(fixedRate = 200000)
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa17()   {
 
         String  log = "推送成功";
@@ -548,7 +548,7 @@ public class DsrwService {
      * 职工个人权益单-ky65
      */
     @Async
-    @Scheduled(fixedRate = 200000)
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKy65(){
 
         String log = "推送成功";
@@ -556,7 +556,7 @@ public class DsrwService {
         try {
             //第一步：
               Map <String, Object> map = new HashMap <String, Object>();
-             map.put("UPDATOR", "xxx");
+             map.put("UPDATOR", "定时器");
              map.put("AAA027_","350000");
             zwKY65Mapper.accessPro(map);
             // 存储过程正常
@@ -625,23 +625,23 @@ public class DsrwService {
     }
 
     /**
-     * 生育产前登记
+     * 生育产前登记-Mc01
      */
-//    @Async
-//    @Scheduled(fixedRate = 200000)
+    @Async
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealMc01(){
 
-        String log = "";
+        String log = "推送成功";
         boolean flag = true;
         try {
             //第一步：
-            //  Map <String, Object> map = new HashMap <String, Object>();
-            // map.put("UPDATOR", "xxx");
-            //  zwKb01Mapper.accessPro(map);
+              Map <String, Object> map = new HashMap <String, Object>();
+             map.put("UPDATOR", "定时器");
+            zwMc01Mapper.accessPro(map);
             //  System.out.println(map.get("code"));
             // 存储过程正常
             // map.get("code")  替换 "1"
-            if ("1".equals("1"))//测试存储过程时要修改
+            if ("1".equals(map.get("code")))
             {
                 List <ZwMc01> list = zwMc01Mapper.selectByExample(null);
                 if (list.size() > 0) {
@@ -683,28 +683,31 @@ public class DsrwService {
                 }
             }else
             {
+                flag=false;
                 log = "存储过程执行出错";
 
             }
         }catch (Exception e)
         {
+            flag=false;
             log = "定时器服务异常:"+e.getMessage();
 
         }finally {
             if(flag)
             {
-                log = "推送成功";
+
             }
             //插入日志/推送信息
-            System.out.println("插入日志 "+log);
+            timerMapper.insert(new Timer(new Date(),"生育产前登记-Mc01",log));
+            System.out.println("生育产前登记-Mc01 插入日志 "+log);
         }
     }
 
     /**
-     * 生育保险刷卡记录
+     * 生育保险刷卡记录-Ky70
      */
-//    @Async
-//    @Scheduled(fixedRate = 200000)
+    @Async
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKy70(){
 
         String log = "推送成功";
@@ -770,17 +773,17 @@ public class DsrwService {
             log = "定时器服务异常:"+e.getMessage();
 
         }finally {
-            timerMapper.insert(new Timer(new Date(),"生育登记信息-Mca1",log));
+            timerMapper.insert(new Timer(new Date(),"生育保险刷卡记录-Ky70",log));
             //插入日志/推送信息
-            System.out.println("插入日志 "+log);
+            System.out.println("生育保险刷卡记录-Ky70 插入日志 "+log);
         }
     }
 
     /**
      *  生育登记信息-Mca1
      */
-//    @Async
-//    @Scheduled(fixedRate = 200000)
+    @Async
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealMca1(){
 
         String log = "推送成功";
@@ -845,15 +848,15 @@ public class DsrwService {
         }finally {
             timerMapper.insert(new Timer(new Date(),"生育登记信息-Mca1",log));
             //插入日志/推送信息
-            System.out.println("插入日志 "+log);
+            System.out.println("生育登记信息-Mca1 插入日志 "+log);
         }
     }
 
     /**
      *  生育待遇发放信息-Mc03
      */
-//    @Async
-//    @Scheduled(fixedRate = 200000)
+    @Async
+    @Scheduled(fixedRate = Catalog.fixedRate)
         public void dealMc03(){
 
         String log = "推送成功";
@@ -866,7 +869,7 @@ public class DsrwService {
 //              System.out.println(map.get("code"));
             // 存储过程正常
             //   替换 "1"  map.get("code")
-            if ("1".equals(map.get("code")))//测试存储过程时要修改
+            if ("1".equals(map.get("code")))
             {
                 List <ZwMc03> list = zwMc03Mapper.selectByExample(null);
                 if (list.size() > 0) {
@@ -921,15 +924,15 @@ public class DsrwService {
 
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"生育待遇发放信息-Mc03",log));
-            System.out.println("插入日志 "+log);
+            System.out.println("生育待遇发放信息-Mc03 插入日志 "+log);
         }
     }
 
     /**
      *  生育保险个人权益单-My56
      */
-//    @Async
-//    @Scheduled(fixedRate = 200000)
+    @Async
+    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealMy56(){
         String log = "推送成功";
         boolean flag = true;
@@ -988,13 +991,13 @@ public class DsrwService {
             }
         }catch (Exception e)
         {
-            log = "定时器服务异常:"+e.getMessage();
+            log = "生育保险个人权益单-My56 定时器服务异常:"+e.getMessage();
             flag = false;
         }finally {
 
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"生育保险个人权益单-My56",log));
-            System.out.println("插入日志 "+log);
+            System.out.println("生育保险个人权益单-My56 插入日志 "+log);
         }
     }
 

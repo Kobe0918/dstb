@@ -15,4 +15,5 @@ public class Catalog {
     public static final String my56="WEB2372";
 
     public static final String clock="0 0/1 9-23 ? * *";
+    public static final int fixedRate = 1000000;
 }
