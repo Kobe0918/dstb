@@ -130,4 +130,8 @@
       </if>
     </trim>
   </insert>
+  <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
+    {call pro_KY70(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
+  </select>
+
 </mapper>

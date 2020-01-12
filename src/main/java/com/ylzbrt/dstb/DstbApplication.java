@@ -10,10 +10,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-//@EnableAsync  //开启异步调用
-//@EnableScheduling  //开启定时任务
+@EnableAsync  //开启异步调用
+@EnableScheduling  //开启定时任务
 //@EnableCaching  //开启缓存
-@ComponentScan("com.ylzbrt.dstb") // 扫描公共类
 @MapperScan(basePackages = "com.ylzbrt.dstb.dao") // Dao
 @ServletComponentScan
 public class DstbApplication {

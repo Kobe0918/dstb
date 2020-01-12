@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylzbrt.dstb.dao.TimerMapper">
+  <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.Timer">
+    <result column="EXEC_TIME" jdbcType="TIMESTAMP" property="execTime" />
+    <result column="TABLE_NAME" jdbcType="VARCHAR" property="tableName" />
+    <result column="MSG" jdbcType="VARCHAR" property="msg" />
+  </resultMap>
+  <insert id="insert" parameterType="com.ylzbrt.dstb.entity.Timer">
+    insert into TIMER (EXEC_TIME, TABLE_NAME, MSG
+      )
+    values (#{execTime,jdbcType=TIMESTAMP}, #{tableName,jdbcType=VARCHAR}, #{msg,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.Timer">
+    insert into TIMER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="execTime != null">
+        EXEC_TIME,
+      </if>
+      <if test="tableName != null">
+        TABLE_NAME,
+      </if>
+      <if test="msg != null">
+        MSG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="execTime != null">
+        #{execTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tableName != null">
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="msg != null">
+        #{msg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

@@ -1,7 +1,7 @@
 package com.ylzbrt.dstb.dao;
 
-import com.ylzbrt.dstb.entity.ZwKb01;
-import com.ylzbrt.dstb.entity.ZwKb01Example;
+import com.ylzbrt.dstb.entity.ZwKY65;
+import com.ylzbrt.dstb.entity.ZwKY65Example;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,18 +11,18 @@ import java.util.Map;
 
 @Mapper
 @Repository
-public interface ZwKb01Mapper {
-    int insert(ZwKb01 record);
+public interface ZwKY65Mapper {
+    int insert(ZwKY65 record);
 
-    int insertSelective(ZwKb01 record);
+    int insertSelective(ZwKY65 record);
 
-    List<ZwKb01> selectByExample(ZwKb01Example example);
+    List<ZwKY65> selectByExample(ZwKY65Example example);
+
     /**
      * 调用存储过程
      * @param map
      * @throws SQLException
      */
     void accessPro(Map map) throws SQLException;
-
 
 }

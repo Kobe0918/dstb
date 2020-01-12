@@ -107,4 +107,8 @@
       </if>
     </trim>
   </insert>
+
+  <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
+    {call pro_zw_qslw_fwwdb0(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
+  </select>
 </mapper>

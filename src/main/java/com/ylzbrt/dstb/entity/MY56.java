@@ -1,22 +1,25 @@
 package com.ylzbrt.dstb.entity;
 
+import com.ylzbrt.dstb.common.Name;
+
 import java.math.BigDecimal;
 
 public class MY56 {
+    @Name("统筹区编号")
     private String aaa027;
-
+    @Name("身份证号码")
     private String aac002;
-
+    @Name("姓名")
     private String aac003;
-
+    @Name("单位名称")
     private String aab004;
-
+    @Name("年度")
     private Short aae001;
-
+    @Name("首次参保日期")
     private Long ame501;
-
+    @Name("个人月缴费基数")
     private BigDecimal ame502;
-
+    @Name("生育津贴")
     private BigDecimal amc030;
 
     public String getAaa027() {

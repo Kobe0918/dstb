@@ -1,24 +1,27 @@
 package com.ylzbrt.dstb.entity;
 
+import com.ylzbrt.dstb.common.Name;
+
 import java.util.Date;
 
 public class ZwMc01 {
+    @Name("统筹区编号")
     private String aaa027;
-
+    @Name("身份证号码")
     private String aac002;
-
+    @Name("姓名")
     private String aac003;
-
+    @Name("单位档案号")
     private String aab001;
-
+    @Name("单位名称")
     private String aab004;
-
+    @Name("预产期")
     private Integer amc020;
-
+    @Name("登记日期")
     private Date aae036;
-
+    @Name("截止日期")
     private Integer aae031;
-
+    @Name("登记人")
     private String aae011;
 
     public String getAaa027() {

@@ -3,6 +3,7 @@ package com.ylzbrt.dstb;
 import com.ylzbrt.dstb.dao.Ky60Mapper;
 import com.ylzbrt.dstb.entity.Ky60;
 import com.ylzbrt.dstb.entity.Ky60Example;
+import com.ylzbrt.dstb.service.DsrwService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
@@ -41,6 +42,11 @@ public class DstbApplicationTests {
 //        }
 
 
+    }
+    @Test
+    public void kb01test(){
+        DsrwService dsrwService = new DsrwService();
+        dsrwService.dealKb01();
     }
 
 }

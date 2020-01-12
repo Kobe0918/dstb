@@ -13,4 +13,6 @@ public class Catalog {
     public static final String mca1="WEB2374";
     public static final String mc03="WEB2373";
     public static final String my56="WEB2372";
+
+    public static final String clock="0 0/1 9-23 ? * *";
 }

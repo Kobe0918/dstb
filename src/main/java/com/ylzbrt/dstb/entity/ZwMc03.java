@@ -1,18 +1,21 @@
 package com.ylzbrt.dstb.entity;
 
+import com.ylzbrt.dstb.common.Name;
+
 public class ZwMc03 {
+    @Name("统筹区编号")
     private String aaa027;
-
+    @Name("身份证号码")
     private String aac002;
-
+    @Name("姓名")
     private String aac003;
-
+    @Name("待遇发放号")
     private Long aaz196;
-
+    @Name("待遇类型")
     private String bkc112;
-
+    @Name("待遇类别")
     private String bkc001;
-
+    @Name("建帐月份")
     private Integer aae206;
 
     public String getAaa027() {

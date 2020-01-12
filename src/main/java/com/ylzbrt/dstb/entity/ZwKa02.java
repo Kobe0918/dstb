@@ -1,24 +1,27 @@
 package com.ylzbrt.dstb.entity;
 
+import com.ylzbrt.dstb.common.Name;
+
 public class ZwKa02 {
+    @Name("商品名")
     private String aka061;
-
+    @Name("通用名")
     private String ake002;
-
+    @Name("药品剂型")
     private String aka070;
-
+    @Name("药品规格")
     private String aka074;
-
+    @Name("药品单位")
     private String aka067;
-
+    @Name("是否医保项目")
     private String bka001;
-
+    @Name("自付比例")
     private String bka010;
-
+    @Name("所属区域")
     private String ssqy00;
-
+    @Name("厂家名称")
     private String ypgymc;
-
+    @Name("药品编码")
     private String aka060;
 
     public String getAka061() {

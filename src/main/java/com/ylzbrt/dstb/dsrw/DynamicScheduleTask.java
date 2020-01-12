@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
  * @Date:Created in  2020/1/5
  * @Modified By:
  */
+/*
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
 @EnableScheduling   // 2.开启定时任务
 @EnableAsync        // 2.开启多线程
@@ -25,6 +26,7 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
      * 执行定时任务
      * @param scheduledTaskRegistrar
      */
+/*
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         scheduledTaskRegistrar.addTriggerTask(
@@ -43,4 +45,5 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
                 }
         );
     }
-}
+
+}*/

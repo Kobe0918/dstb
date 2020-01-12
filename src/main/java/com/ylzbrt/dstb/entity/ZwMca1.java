@@ -1,24 +1,27 @@
 package com.ylzbrt.dstb.entity;
 
+import com.ylzbrt.dstb.common.Name;
+
 public class ZwMca1 {
+    @Name("统筹区编号")
     private String aaa027;
-
+    @Name("姓名")
     private String aac003;
-
+    @Name("身份证号码")
     private String aac002;
-
+    @Name("生育个人记录流水号")
     private String sylsh0;
-
+    @Name("生育发生日期")
     private Integer amc020;
-
+    @Name("生育证号")
     private String amc021;
-
+    @Name("生育类别")
     private String amc026;
-
+    @Name("晚育标志")
     private String amc027;
-
+    @Name("胎儿数")
     private Short amc031;
-
+    @Name("享受的产假")
     private Short amc032;
 
     public String getAaa027() {

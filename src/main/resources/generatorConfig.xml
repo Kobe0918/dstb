@@ -20,7 +20,7 @@
 
     <!--数据库链接URL，用户名、密码 -->
 
-    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="scott" password="tiger">
+    <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@172.16.3.131:1521:ybjh1" userId="ybjhcx" password="ybjhcx#2019">
 
     </jdbcConnection>
 
@@ -51,19 +51,20 @@
     <javaClientGenerator type="XMLMAPPER" targetPackage="com.ylzbrt.dstb.dao" targetProject="src/main/java"> <property name="enableSubPackages" value="true"/> </javaClientGenerator>
 
     <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <table tableName="timer" domainObjectName="Timer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 
         <!--<table tableName="zw_kb01" domainObjectName="ZwKb01" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
-        <table tableName="zw_qslw_fwwdb0" domainObjectName="ZwQslwFwwdb0" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="zw_ka17" domainObjectName="ZwKa17" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="zw_ka17_yp" domainObjectName="ZwKa17Yp" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="zw_ka02" domainObjectName="ZwKa02" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="zw_ka03" domainObjectName="ZwKa03" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="zw_KY65" domainObjectName="ZwKY65" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="zw_mc01" domainObjectName="ZwMc01" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="KY70" domainObjectName="KY70" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="zw_mca1" domainObjectName="ZwMca1" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="zw_mc03" domainObjectName="ZwMc03" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
-        <table tableName="MY56" domainObjectName="MY56" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>
+        <!--<table tableName="zw_qslw_fwwdb0" domainObjectName="ZwQslwFwwdb0" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="zw_ka17" domainObjectName="ZwKa17" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="zw_ka17_yp" domainObjectName="ZwKa17Yp" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="zw_ka02" domainObjectName="ZwKa02" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="zw_ka03" domainObjectName="ZwKa03" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="KY65_12333" domainObjectName="ZwKY65" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="zw_mc01" domainObjectName="ZwMc01" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="KY70" domainObjectName="KY70" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="zw_mca1" domainObjectName="ZwMca1" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="zw_mc03" domainObjectName="ZwMc03" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
+        <!--<table tableName="MY56" domainObjectName="MY56" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="true" selectByExampleQueryId="false"></table>-->
 
 </context>
 </generatorConfiguration>
