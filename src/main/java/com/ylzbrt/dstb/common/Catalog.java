@@ -14,6 +14,16 @@ public class Catalog {
     public static final String mc03="WEB2373";
     public static final String my56="WEB2372";
 
+
+    public static final String ac01="WEB2390";
+    public static final String kc99="WEB2389";
+    public static final String kc01="WEB2388";
+    public static final String ac43="WEB2382";
+    public static final String kc26="WEB2385";
+    public static final String kslw="WEB2384";
+    public static final String ka08="WEB2387";
+
+
     public static final String clock="0 0/1 9-23 ? * *";
     public static final int fixedRate = 1000000;
 }

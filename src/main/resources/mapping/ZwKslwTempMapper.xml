@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylzbrt.dstb.dao.ZwKslwTempMapper">
+  <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKslwTemp">
+    <result column="AAA027" jdbcType="VARCHAR" property="aaa027" />
+    <result column="AAC003" jdbcType="VARCHAR" property="aac003" />
+    <result column="AAC002" jdbcType="VARCHAR" property="aac002" />
+    <result column="BAE033" jdbcType="VARCHAR" property="bae033" />
+    <result column="AAE030" jdbcType="DECIMAL" property="aae030" />
+    <result column="AAE031" jdbcType="DECIMAL" property="aae031" />
+    <result column="AAA129" jdbcType="VARCHAR" property="aaa129" />
+    <result column="AKB021" jdbcType="VARCHAR" property="akb021" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021, GXLSH0
+  </sql>
+  <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKslwTempExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ZW_KSLW_TEMP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKslwTemp">
+    insert into ZW_KSLW_TEMP (AAA027, AAC003, AAC002, 
+      BAE033, AAE030, AAE031, 
+      AAA129, AKB021, GXLSH0
+      )
+    values (#{aaa027,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, 
+      #{bae033,jdbcType=VARCHAR}, #{aae030,jdbcType=DECIMAL}, #{aae031,jdbcType=DECIMAL}, 
+      #{aaa129,jdbcType=VARCHAR}, #{akb021,jdbcType=VARCHAR}, #{gxlsh0,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKslwTemp">
+    insert into ZW_KSLW_TEMP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aaa027 != null">
+        AAA027,
+      </if>
+      <if test="aac003 != null">
+        AAC003,
+      </if>
+      <if test="aac002 != null">
+        AAC002,
+      </if>
+      <if test="bae033 != null">
+        BAE033,
+      </if>
+      <if test="aae030 != null">
+        AAE030,
+      </if>
+      <if test="aae031 != null">
+        AAE031,
+      </if>
+      <if test="aaa129 != null">
+        AAA129,
+      </if>
+      <if test="akb021 != null">
+        AKB021,
+      </if>
+      <if test="gxlsh0 != null">
+        GXLSH0,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aaa027 != null">
+        #{aaa027,jdbcType=VARCHAR},
+      </if>
+      <if test="aac003 != null">
+        #{aac003,jdbcType=VARCHAR},
+      </if>
+      <if test="aac002 != null">
+        #{aac002,jdbcType=VARCHAR},
+      </if>
+      <if test="bae033 != null">
+        #{bae033,jdbcType=VARCHAR},
+      </if>
+      <if test="aae030 != null">
+        #{aae030,jdbcType=DECIMAL},
+      </if>
+      <if test="aae031 != null">
+        #{aae031,jdbcType=DECIMAL},
+      </if>
+      <if test="aaa129 != null">
+        #{aaa129,jdbcType=VARCHAR},
+      </if>
+      <if test="akb021 != null">
+        #{akb021,jdbcType=VARCHAR},
+      </if>
+      <if test="gxlsh0 != null">
+        #{gxlsh0,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+
+  <insert id="ProZwKslw" parameterType="java.util.Map" statementType="CALLABLE">
+    {call PRO_ZW_KSLW_DATAS(
+    #{updator,mode=IN, jdbcType=VARCHAR},
+    #{result, mode=OUT, jdbcType=VARCHAR}
+    )}
+  </insert>
+
+  <select id="selectZwKslwTemp"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from zw_kslw_temp
+  </select>
+</mapper>

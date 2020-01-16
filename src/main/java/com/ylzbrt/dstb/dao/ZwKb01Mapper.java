@@ -22,7 +22,7 @@ public interface ZwKb01Mapper {
      * @param map
      * @throws SQLException
      */
-    void accessPro(Map map) throws SQLException;
+    void accessPro(Map map) ;
 
 
 }

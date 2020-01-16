@@ -1,49 +1,81 @@
 package com.ylzbrt.dstb.dsrw;
 
+import com.ylzbrt.dstb.entity.ConfigEntity;
+import com.ylzbrt.dstb.service.DsrwTService;
+import com.ylzbrt.dstb.webservice.WbClient;
+import org.apache.cxf.endpoint.Client;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
-
 /**
- * @Author:
- * @Description:
- * @Date:Created in  2020/1/5
- * @Modified By:
+ * @BelongsProject: dstb
+ * @BelongsPackage: com.ylzbrt.dstb.dsrw
+ * @Author: lzh
+ * @CreateTime: 2020-01-13 11:10
+ * @Description: ${Description}
  */
-/*
-@Configuration      //1.主要用于标记配置类，兼备Component的效果。
-@EnableScheduling   // 2.开启定时任务
-@EnableAsync        // 2.开启多线程
+@Configuration
 public class DynamicScheduleTask implements SchedulingConfigurer {
-    public static String rule = "0 0/1 9-17 ? * *";
-    /**
-     * 执行定时任务
-     * @param scheduledTaskRegistrar
-     */
-/*
-    @Override
-    public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
-        scheduledTaskRegistrar.addTriggerTask(
-                //1.添加任务内容(Runnable)
-                () -> System.out.println("执行动态定时任务: " + LocalDateTime.now().toLocalTime()),
-                //2.设置执行周期(Trigger)
-                triggerContext -> {
-                    //2.1 从数据库获取执行周期
-                    String cron = rule;
-                    //2.2 合法性校验.
-                    if (StringUtils.isEmpty(cron)) {
-                        // Omitted Code ..
-                    }
-                    //2.3 返回执行周期(Date)
-                    return new CronTrigger(cron).nextExecutionTime(triggerContext);
-                }
-        );
+
+    @Mapper
+    @Repository
+    public interface ConfigMapper {
+        @Select("select cron  from zw_cron  WHERE ROWNUM = 1")
+        String selectCron();
+
+        @Select("select * from zw_config WHERE ROWNUM = 1")
+        ConfigEntity selectConfig();
     }
 
-}*/
+    @Autowired
+    @SuppressWarnings("all")
+    ConfigMapper configMapper;
+
+    @Autowired
+    private DsrwTService dsrwTService;
+
+    public static ConfigEntity configEntity;
+    public static Client webService;
+
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
+//           scheduledTaskRegistrar.addTriggerTask(new Runnable() {
+//               @Override
+//               public void run() {
+//                   System.out.println("nihao ");
+//               }
+//           }, new Trigger() {
+//               @Override
+//               public Date nextExecutionTime(TriggerContext triggerContext) {
+//                   String cron  = cronConfigMapper.selectCron();
+//                   if (StringUtils.isEmpty(cron)){
+//                       cron = "";//设置默认更新时间
+//                   }
+//                   return new CronTrigger(cron).nextExecutionTime(triggerContext);
+//               }
+//           });
+
+
+        scheduledTaskRegistrar.addTriggerTask(() -> {
+                    dsrwTService.zwAc01();
+                    dsrwTService.zwKa08();
+                    dsrwTService.zwKslw();
+                },
+                triggerContext -> {
+                    String cron = configMapper.selectCron();
+                    configEntity = configMapper.selectConfig();
+                    webService = WbClient.getWebService();
+                    if (StringUtils.isEmpty(cron)) {
+                        cron = "0/10 * * * * ?";  //设置默认更新时间
+                    }
+                    return new CronTrigger(cron).nextExecutionTime(triggerContext);
+                });
+    }
+}

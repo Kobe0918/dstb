@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylzbrt.dstb.dao.ZwKc01TempMapper">
+  <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKc01Temp">
+    <result column="AAA027" jdbcType="VARCHAR" property="aaa027" />
+    <result column="AAC002" jdbcType="VARCHAR" property="aac002" />
+    <result column="AAC003" jdbcType="VARCHAR" property="aac003" />
+    <result column="AAZ501" jdbcType="VARCHAR" property="aaz501" />
+    <result column="AAZ502" jdbcType="VARCHAR" property="aaz502" />
+    <result column="AKC087" jdbcType="DECIMAL" property="akc087" />
+    <result column="AAE035" jdbcType="TIMESTAMP" property="aae035" />
+    <result column="SSQY00" jdbcType="VARCHAR" property="ssqy00" />
+    <result column="SSXQ00" jdbcType="VARCHAR" property="ssxq00" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    AAA027, AAC002, AAC003, AAZ501, AAZ502, AKC087, AAE035, SSQY00, SSXQ00
+  </sql>
+  <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKc01TempExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from ZW_KC01_TEMP
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKc01Temp">
+    insert into ZW_KC01_TEMP (AAA027, AAC002, AAC003, 
+      AAZ501, AAZ502, AKC087, 
+      AAE035, SSQY00, SSXQ00
+      )
+    values (#{aaa027,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR}, 
+      #{aaz501,jdbcType=VARCHAR}, #{aaz502,jdbcType=VARCHAR}, #{akc087,jdbcType=DECIMAL}, 
+      #{aae035,jdbcType=TIMESTAMP}, #{ssqy00,jdbcType=VARCHAR}, #{ssxq00,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKc01Temp">
+    insert into ZW_KC01_TEMP
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aaa027 != null">
+        AAA027,
+      </if>
+      <if test="aac002 != null">
+        AAC002,
+      </if>
+      <if test="aac003 != null">
+        AAC003,
+      </if>
+      <if test="aaz501 != null">
+        AAZ501,
+      </if>
+      <if test="aaz502 != null">
+        AAZ502,
+      </if>
+      <if test="akc087 != null">
+        AKC087,
+      </if>
+      <if test="aae035 != null">
+        AAE035,
+      </if>
+      <if test="ssqy00 != null">
+        SSQY00,
+      </if>
+      <if test="ssxq00 != null">
+        SSXQ00,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aaa027 != null">
+        #{aaa027,jdbcType=VARCHAR},
+      </if>
+      <if test="aac002 != null">
+        #{aac002,jdbcType=VARCHAR},
+      </if>
+      <if test="aac003 != null">
+        #{aac003,jdbcType=VARCHAR},
+      </if>
+      <if test="aaz501 != null">
+        #{aaz501,jdbcType=VARCHAR},
+      </if>
+      <if test="aaz502 != null">
+        #{aaz502,jdbcType=VARCHAR},
+      </if>
+      <if test="akc087 != null">
+        #{akc087,jdbcType=DECIMAL},
+      </if>
+      <if test="aae035 != null">
+        #{aae035,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ssqy00 != null">
+        #{ssqy00,jdbcType=VARCHAR},
+      </if>
+      <if test="ssxq00 != null">
+        #{ssxq00,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

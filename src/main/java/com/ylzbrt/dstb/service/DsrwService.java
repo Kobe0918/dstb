@@ -152,7 +152,7 @@ public class DsrwService {
      * 全省联网定点医疗机构和药店-QslwFwwdb0
      */
    @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
+   // @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
     public void dealQslwFwwdb0()   {
 
         String log = "推送成功";
@@ -234,7 +234,7 @@ public class DsrwService {
      * @throws Exception
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+   // @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa02()  {
 
         String log = "推送成功";
@@ -312,7 +312,7 @@ public class DsrwService {
      * @throws Exception
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+    //@Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa17Yp() {
 
         String log = log = "推送成功";
@@ -393,7 +393,7 @@ public class DsrwService {
      * @throws Exception
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+   // @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa03()   {
         String log = "";
         boolean flag = true;
@@ -471,7 +471,7 @@ public class DsrwService {
      * @throws Exception
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+   // @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa17()   {
 
         String  log = "推送成功";
@@ -548,7 +548,7 @@ public class DsrwService {
      * 职工个人权益单-ky65
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+    //@Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKy65(){
 
         String log = "推送成功";
@@ -628,7 +628,7 @@ public class DsrwService {
      * 生育产前登记-Mc01
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+    //@Scheduled(fixedRate = Catalog.fixedRate)
     public void dealMc01(){
 
         String log = "推送成功";
@@ -707,7 +707,7 @@ public class DsrwService {
      * 生育保险刷卡记录-Ky70
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+    //@Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKy70(){
 
         String log = "推送成功";
@@ -783,7 +783,7 @@ public class DsrwService {
      *  生育登记信息-Mca1
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+    //@Scheduled(fixedRate = Catalog.fixedRate)
     public void dealMca1(){
 
         String log = "推送成功";
@@ -856,7 +856,7 @@ public class DsrwService {
      *  生育待遇发放信息-Mc03
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+    //@Scheduled(fixedRate = Catalog.fixedRate)
         public void dealMc03(){
 
         String log = "推送成功";
@@ -932,7 +932,7 @@ public class DsrwService {
      *  生育保险个人权益单-My56
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)
+    //@Scheduled(fixedRate = Catalog.fixedRate)
     public void dealMy56(){
         String log = "推送成功";
         boolean flag = true;

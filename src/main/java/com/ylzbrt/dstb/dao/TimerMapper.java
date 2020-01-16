@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface TimerMapper {
+
     int insert(Timer record);
 
     int insertSelective(Timer record);

@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAsync  //开启异步调用
 @EnableScheduling  //开启定时任务
 //@EnableCaching  //开启缓存
-@MapperScan(basePackages = "com.ylzbrt.dstb.dao") // Dao
+@MapperScan(basePackages = "com.ylzbrt.dstb.dao,com.ylzbrt.dstb.dsrw") // Dao
 @ServletComponentScan
 public class DstbApplication {
 
