@@ -4,6 +4,7 @@ package com.ylzbrt.dstb.service;
 import com.ylzbrt.dstb.common.Catalog;
 import com.ylzbrt.dstb.common.Utils;
 import com.ylzbrt.dstb.dao.*;
+import com.ylzbrt.dstb.dsrw.DynamicScheduleTask;
 import com.ylzbrt.dstb.entity.*;
 import com.ylzbrt.dstb.webservice.WbClient;
 import org.apache.cxf.endpoint.Client;
@@ -30,8 +31,6 @@ import java.util.Map;
  * @Modified By:
  */
 @Service
-@EnableScheduling
-@EnableAsync
 public class DsrwService {
    @Autowired
     private ZwKb01Mapper zwKb01Mapper;
@@ -64,7 +63,7 @@ public class DsrwService {
      *  定点医疗机构和药店
      */
     @Async
-    @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
+//    @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
    public void dealKb01(){
      /*
         第一步：1.in case 备份上次更新数据 调用存储过程 获得执行结果
@@ -85,8 +84,6 @@ public class DsrwService {
          {
              List <ZwKb01> list = zwKb01Mapper.selectByExample(null);
              if (list.size() > 0) {
-                 //第二步：
-                 Client client = WbClient.getWebService();
                  // 数据量
                  int size = list.size();
                  //记录下标
@@ -110,9 +107,9 @@ public class DsrwService {
                      }
                      //xml尾部
                      sb = sb + "</table>";
+                     Client client = WbClient.getWebService();
                      //获取Gid
-                     Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
-                     System.out.println("获取guid：" + guidObjects[0].toString());
+                     Object[] guidObjects = guidObjects(client);
                      //推送至政务外网
                      Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.kb01, sb);
                      if("false".equals(Utils.getPushMsg(objects[0].toString())))
@@ -138,9 +135,9 @@ public class DsrwService {
          log = "定时器服务异常:"+e.getMessage();
          flag = false;
      }finally {
-         if(flag)
+         if(!flag)
          {
-
+             Utils.sendMail(log);
          }
          //插入日志/推送信息
          timerMapper.insert(new Timer(new Date(),"定点医疗机构和药店-kb01",log));
@@ -152,7 +149,7 @@ public class DsrwService {
      * 全省联网定点医疗机构和药店-QslwFwwdb0
      */
    @Async
-   // @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
+//    @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
     public void dealQslwFwwdb0()   {
 
         String log = "推送成功";
@@ -162,14 +159,12 @@ public class DsrwService {
               Map <String, Object> map = new HashMap <String, Object>();
              map.put("UPDATOR", "定时器");
             zwQslwFwwdb0Mapper.accessPro(map);
-            //  System.out.println(map.get("code"));
             // 存储过程正常
             // map.get("code")  替换 "1"
             if ("1".equals(map.get("code"))) {
                 //第二步：
                 List <ZwQslwFwwdb0> list = zwQslwFwwdb0Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    Client client = WbClient.getWebService();
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -193,8 +188,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
-                        System.out.println("获取guid：" + guidObjects[0].toString());
+                        Client client = WbClient.getWebService();
+                        //获取Gid
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.qslwfwwdb0, sb);
                         if("false".equals(Utils.getPushMsg(objects[0].toString())))
@@ -218,9 +214,9 @@ public class DsrwService {
             log = "定时器服务异常:" + e.getMessage();
             flag = false;
         } finally {
-            if(flag)
+            if(!flag)
             {
-
+                Utils.sendMail(log);
             }
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"全省联网定点医疗机构和药店-QslwFwwdb0",log));
@@ -250,8 +246,7 @@ public class DsrwService {
             {
                 List <ZwKa02> list = zwKa02Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
+
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -268,9 +263,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
-                        System.out.println("获取guid：" + guidObjects[0].toString());
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.ka02, sb);
                         if("false".equals(Utils.getPushMsg(objects[0].toString())))
@@ -298,9 +293,9 @@ public class DsrwService {
             log = "定时器服务异常:"+e.getMessage();
             flag = false;
         }finally {
-            if(flag)
+            if(!flag)
             {
-
+                Utils.sendMail(log);
             }
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"药品目录-ka02",log));
@@ -329,8 +324,7 @@ public class DsrwService {
             {
                 List <ZwKa17Yp> list = zwKa17YpMapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
+
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -349,8 +343,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+                        Object[] guidObjects = guidObjects(client);
                         System.out.println("获取guid：" + guidObjects[0].toString());
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.ka17_yp, sb);
@@ -377,9 +372,9 @@ public class DsrwService {
             flag = false;
             log = "定时器服务异常:"+e.getMessage();
         }finally {
-            if(flag)
+            if(!flag)
             {
-
+                Utils.sendMail(log);
             }
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"特殊药品目录-ka17_yp",log));
@@ -395,7 +390,7 @@ public class DsrwService {
     @Async
    // @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealKa03()   {
-        String log = "";
+        String log = "推送成功";
         boolean flag = true;
         try {
             //第一步：
@@ -409,8 +404,7 @@ public class DsrwService {
             {
                 List <ZwKa03> list = zwKa03Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
+
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -427,8 +421,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+                        Object[] guidObjects = guidObjects(client);
 //                        System.out.println("获取guid：" + guidObjects[0].toString());
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.ka03, sb);
@@ -460,9 +455,12 @@ public class DsrwService {
             log = "定时器服务异常:"+e.getMessage();
 
         }finally {
+            if(!flag)
+            {
+                Utils.sendMail(log);
+            }
             //插入日志/推送信息 诊疗目录-ka03
             timerMapper.insert(new Timer(new Date(),"诊疗目录-ka03",log));
-            System.out.println("诊疗目录-ka03 插入日志 "+log);
         }
     }
 
@@ -488,8 +486,7 @@ public class DsrwService {
             {
                 List <ZwKa17> list = zwKa17Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
+
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -506,8 +503,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.ka17, sb);
                         if("false".equals(Utils.getPushMsg(objects[0].toString())))
@@ -534,10 +532,10 @@ public class DsrwService {
             log = "定时器服务异常:"+e.getMessage();
 
         }finally {
-                if(flag)
-                {
-
-                }
+            if(!flag)
+            {
+                Utils.sendMail(log);
+            }
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"特殊病种诊疗目录-ka17",log));
             System.out.println("特殊病种诊疗目录-ka17 插入日志 "+log);
@@ -564,8 +562,6 @@ public class DsrwService {
             {
                 List <ZwKY65> list =  zwKY65Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -582,9 +578,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
-//                        System.out.println("获取guid：" + guidObjects[0].toString());
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.ky65, sb);
                         if("false".equals(Utils.getPushMsg(objects[0].toString())))
@@ -614,9 +610,9 @@ public class DsrwService {
             log = "定时器服务异常:"+e.getMessage();
 
         }finally {
-            if(flag)
+            if(!flag)
             {
-
+                Utils.sendMail(log);
             }
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"职工个人权益单-ky65",log));
@@ -628,9 +624,8 @@ public class DsrwService {
      * 生育产前登记-Mc01
      */
     @Async
-    //@Scheduled(fixedRate = Catalog.fixedRate)
+//    @Scheduled(fixedRate = Catalog.fixedRate)
     public void dealMc01(){
-
         String log = "推送成功";
         boolean flag = true;
         try {
@@ -638,21 +633,21 @@ public class DsrwService {
               Map <String, Object> map = new HashMap <String, Object>();
              map.put("UPDATOR", "定时器");
             zwMc01Mapper.accessPro(map);
-            //  System.out.println(map.get("code"));
             // 存储过程正常
-            // map.get("code")  替换 "1"
+            // map.get("code")  替换 "1"map.get("code")
             if ("1".equals(map.get("code")))
             {
                 List <ZwMc01> list = zwMc01Mapper.selectByExample(null);
+                System.out.println(list.toString());
+
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
                     // 数据量
                     int size = list.size();
                     //记录下标
                     int index = 0;
                     //每500条提交一次
-                    for (int i = 1; i <= (size % 500 > 0 ? size / 500 + 1 : size / 500); i++) {
+                    for (int i = 1; i <= (size % 500 > 0 ? size / 500 + 1 : size / 500); i++)
+                    {
                         //头部
                         String sb = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                                 "<table>";
@@ -663,19 +658,19 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
-                        Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.mc01, sb);
+                         Object[] objects = client.invoke("pushXml",guidObjects.toString(), Catalog.mc01, sb);
                         if("false".equals(Utils.getPushMsg(objects[0].toString())))
                         {
                             flag = false;
                             log = objects[0].toString();
                             break;
                         }
-                        //初始化xml拼接
+//                         初始化xml拼接
                         sb = "";
-
                     }
                 }else
                 {
@@ -689,13 +684,14 @@ public class DsrwService {
             }
         }catch (Exception e)
         {
-            flag=false;
-            log = "定时器服务异常:"+e.getMessage();
+            flag = false;
+            log = "政务接口服务异常:"+e.getMessage();
 
         }finally {
-            if(flag)
+            if(!flag)
             {
 
+                Utils.sendMail(log);
             }
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"生育产前登记-Mc01",log));
@@ -723,8 +719,7 @@ public class DsrwService {
             {
                 List <KY70> list = ky70Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
+
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -742,8 +737,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.ky70, sb);
                         System.out.println(index+","+sb);
@@ -773,6 +769,11 @@ public class DsrwService {
             log = "定时器服务异常:"+e.getMessage();
 
         }finally {
+            if(!flag)
+            {
+
+                Utils.sendMail(log);
+            }
             timerMapper.insert(new Timer(new Date(),"生育保险刷卡记录-Ky70",log));
             //插入日志/推送信息
             System.out.println("生育保险刷卡记录-Ky70 插入日志 "+log);
@@ -800,8 +801,7 @@ public class DsrwService {
             {
                 List <ZwMca1> list = zwMca1Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
+
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -818,8 +818,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.mca1, sb);
                         if("false".equals(Utils.getPushMsg(objects[0].toString())))
@@ -846,6 +847,11 @@ public class DsrwService {
             log = "定时器服务异常:"+e.getMessage();
             flag = false;
         }finally {
+            if(!flag)
+            {
+
+                Utils.sendMail(log);
+            }
             timerMapper.insert(new Timer(new Date(),"生育登记信息-Mca1",log));
             //插入日志/推送信息
             System.out.println("生育登记信息-Mca1 插入日志 "+log);
@@ -873,8 +879,6 @@ public class DsrwService {
             {
                 List <ZwMc03> list = zwMc03Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -893,8 +897,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.mc03, sb);
                         if("false".equals(Utils.getPushMsg(objects[0].toString())))
@@ -905,7 +910,6 @@ public class DsrwService {
                         }
                         //初始化xml拼接
                         sb = "";
-
                     }
                 }else
                 {
@@ -921,10 +925,13 @@ public class DsrwService {
             log = "定时器服务异常:"+e.getMessage();
             flag = false;
         }finally {
+            if(!flag)
+            {
 
+                Utils.sendMail(log);
+            }
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"生育待遇发放信息-Mc03",log));
-            System.out.println("生育待遇发放信息-Mc03 插入日志 "+log);
         }
     }
 
@@ -947,8 +954,6 @@ public class DsrwService {
             {
                 List <MY56> list = my56Mapper.selectByExample(null);
                 if (list.size() > 0) {
-                    //第二步：
-                    Client client = WbClient.getWebService();
                     // 数据量
                     int size = list.size();
                     //记录下标
@@ -966,9 +971,9 @@ public class DsrwService {
                         }
                         //xml尾部
                         sb = sb + "</table>";
-                        System.out.println(sb);
+                        Client client = WbClient.getWebService();
                         //获取Gid
-                        Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+                        Object[] guidObjects = guidObjects(client);
                         //推送至政务外网
                         Object[] objects = client.invoke("pushXml", guidObjects[0].toString(), Catalog.my56, sb);
                         if("false".equals(Utils.getPushMsg(objects[0].toString())))
@@ -997,10 +1002,14 @@ public class DsrwService {
 
             //插入日志/推送信息
             timerMapper.insert(new Timer(new Date(),"生育保险个人权益单-My56",log));
-            System.out.println("生育保险个人权益单-My56 插入日志 "+log);
         }
     }
+    public Object[] guidObjects (Client client) throws Exception {
+        Object[] guidObjects =null;
 
+        guidObjects = client.invoke("LoginByAccount",  DynamicScheduleTask.configEntity.getZw_account(), DynamicScheduleTask.configEntity.getZw_pwd());
+        return  guidObjects;
+    }
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
        /* Client client = WbClient.getWebService();
         try {

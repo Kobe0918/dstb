@@ -1,6 +1,7 @@
 package com.ylzbrt.dstb.dsrw;
 
 import com.ylzbrt.dstb.entity.ConfigEntity;
+import com.ylzbrt.dstb.service.DsrwService;
 import com.ylzbrt.dstb.service.DsrwTService;
 import com.ylzbrt.dstb.webservice.WbClient;
 import org.apache.cxf.endpoint.Client;
@@ -41,6 +42,9 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
     @Autowired
     private DsrwTService dsrwTService;
 
+    @Autowired
+    private DsrwService dsrwService;
+
     public static ConfigEntity configEntity;
     public static Client webService;
 
@@ -67,6 +71,22 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
                     dsrwTService.zwAc01();
                     dsrwTService.zwKa08();
                     dsrwTService.zwKslw();
+
+
+
+                    //6-19
+                    dsrwService.dealQslwFwwdb0();
+                    dsrwService.dealKb01();
+                    dsrwService.dealKa02();
+                    dsrwService.dealKa03();
+                    dsrwService.dealKa17Yp();
+                    dsrwService.dealKa17();
+                    dsrwService.dealKy65();
+                    dsrwService.dealMc01();
+                    dsrwService.dealMca1();
+                    dsrwService.dealMc03();
+                    dsrwService.dealMy56();
+                    dsrwService.dealKy70();
                 },
                 triggerContext -> {
                     String cron = configMapper.selectCron();
