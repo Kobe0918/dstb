@@ -1,5 +1,6 @@
 package com.ylzbrt.dstb.dsrw;
 
+import com.ylzbrt.dstb.common.Catalog;
 import com.ylzbrt.dstb.entity.ConfigEntity;
 import com.ylzbrt.dstb.service.DsrwService;
 import com.ylzbrt.dstb.service.DsrwTService;
@@ -73,20 +74,20 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
                     dsrwTService.zwKslw();
 
 
-
+                    String opt = Catalog.add;
                     //6-19
-                    dsrwService.dealQslwFwwdb0();
-                    dsrwService.dealKb01();
-                    dsrwService.dealKa02();
-                    dsrwService.dealKa03();
-                    dsrwService.dealKa17Yp();
-                    dsrwService.dealKa17();
-                    dsrwService.dealKy65();
-                    dsrwService.dealMc01();
-                    dsrwService.dealMca1();
-                    dsrwService.dealMc03();
-                    dsrwService.dealMy56();
-                    dsrwService.dealKy70();
+                    dsrwService.dealQslwFwwdb0(opt);
+                    dsrwService.dealKb01(opt);
+                    dsrwService.dealKa02(opt);
+                    dsrwService.dealKa03(opt);
+                    dsrwService.dealKa17Yp(opt);
+                    dsrwService.dealKa17(opt);
+                    dsrwService.dealKy65(opt);
+                    dsrwService.dealMc01(opt);
+                    dsrwService.dealMca1(opt);
+                    dsrwService.dealMc03(opt);
+                    dsrwService.dealMy56(opt);
+                    dsrwService.dealKy70(opt);
                 },
                 triggerContext -> {
                     String cron = configMapper.selectCron();

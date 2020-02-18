@@ -18,6 +18,7 @@ public interface ZwKY65Mapper {
 
     List<ZwKY65> selectByExample(ZwKY65Example example);
 
+    List<ZwKY65> selectByCondition(ZwKY65 record);
     /**
      * 调用存储过程
      * @param map
