@@ -22,4 +22,6 @@ public interface ZwKa08TempMapper {
     void ProZwKa08(Map<String,Object> map);
 
     List<ZwKa08Temp> selectZwKa08Temp();
+
+
 }

@@ -1,7 +1,16 @@
 package com.ylzbrt.dstb.webservice;
 
+import com.ylzbrt.dstb.common.Catalog;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
+import sun.rmi.runtime.Log;
 
 /**
  * @Author: guozy
@@ -11,16 +20,36 @@ import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
  */
 public  class WbClient {
 
+  //  public static String guid;
+
     public static Client getWebService(){
         JaxWsDynamicClientFactory dcflient = JaxWsDynamicClientFactory.newInstance();
-
         Client client = dcflient.createClient("http://120.35.29.217:809/Convergence/webservice/ConvergenceService?wsdl");
+        HTTPConduit conduit = (HTTPConduit) client.getConduit();
+        HTTPClientPolicy policy = new HTTPClientPolicy();
+        policy.setConnectionTimeout(30000); //连接超时时间
+        policy.setReceiveTimeout(180000);//请求超时时间.
+        conduit.setClient(policy);
         return client;
     }
+
+//    @Async
+//    @Scheduled(fixedRate = 1788000)
+//    public void  getAsyncGuid(){
+//        try {
+//            Client webService = WbClient.getWebService();
+//            Object[] invoke = webService.invoke("LoginByAccount", "ybjybxx_hjpt","sdo@1108");
+//            guid = invoke[0].toString();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void main(String[] args) throws Exception {
         Client client = WbClient.getWebService();
         Object[] guidObjects = client.invoke("LoginByAccount", "ybjybxx_hjpt", "sdo@1108");
+
+
         System.out.println("获取guid：" + guidObjects[0].toString());
 
     }

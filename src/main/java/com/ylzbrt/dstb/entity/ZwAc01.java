@@ -1,5 +1,6 @@
 package com.ylzbrt.dstb.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.ylzbrt.dstb.util.ClassAnnotation;
 import com.ylzbrt.dstb.util.FieldsAnnotation;
 
@@ -29,7 +30,7 @@ public class ZwAc01 {
     @FieldsAnnotation(value = "统筹区编号")
     private String aaa027;
     @FieldsAnnotation(value = "数据更新时间")
-    private Date aae035;
+    private String aae035;
     @FieldsAnnotation(value = "所属地级市行政区划代码")
     private String yae512;
     @FieldsAnnotation(value = "移动电话")
@@ -117,11 +118,11 @@ public class ZwAc01 {
         this.aaa027 = aaa027 == null ? null : aaa027.trim();
     }
 
-    public Date getAae035() {
+    public String getAae035() {
         return aae035;
     }
 
-    public void setAae035(Date aae035) {
+    public void setAae035(String aae035) {
         this.aae035 = aae035;
     }
 

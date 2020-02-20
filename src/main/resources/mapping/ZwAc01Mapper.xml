@@ -12,7 +12,7 @@
     <result column="AAE006" jdbcType="VARCHAR" property="aae006" />
     <result column="AAE007" jdbcType="VARCHAR" property="aae007" />
     <result column="AAA027" jdbcType="VARCHAR" property="aaa027" />
-    <result column="AAE035" jdbcType="TIMESTAMP" property="aae035" />
+    <result column="AAE035" jdbcType="VARCHAR" property="aae035" />
     <result column="YAE512" jdbcType="VARCHAR" property="yae512" />
     <result column="ACB501" jdbcType="VARCHAR" property="acb501" />
     <result column="AAE013" jdbcType="VARCHAR" property="aae013" />
@@ -47,7 +47,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    AAC003, AAC058, AAC002, AAC004, AAC005, AAC006, AAE005, AAE006, AAE007, AAA027, AAE035, 
+    AAC003, AAC058, AAC002, AAC004, AAC005, AAC006, AAE005, AAE006, AAE007, AAA027, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, --修改
     YAE512, ACB501, AAE013
   </sql>
   <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwAc01Example" resultMap="BaseResultMap">
@@ -74,7 +74,7 @@
     values (#{aac003,jdbcType=VARCHAR}, #{aac058,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, 
       #{aac004,jdbcType=VARCHAR}, #{aac005,jdbcType=VARCHAR}, #{aac006,jdbcType=DECIMAL}, 
       #{aae005,jdbcType=VARCHAR}, #{aae006,jdbcType=VARCHAR}, #{aae007,jdbcType=VARCHAR}, 
-      #{aaa027,jdbcType=VARCHAR}, #{aae035,jdbcType=TIMESTAMP}, #{yae512,jdbcType=VARCHAR}, 
+      #{aaa027,jdbcType=VARCHAR}, #{aae035,jdbcType=VARCHAR}, #{yae512,jdbcType=VARCHAR},
       #{acb501,jdbcType=VARCHAR}, #{aae013,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwAc01">
@@ -155,7 +155,7 @@
         #{aaa027,jdbcType=VARCHAR},
       </if>
       <if test="aae035 != null">
-        #{aae035,jdbcType=TIMESTAMP},
+        #{aae035,jdbcType=VARCHAR},
       </if>
       <if test="yae512 != null">
         #{yae512,jdbcType=VARCHAR},
@@ -181,6 +181,6 @@
   <select id="selectZwAC01" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
-    from zw_ac01
+    from zw_ac01_1
   </select>
 </mapper>

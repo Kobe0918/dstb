@@ -42,7 +42,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    AAA027, AAC002, AAC003, AAZ501, AAZ502, AKC087, AAE035, SSQY00, SSXQ00
+    AAA027, AAC002, AAC003, AAZ501, AAZ502, AKC087, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, SSQY00, SSXQ00
   </sql>
   <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKc01TempExample" resultMap="BaseResultMap">
     select
@@ -130,4 +130,17 @@
       </if>
     </trim>
   </insert>
+
+  <insert id="ProZwK01" parameterType="java.util.Map" statementType="CALLABLE">
+    {call PRO_ZW_KC01_DATAS(
+    #{updator,mode=IN, jdbcType=VARCHAR},
+    #{result, mode=OUT, jdbcType=VARCHAR}
+    )}
+  </insert>
+
+  <select id="selectZwKc01Temp"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from zw_kc01
+  </select>
 </mapper>

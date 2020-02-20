@@ -11,11 +11,12 @@ import com.ylzbrt.dstb.entity.Timer;
 import com.ylzbrt.dstb.util.FieldsAnnotation;
 import com.ylzbrt.dstb.webservice.WbClient;
 import org.apache.cxf.endpoint.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.w3c.dom.Document;
@@ -61,45 +62,145 @@ public class DsrwTServiceImpl implements DsrwTService {
     @Autowired
     private TimerMapper timerMapper;
 
-    @Async
+    protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    //  并发，但是接口获取gid下一个会失效
+//    @Async
+//    @Override
+//    public void zwAc01() {
+//        String errorMsg = null;
+//        StringBuffer str = new StringBuffer();            //拼接xml格式文件传输政务平台
+//        Map <String, String> result = new HashMap <>();  //接收异常或政务返回报错信息
+//        logger.info("zw_ac01_begin");
+//        //调用存储过程
+//        Map <String, Object> map = new HashMap <>();
+//        map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
+//        ac01Mapper.ProZwAc01(map);
+//
+//        //判断存储过程执行结果
+//        if ("1".equals(map.get("result"))) {
+//            Client webService = WbClient.getWebService();
+//
+//            int pageNo = 1;
+//            for (int i = 1; i <= pageNo; i++) {
+//
+//                //500条分页获取数据
+//                PageHelper.startPage(i, 500);
+//                List <ZwAc01> zwAc01s = ac01Mapper.selectZwAC01();
+//                //判断集合是否有值
+//
+//                if (CollectionUtils.isEmpty(zwAc01s)) {
+//                    errorMsg = "没有数据更新";
+//                    break;
+//                }
+//                //获取页数
+//                if (i == 1) {
+//                    PageInfo pageInfo = new PageInfo(zwAc01s);
+//                    pageNo = pageInfo.getPages();
+//                }
+//                //拼接xml文件
+//                String xml = concatXml(zwAc01s, ZwAc01.class, str);
+//                if ("error".equals(xml)) {
+//                    errorMsg = "concatXml错误";
+//                    break;
+//                }
+//                // 传输数据
+//                try {
+//                    //获取到的gid可行的情况下，传输数据
+//                    //推送数据
+//                    Object[] invoke = webService.invoke("LoginByAccount", DynamicScheduleTask.configEntity.getZw_account(), DynamicScheduleTask.configEntity.getZw_pwd());
+//                    if ("err".equalsIgnoreCase(invoke[0].toString())) {
+//                        errorMsg =  "政务登入报错，有可能账号密码配错，数据库中。";
+//                        break;
+//                    }else{
+//                        Object[] pushXmls = webService.invoke("pushXml", invoke[0].toString(), Catalog.ac01, xml);
+//                        //解析返回数据
+//                        delReturnMsg(pushXmls, result);
+//                    }
+//                } catch (Exception e) {
+//                    errorMsg =  "sendXml 出现异常";
+//                }
+//                if (result.get("exception") != null) {
+//                    errorMsg =  result.get("exception");
+//                    break;
+//                }
+//                if ("false".equals(result.get("flag"))) {
+//                    errorMsg =  result.get("msg");
+//                    break;
+//                }
+//                str.delete(0, str.length());
+//            }
+//        } else {
+//            errorMsg = "存储过程出错";
+//        }
+//        if (errorMsg == null) {
+//            errorMsg = "政务数据更新成功";
+//        }
+//        /*else{
+//           // sendMail("zw_ac01:" +errorMsg);
+//        }*/
+//        timerMapper.insert(new Timer(new Date(),"zw_ac01","zw_ac01 : " + errorMsg));
+//        logger.info("zw_ac01_end");
+//    }
+
+   // java -jar C:\Users\Administrator\Desktop\dstb-0.1-SNAPSHOT.jar --spring.datasource.url=jdbc:oracle:thin:@172.16.3.131:1521:ybjh1 --spring.datasource.username=ybjhcx --spring.datasource.password=ybjhcx#2019
+   /* @Async
     @Override
-    public void zwAc01() {
+    public void zwKa08() {
         String errorMsg = null;
         //拼接xml格式文件传输政务平台
         StringBuffer str = new StringBuffer();
         //接收异常或政务返回报错信息
         Map <String, String> result = new HashMap <>();
-        System.out.println("开始 -- zw_ac01");
+        logger.info("zw_ka08_begin");
         //调用存储过程
         Map <String, Object> map = new HashMap <>();
         map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
-        //执行存储过程
+
+        //执行存储过程   ****测试占时调用ac01 返回 1
         ac01Mapper.ProZwAc01(map);
         //判断存储过程执行结果
         if ("1".equals(map.get("result"))) {
+            Client webService = WbClient.getWebService();
             int pageNo = 1;
             for (int i = 1; i <= pageNo; i++) {
                 //分页获取数据
                 PageHelper.startPage(i, 500);
-                List <ZwAc01> zwAc01s = ac01Mapper.selectZwAC01();
+                List <ZwKa08Temp> zwKa08Temps = ka08Mapper.selectZwKa08Temp();
                 //判断  集合是否有值
-                if (CollectionUtils.isEmpty(zwAc01s)) {
+                if (CollectionUtils.isEmpty(zwKa08Temps)) {
                     errorMsg = "没有数据更新";
                     break;
                 }
                 //获取页数
                 if (i == 1) {
-                    PageInfo pageInfo = new PageInfo(zwAc01s);
+                    PageInfo pageInfo = new PageInfo(zwKa08Temps);
                     pageNo = pageInfo.getPages();
                 }
                 //拼接xml文件
-                String xml = concatXml(zwAc01s, ZwAc01.class, str);
-                if ("errorMsg".equals(xml)) {
+                String xml = concatXml(zwKa08Temps, ZwKa08Temp.class, str);
+                if ("error".equals(xml)) {
                     errorMsg = "concatXml错误";
                     break;
                 }
+
                 // 传输数据
-                sendXml(xml, Catalog.ac01, result);
+                try {
+                    //获取到的gid可行的情况下，传输数据
+                    //推送数据
+                    Object[] invoke = webService.invoke("LoginByAccount", "ybjybxx_hjpt","sdo@1108");
+                    if ("err".equalsIgnoreCase(invoke[0].toString())) {
+                        errorMsg =  "政务登入报错，有可能账号密码配错，数据库中。";
+                        break;
+                    }else {
+                        Object[] pushXmls = webService.invoke("pushXml", invoke[0].toString(), Catalog.ka08, xml);
+                        //解析返回数据
+                        delReturnMsg(pushXmls, result);
+                    }
+                } catch (Exception e) {
+                    errorMsg =  "sendXml 出现异常";
+                    break;
+                }
                 if (result.get("exception") != null) {
                     errorMsg =  result.get("exception");
                     break;
@@ -109,106 +210,330 @@ public class DsrwTServiceImpl implements DsrwTService {
                     break;
                 }
                 str.delete(0, str.length());
-                System.out.println("zw_ac01 循环了第" + i + "次");
             }
         } else {
             errorMsg = "存储过程出错";
         }
         if (errorMsg == null) {
             errorMsg = "政务数据更新成功";
-        }else{
-           // sendMail("zw_ac01:" +errorMsg);
         }
-        timerMapper.insert(new Timer(new Date(),"zw_ac01","zw_ac01 : " + errorMsg));
-        System.out.println("zw_ac01 :"+errorMsg);
-        errorMsg = "";
+        //else{
+            // sendMail("zw_ac01:" +errorMsg);
+        //}
+        timerMapper.insert(new Timer(new Date(),"zw_ka08","zw_ka08 : " + errorMsg));
+        logger.info("zw_ka08_end");
+    }*/
+   @Autowired
+   private PassDataService passDataService;
+
+
+   @Override
+   public void zwAc01(){
+       //执行存储过程   ****测试占时调用ac01 返回 1
+       Map <String, Object> map = new HashMap <>();
+       map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
+       ac01Mapper.ProZwAc01(map);
+       //判断存储过程执行结果
+       if ("1".equals(map.get("result"))) {
+           int pageNo = 1;
+           String guid = null;
+           try {
+               Client webService = WbClient.getWebService();
+               Object[] invoke = webService.invoke("LoginByAccount", "ybjybxx_hjpt","sdo@1108");
+               guid = invoke[0].toString();
+           } catch (Exception e) {
+               logger.error("zw_ac01 : 政务平台登入方法报错"+e.toString());
+           }
+           for (int i = 1; i <= pageNo; i++) {
+               //分页获取数据
+               PageHelper.startPage(i, 500);
+               List <ZwAc01>  zwAC01List = ac01Mapper.selectZwAC01();
+               //判断  集合是否有值
+               if (CollectionUtils.isEmpty(zwAC01List)) {
+                   logger.info("zw_ac01 : 没有数据更新");
+                  // timerMapper.insert(new Timer(new Date(),"zw_ac01","zw_ac01 : 没有数据更新" ));
+                   break;
+               }
+               //获取页数
+               if (i == 1) {
+                   PageInfo pageInfo = new PageInfo(zwAC01List);
+                   pageNo = pageInfo.getPages();
+               }
+               //多线程跑数据
+               passDataService.passData(zwAC01List,ZwAc01.class,Catalog.ac01,guid);
+           }
+       } else {
+           logger.info("zw_ac01 : 存储过程出错");
+       // timerMapper.insert(new Timer(new Date(),"zw_ac01","zw_ac01 : 存储过程出错" ));
+    }
+   }
+
+
+    @Override
+    public void zwKa08() {
+        logger.info("zw_ka08_begin");
+        //调用存储过程
+        Map <String, Object> map = new HashMap <>();
+        map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
+        //执行存储过程   ****测试占时调用ac01 返回 1
+        ac01Mapper.ProZwAc01(map);
+        //判断存储过程执行结果
+        if ("1".equals(map.get("result"))) {
+                int pageNo = 1;
+                String guid=null;
+            try {
+                Client webService = WbClient.getWebService();
+                Object[] invoke = webService.invoke("LoginByAccount", "ybjybxx_hjpt","sdo@1108");
+                guid = invoke[0].toString();
+            } catch (Exception e) {
+                logger.error("zw_ka08 : 政务平台登入方法报错"+e.toString());
+            }
+                for (int i = 1; i <= pageNo; i++) {
+                    //分页获取数据
+                    PageHelper.startPage(i, 500);
+                    List <ZwKa08Temp> zwKa08Temps = ka08Mapper.selectZwKa08Temp();
+
+                    //判断  集合是否有值
+                    if (CollectionUtils.isEmpty(zwKa08Temps)) {
+                        logger.info("zw_ka08 : 没有数据更新");
+                        break;
+                    }
+                    //获取页数
+                    if (i == 1) {
+                        PageInfo pageInfo = new PageInfo(zwKa08Temps);
+                        pageNo = pageInfo.getPages();
+                    }
+                    //多线程跑数据
+                    passDataService.passData(zwKa08Temps,ZwKa08Temp.class,Catalog.ka08,guid);
+                }
+        } else {
+            logger.info("zw_ka08 : 存储过程出错");
+        }
+    }
+
+    @Async
+    @Override
+    public void zwKc01() {
+        String errorMsg = null;
+        //拼接xml格式文件传输政务平台
+        StringBuffer str = new StringBuffer();
+        //接收异常或政务返回报错信息
+        Map <String, String> result = new HashMap <>();
+        System.out.println("开始 -- zw_kc01 ");
+
+        //调用存储过程
+        Map <String, Object> map = new HashMap <>();
+        map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
+
+        //执行存储过程   ****测试占时调用ac01 返回 1
+        ac01Mapper.ProZwAc01(map);
+        //判断存储过程执行结果
+        if ("1".equals(map.get("result"))) {
+            Client webService = WbClient.getWebService();
+            int pageNo = 1;
+            for (int i = 1; i <= pageNo; i++) {
+                //分页获取数据
+                PageHelper.startPage(i, 500);
+                List <ZwKc01Temp> zwKc01Temps = kc01Mapper.selectZwKc01Temp();
+                //判断  集合是否有值
+                if (CollectionUtils.isEmpty(zwKc01Temps)) {
+                    errorMsg = "没有数据更新";
+                    break;
+                }
+                //获取页数
+                if (i == 1) {
+                    PageInfo pageInfo = new PageInfo(zwKc01Temps);
+                    pageNo = pageInfo.getPages();
+                }
+                //拼接xml文件
+                String xml = concatXml(zwKc01Temps, ZwKc01Temp.class, str);
+                if ("error".equals(xml)) {
+                    errorMsg = "concatXml错误";
+                    break;
+                }
+
+                // 传输数据
+                try {
+                    //获取到的gid可行的情况下，传输数据
+                    //推送数据
+                    Object[] invoke = webService.invoke("LoginByAccount", DynamicScheduleTask.configEntity.getZw_account(), DynamicScheduleTask.configEntity.getZw_pwd());
+                    if ("err".equalsIgnoreCase(invoke[0].toString())) {
+                        errorMsg =  "政务登入报错，有可能账号密码配错，数据库中。";
+                        break;
+                    }else {
+                        Object[] pushXmls = webService.invoke("pushXml", invoke[0].toString(), Catalog.kc01, xml);
+                        //解析返回数据
+                        delReturnMsg(pushXmls, result);
+                    }
+                } catch (Exception e) {
+                    errorMsg =  "sendXml 出现异常";
+                    break;
+                }
+                if (result.get("exception") != null) {
+                    errorMsg =  result.get("exception");
+                    break;
+                }
+                if ("false".equals(result.get("flag"))) {
+                    errorMsg =  result.get("msg");
+                    break;
+                }
+                str.delete(0, str.length());
+            }
+        } else {
+            errorMsg = "存储过程出错";
+        }
+        if (errorMsg == null) {
+            errorMsg = "政务数据更新成功";
+        }
+        //else{
+        // sendMail("zw_ac01:" +errorMsg);
+        //}
+        timerMapper.insert(new Timer(new Date(),"zw_kc01","zw_kc01 : " + errorMsg));
+        System.out.println("结束zw_kc01");
     }
 
 
     @Async
     @Override
-    public void zwKa08() {
+    public void zwKc99() {
         String errorMsg = null;
+        //拼接xml格式文件传输政务平台
         StringBuffer str = new StringBuffer();
+        //接收异常或政务返回报错信息
         Map <String, String> result = new HashMap <>();
-        System.out.println("开始 --zwKa08");
+        System.out.println("开始 -- zw_kc99 ");
+
+        //调用存储过程
         Map <String, Object> map = new HashMap <>();
         map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
-        ka08Mapper.ProZwKa08(map);
+
+        //执行存储过程   ****测试占时调用ac01 返回 1
+        ac01Mapper.ProZwAc01(map);
+        //判断存储过程执行结果
         if ("1".equals(map.get("result"))) {
+            Client webService = WbClient.getWebService();
             int pageNo = 1;
             for (int i = 1; i <= pageNo; i++) {
+                //分页获取数据
                 PageHelper.startPage(i, 500);
-                List <ZwKa08Temp> zwKa08Temps = ka08Mapper.selectZwKa08Temp();
-                if (CollectionUtils.isEmpty(zwKa08Temps)) {
-                    errorMsg =  "没有数据更新";
+                List <ZwKc99Temp> zwKc99Temps = kc99Mapper.selectZwKc99Temp();
+                //判断  集合是否有值
+                if (CollectionUtils.isEmpty(zwKc99Temps)) {
+                    errorMsg = "没有数据更新";
                     break;
                 }
+                //获取页数
                 if (i == 1) {
-                    PageInfo pageInfo = new PageInfo(zwKa08Temps);
+                    PageInfo pageInfo = new PageInfo(zwKc99Temps);
                     pageNo = pageInfo.getPages();
                 }
-                String xml = concatXml(zwKa08Temps, ZwKa08Temp.class, str);
-                if ("errorMsg".equals(xml)) {
-                    errorMsg =  "concatXml错误";
+                //拼接xml文件
+                String xml = concatXml(zwKc99Temps, ZwKc99Temp.class, str);
+                if ("error".equals(xml)) {
+                    errorMsg = "concatXml错误";
                     break;
                 }
-                sendXml(xml, Catalog.ka08, result);
+
+                // 传输数据
+                try {
+                    //获取到的gid可行的情况下，传输数据
+                    //推送数据
+                    Object[] invoke = webService.invoke("LoginByAccount", DynamicScheduleTask.configEntity.getZw_account(), DynamicScheduleTask.configEntity.getZw_pwd());
+                    if ("err".equalsIgnoreCase(invoke[0].toString())) {
+                        errorMsg =  "政务登入报错，有可能账号密码配错，数据库中。";
+                        break;
+                    }else {
+                        Object[] pushXmls = webService.invoke("pushXml", invoke[0].toString(), Catalog.kc99, xml);
+                        //解析返回数据
+                        delReturnMsg(pushXmls, result);
+                    }
+                } catch (Exception e) {
+                    errorMsg =  "sendXml 出现异常";
+                    break;
+                }
                 if (result.get("exception") != null) {
-                    errorMsg = result.get("exception");
+                    errorMsg =  result.get("exception");
                     break;
                 }
                 if ("false".equals(result.get("flag"))) {
-                    errorMsg = result.get("msg");
+                    errorMsg =  result.get("msg");
                     break;
                 }
                 str.delete(0, str.length());
-                System.out.println("zw_ka08 循环了第" + i + "次");
             }
-            str.delete(0, str.length());
         } else {
-            errorMsg =  "存储过程出错";
+            errorMsg = "存储过程出错";
         }
         if (errorMsg == null) {
             errorMsg = "政务数据更新成功";
-        }else{
-            //sendMail("zw_ka08:" +errorMsg);
         }
-        timerMapper.insert(new Timer(new Date(),"zw_ka08","zw_ka08 : "+ errorMsg));
-        System.out.println("zw_ka08 :"+errorMsg);
-        errorMsg = "";
+        //else{
+        // sendMail("zw_ac01:" +errorMsg);
+        //}
+        timerMapper.insert(new Timer(new Date(),"zw_kc99","zw_kc99 : " + errorMsg));
+        System.out.println("结束zw_kc99");
     }
+
 
 
     @Async
     @Override
     public void zwKslw() {
         String errorMsg = null;
+        //拼接xml格式文件传输政务平台
         StringBuffer str = new StringBuffer();
+        //接收异常或政务返回报错信息
         Map <String, String> result = new HashMap <>();
-        System.out.println("开始 --zwKslw");
+        System.out.println("开始 -- zw_kslw ");
+
+        //调用存储过程
         Map <String, Object> map = new HashMap <>();
         map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
-        kslwMapper.ProZwKslw(map);
+
+        //执行存储过程   ****测试占时调用ac01 返回 1
+        ac01Mapper.ProZwAc01(map);
+        //判断存储过程执行结果
         if ("1".equals(map.get("result"))) {
+            Client webService = WbClient.getWebService();
             int pageNo = 1;
             for (int i = 1; i <= pageNo; i++) {
+                //分页获取数据
                 PageHelper.startPage(i, 500);
                 List <ZwKslwTemp> zwKslwTemps = kslwMapper.selectZwKslwTemp();
+                //判断  集合是否有值
                 if (CollectionUtils.isEmpty(zwKslwTemps)) {
-                    errorMsg =  "没有数据更新";
+                    errorMsg = "没有数据更新";
                     break;
                 }
+                //获取页数
                 if (i == 1) {
                     PageInfo pageInfo = new PageInfo(zwKslwTemps);
                     pageNo = pageInfo.getPages();
                 }
+                //拼接xml文件
                 String xml = concatXml(zwKslwTemps, ZwKslwTemp.class, str);
-                if ("errorMsg".equals(xml)) {
+                if ("error".equals(xml)) {
                     errorMsg = "concatXml错误";
                     break;
                 }
-                sendXml(xml, Catalog.kslw, result);
+
+                // 传输数据
+                try {
+                    //获取到的gid可行的情况下，传输数据
+                    //推送数据
+                    Object[] invoke = webService.invoke("LoginByAccount", DynamicScheduleTask.configEntity.getZw_account(), DynamicScheduleTask.configEntity.getZw_pwd());
+                    if ("err".equalsIgnoreCase(invoke[0].toString())) {
+                        errorMsg =  "政务登入报错，有可能账号密码配错，数据库中。";
+                        break;
+                    }else {
+                        Object[] pushXmls = webService.invoke("pushXml", invoke[0].toString(), Catalog.kslw, xml);
+                        //解析返回数据
+                        delReturnMsg(pushXmls, result);
+                    }
+                } catch (Exception e) {
+                    errorMsg =  "sendXml 出现异常";
+                    break;
+                }
                 if (result.get("exception") != null) {
                     errorMsg =  result.get("exception");
                     break;
@@ -218,19 +543,186 @@ public class DsrwTServiceImpl implements DsrwTService {
                     break;
                 }
                 str.delete(0, str.length());
-                System.out.println("zw_kslw 循环了第" + i + "次");
             }
-            str.delete(0, str.length());
         } else {
             errorMsg = "存储过程出错";
         }
         if (errorMsg == null) {
-            //errorMsg = "zw_kslw 政务数据更新成功";
+            errorMsg = "政务数据更新成功";
         }
+        //else{
+        // sendMail("zw_ac01:" +errorMsg);
+        //}
         timerMapper.insert(new Timer(new Date(),"zw_kslw","zw_kslw : " + errorMsg));
-        System.out.println("zw_kslw :"+errorMsg);
-        errorMsg="";
+        System.out.println("结束zw_kslw");
     }
+
+
+    @Async
+    @Override
+    public void zwAc43() {
+        String errorMsg = null;
+        //拼接xml格式文件传输政务平台
+        StringBuffer str = new StringBuffer();
+        //接收异常或政务返回报错信息
+        Map <String, String> result = new HashMap <>();
+        System.out.println("开始 -- zw_ac43 ");
+
+        //调用存储过程
+        Map <String, Object> map = new HashMap <>();
+        map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
+
+        //执行存储过程   ****测试占时调用ac01 返回 1
+        ac01Mapper.ProZwAc01(map);
+        //判断存储过程执行结果
+        if ("1".equals(map.get("result"))) {
+            Client webService = WbClient.getWebService();
+            int pageNo = 1;
+            for (int i = 1; i <= pageNo; i++) {
+                //分页获取数据
+                PageHelper.startPage(i, 500);
+                List <ZwAc43Temp> zwAc43Temps = ac43Mapper.selectZwAc43Temp();
+                //判断  集合是否有值
+                if (CollectionUtils.isEmpty(zwAc43Temps)) {
+                    errorMsg = "没有数据更新";
+                    break;
+                }
+                //获取页数
+                if (i == 1) {
+                    PageInfo pageInfo = new PageInfo(zwAc43Temps);
+                    pageNo = pageInfo.getPages();
+                }
+                //拼接xml文件
+                String xml = concatXml(zwAc43Temps, ZwAc43Temp.class, str);
+                if ("error".equals(xml)) {
+                    errorMsg = "concatXml错误";
+                    break;
+                }
+
+                // 传输数据
+                try {
+                    //获取到的gid可行的情况下，传输数据
+                    //推送数据
+                    Object[] invoke = webService.invoke("LoginByAccount", DynamicScheduleTask.configEntity.getZw_account(), DynamicScheduleTask.configEntity.getZw_pwd());
+                    if ("err".equalsIgnoreCase(invoke[0].toString())) {
+                        errorMsg =  "政务登入报错，有可能账号密码配错，数据库中。";
+                        break;
+                    }else {
+                        Object[] pushXmls = webService.invoke("pushXml", invoke[0].toString(), Catalog.ac43, xml);
+                        //解析返回数据
+                        delReturnMsg(pushXmls, result);
+                    }
+                } catch (Exception e) {
+                    errorMsg =  "sendXml 出现异常";
+                    break;
+                }
+                if (result.get("exception") != null) {
+                    errorMsg =  result.get("exception");
+                    break;
+                }
+                if ("false".equals(result.get("flag"))) {
+                    errorMsg =  result.get("msg");
+                    break;
+                }
+                str.delete(0, str.length());
+            }
+        } else {
+            errorMsg = "存储过程出错";
+        }
+        if (errorMsg == null) {
+            errorMsg = "政务数据更新成功";
+        }
+        //else{
+        // sendMail("zw_ac01:" +errorMsg);
+        //}
+        timerMapper.insert(new Timer(new Date(),"zw_ac43","zw_ac43 : " + errorMsg));
+        System.out.println("结束zw_ac43");
+    }
+
+
+
+    @Async
+    @Override
+    public void zwKc26() {
+        String errorMsg = null;
+        //拼接xml格式文件传输政务平台
+        StringBuffer str = new StringBuffer();
+        //接收异常或政务返回报错信息
+        Map <String, String> result = new HashMap <>();
+        System.out.println("开始 -- zw_kc26 ");
+
+        //调用存储过程
+        Map <String, Object> map = new HashMap <>();
+        map.put("updator", DynamicScheduleTask.configEntity.getUpdator());
+
+        //执行存储过程   ****测试占时调用ac01 返回 1
+        ac01Mapper.ProZwAc01(map);
+        //判断存储过程执行结果
+        if ("1".equals(map.get("result"))) {
+            Client webService = WbClient.getWebService();
+            int pageNo = 1;
+            for (int i = 1; i <= pageNo; i++) {
+                //分页获取数据
+                PageHelper.startPage(i, 500);
+                List <ZwKc26Temp> zwKc26Temps = kc26Mapper.selectZwKc26Temp();
+                //判断  集合是否有值
+                if (CollectionUtils.isEmpty(zwKc26Temps)) {
+                    errorMsg = "没有数据更新";
+                    break;
+                }
+                //获取页数
+                if (i == 1) {
+                    PageInfo pageInfo = new PageInfo(zwKc26Temps);
+                    pageNo = pageInfo.getPages();
+                }
+                //拼接xml文件
+                String xml = concatXml(zwKc26Temps, ZwKc26Temp.class, str);
+                if ("error".equals(xml)) {
+                    errorMsg = "concatXml错误";
+                    break;
+                }
+
+                // 传输数据
+                try {
+                    //获取到的gid可行的情况下，传输数据
+                    //推送数据
+                    Object[] invoke = webService.invoke("LoginByAccount", DynamicScheduleTask.configEntity.getZw_account(), DynamicScheduleTask.configEntity.getZw_pwd());
+                    if ("err".equalsIgnoreCase(invoke[0].toString())) {
+                        errorMsg =  "政务登入报错，有可能账号密码配错，数据库中。";
+                        break;
+                    }else {
+                        Object[] pushXmls = webService.invoke("pushXml", invoke[0].toString(), Catalog.kc26, xml);
+                        //解析返回数据
+                        delReturnMsg(pushXmls, result);
+                    }
+                } catch (Exception e) {
+                    errorMsg =  "sendXml 出现异常";
+                    break;
+                }
+                if (result.get("exception") != null) {
+                    errorMsg =  result.get("exception");
+                    break;
+                }
+                if ("false".equals(result.get("flag"))) {
+                    errorMsg =  result.get("msg");
+                    break;
+                }
+                str.delete(0, str.length());
+            }
+        } else {
+            errorMsg = "存储过程出错";
+        }
+        if (errorMsg == null) {
+            errorMsg = "政务数据更新成功";
+        }
+        //else{
+        // sendMail("zw_ac01:" +errorMsg);
+        //}
+        timerMapper.insert(new Timer(new Date(),"zw_kc26","zw_kc26 : " + errorMsg));
+        System.out.println("结束zw_kc26");
+    }
+
+
 
 
     /**
@@ -255,48 +747,18 @@ public class DsrwTServiceImpl implements DsrwTService {
             str.append("</table>");
         } catch (IllegalAccessException e) {
             str.delete(0, str.length());
-            str.append("errorMsg");
+            str.append("error");
         }
         return str.toString();
     }
 
-    /**
-     * 传输数据到政务平台
-     *
-     * @param xml
-     * @param catLog
-     * @return
-     */
-    public void sendXml(String xml, String catLog, Map <String, String> result) {
-        Object[] invoke = null;
-        boolean flag = false;
-        try {
-            //获取政务返回的gid
-            for (int i = 0; i < 5; i++) {
-                invoke = DynamicScheduleTask.webService.invoke("LoginByAccount", DynamicScheduleTask.configEntity.getZw_account(), DynamicScheduleTask.configEntity.getZw_pwd());
-                if (!"err".equalsIgnoreCase(invoke[0].toString())) {
-                    flag = true;
-                    break;
-                }
-                System.out.println("第" + i + "次登入政务成功");
-            }
-            //获取到的gid可行的情况下，传输数据
-            if (flag) {
-                //推送数据
-                invoke = DynamicScheduleTask.webService.invoke("pushXml", invoke[0].toString(), catLog, xml);
-                //解析返回数据
-                delReturnMsg(invoke, result);
-            } else {
-                result.put("exception", "政务平台登入不进去，有可能是配置的账号密码有误");
-            }
-        } catch (Exception e) {
-            result.put("exception", "sendXml 出现异常");
-        }
-    }
+
+
+
 
 
     //判断返回数据
-    public void delReturnMsg(Object[] objects, Map <String, String> map) {
+    public static void delReturnMsg(Object[] objects, Map <String, String> map) {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -313,6 +775,8 @@ public class DsrwTServiceImpl implements DsrwTService {
             map.put("exception", "delReturnMsg方法抛异常");
         }
     }
+
+
 
 
     //实现JavaMailSender，自定义邮件发送器
@@ -343,6 +807,44 @@ public class DsrwTServiceImpl implements DsrwTService {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+
+
+
+
+    public static void main(String[] args){
+        if("err".equalsIgnoreCase("ERR:".toString().substring(0,3))){
+            System.out.println("牛");
+        }
+
+        Client webService = WbClient.getWebService();
+        String errorMsg =null;
+        Map<String,String> result = new HashMap();
+        try {
+            Object[] invoke = webService.invoke("LoginByAccount", "ybjybxx_hjpt","sdo@1108");
+            Object[] invoke1 = webService.invoke("LoginByAccount", "ybjybxx_hjpt","sdo@1108");
+
+            System.out.println(invoke1[0].toString());
+
+                System.out.println("1");
+                Object[] pushXmls = webService.invoke("pushXml", invoke[0].toString(), Catalog.ka08, "sssss");
+                //解析返回数据
+                delReturnMsg(pushXmls, result);
+                if (result.get("exception") != null) {
+                    errorMsg = result.get("exception");
+                }
+                if ("false".equals(result.get("flag"))) {
+                    System.out.println("2");
+                    errorMsg =  result.get("msg");
+                }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            System.out.println(errorMsg + ": 结果");
+        }
+
     }
 
 }

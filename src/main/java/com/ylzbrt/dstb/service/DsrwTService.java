@@ -1,6 +1,7 @@
 package com.ylzbrt.dstb.service;
 
 import com.ylzbrt.dstb.entity.ConfigEntity;
+import org.apache.cxf.endpoint.Client;
 import org.springframework.scheduling.annotation.Async;
 
 /**
@@ -13,12 +14,24 @@ import org.springframework.scheduling.annotation.Async;
 public interface DsrwTService {
 
 
-      @Async
       void zwAc01();
 
-      @Async
       void zwKa08();
 
       @Async
+      void zwKc01();
+
+      @Async
+      void zwKc99();
+
+      @Async
       void zwKslw();
+
+      @Async
+      void zwAc43();
+
+      @Async
+      void zwKc26();
+
+
 }

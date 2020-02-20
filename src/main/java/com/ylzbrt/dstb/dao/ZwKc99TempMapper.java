@@ -1,11 +1,13 @@
 package com.ylzbrt.dstb.dao;
 
+import com.ylzbrt.dstb.entity.ZwKa08Temp;
 import com.ylzbrt.dstb.entity.ZwKc99Temp;
 import com.ylzbrt.dstb.entity.ZwKc99TempExample;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
@@ -16,4 +18,8 @@ public interface ZwKc99TempMapper {
     int insertSelective(ZwKc99Temp record);
 
     List<ZwKc99Temp> selectByExample(ZwKc99TempExample example);
+
+    void ProZwKc99(Map<String,Object> map);
+
+    List<ZwKc99Temp> selectZwKc99Temp();
 }

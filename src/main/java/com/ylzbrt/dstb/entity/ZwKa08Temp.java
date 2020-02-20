@@ -19,7 +19,7 @@ public class ZwKa08Temp {
     @FieldsAnnotation(value = "特殊病种名称")
     private String bke043;
     @FieldsAnnotation(value = "数据更新时间")
-    private Date aae035;
+    private String aae035;
 
     public String getAaa027() {
         return aaa027;
@@ -69,11 +69,11 @@ public class ZwKa08Temp {
         this.bke043 = bke043 == null ? null : bke043.trim();
     }
 
-    public Date getAae035() {
+    public String getAae035() {
         return aae035;
     }
 
-    public void setAae035(Date aae035) {
+    public void setAae035(String aae035) {
         this.aae035 = aae035;
     }
 }

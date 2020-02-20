@@ -8,7 +8,7 @@
     <result column="AAE030" jdbcType="DECIMAL" property="aae030" />
     <result column="AAE031" jdbcType="DECIMAL" property="aae031" />
     <result column="BKE043" jdbcType="VARCHAR" property="bke043" />
-    <result column="AAE035" jdbcType="TIMESTAMP" property="aae035" />
+    <result column="AAE035" jdbcType="VARCHAR" property="aae035" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -40,7 +40,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    AAA027, AAC002, AAC003, AAE030, AAE031, BKE043, AAE035
+    AAA027, AAC002, AAC003, AAE030, AAE031, BKE043, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035
   </sql>
   <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKa08TempExample" resultMap="BaseResultMap">
     select
@@ -126,6 +126,7 @@
   <select id="selectZwKa08Temp"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List"></include>
-    from zw_ka08_temp
+    from zw_ka08
   </select>
+
 </mapper>

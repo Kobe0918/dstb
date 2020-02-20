@@ -56,7 +56,7 @@
   </sql>
   <sql id="Base_Column_List">
     AAA027, AAC002, AAC003, AAE140, AKE007, AKB021, AAE072, AKC190, AKC227, BKC008, BKC040, 
-    BKC041, BKC045, BKC052, AAC066, AAE035, BKF010, AKA035, PMDYLX, XFLX00, SSQY00, SSXQ00
+    BKC041, BKC045, BKC052, AAC066,to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, BKF010, AKA035, PMDYLX, XFLX00, SSQY00, SSXQ00
   </sql>
   <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKc26TempExample" resultMap="BaseResultMap">
     select
@@ -230,4 +230,18 @@
       </if>
     </trim>
   </insert>
+
+  <insert id="ProZwKc26" parameterType="java.util.Map" statementType="CALLABLE">
+    {call PRO_ZW_KC26_DATAS(
+    #{updator,mode=IN, jdbcType=VARCHAR},
+    #{result, mode=OUT, jdbcType=VARCHAR}
+    )}
+  </insert>
+
+
+  <select id="selectZwKc26Temp"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from zw_kc26
+  </select>
 </mapper>
