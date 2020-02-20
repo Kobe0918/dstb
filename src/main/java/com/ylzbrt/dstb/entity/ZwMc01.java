@@ -18,11 +18,26 @@ public class ZwMc01 {
     @Name("预产期")
     private Integer amc020;
     @Name("登记日期")
-    private Date aae036;
+    private String aae036;
     @Name("截止日期")
     private Integer aae031;
     @Name("登记人")
     private String aae011;
+
+    @Override
+    public String toString() {
+        return "ZwMc01{" +
+                "aaa027='" + aaa027 + '\'' +
+                ", aac002='" + aac002 + '\'' +
+                ", aac003='" + aac003 + '\'' +
+                ", aab001='" + aab001 + '\'' +
+                ", aab004='" + aab004 + '\'' +
+                ", amc020=" + amc020 +
+                ", aae036='" + aae036 + '\'' +
+                ", aae031=" + aae031 +
+                ", aae011='" + aae011 + '\'' +
+                '}';
+    }
 
     public String getAaa027() {
         return aaa027;
@@ -72,11 +87,11 @@ public class ZwMc01 {
         this.amc020 = amc020;
     }
 
-    public Date getAae036() {
+    public String getAae036() {
         return aae036;
     }
 
-    public void setAae036(Date aae036) {
+    public void setAae036(String aae036) {
         this.aae036 = aae036;
     }
 

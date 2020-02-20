@@ -49,8 +49,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    AAA027, AAC002, AAC003, AAB004, AAE001, AAE340, AKE505, AKC501, BNYDFY, BNPMLJ, BNTMLJ, 
-    BNZYLJ, BKC041, BKC045, BKC052, AKC502
+    aaa027, aac002, aac003, aab004, aae001, aae340, ake505, akc501, bnydfy, bnpmlj, bntmlj,    bnzylj, bkc041, bkc045, bkc052, akc502
   </sql>
   <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKY65Example" resultMap="BaseResultMap">
     select
@@ -186,5 +185,17 @@
   </insert>
   <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
     {call pro_zw_KY65(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{AAA027_,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
+  </select>
+
+
+  <select id="selectByCondition" parameterType="com.ylzbrt.dstb.entity.ZwKY65" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from KY65_12333
+    <where>
+      <if test="aaa027 != null and aaa027 != ''">
+        AND aaa027 = #{aaa027}
+      </if>
+    </where>
   </select>
 </mapper>

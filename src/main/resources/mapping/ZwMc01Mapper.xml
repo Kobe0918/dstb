@@ -8,7 +8,7 @@
     <result column="AAB001" jdbcType="VARCHAR" property="aab001" />
     <result column="AAB004" jdbcType="VARCHAR" property="aab004" />
     <result column="AMC020" jdbcType="DECIMAL" property="amc020" />
-    <result column="AAE036" jdbcType="TIMESTAMP" property="aae036" />
+    <result column="AAE036" jdbcType="VARCHAR" property="aae036" />
     <result column="AAE031" jdbcType="DECIMAL" property="aae031" />
     <result column="AAE011" jdbcType="VARCHAR" property="aae011" />
   </resultMap>
@@ -42,7 +42,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    AAA027, AAC002, AAC003, AAB001, AAB004, AMC020, AAE036, AAE031, AAE011
+    AAA027, AAC002, AAC003, AAB001, AAB004, AMC020, to_char(AAE036,'yyyy/MM/dd') AAE036, AAE031, AAE011
   </sql>
   <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwMc01Example" resultMap="BaseResultMap">
     select

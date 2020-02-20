@@ -1,16 +1,19 @@
 package com.ylzbrt.dstb.entity;
 
+import com.ylzbrt.dstb.common.Name;
+
 public class ZwKb01 {
+    @Name("所属区域")
     private String ssqy00;
-
+    @Name("网点编号")
     private String akb020;
-
+    @Name("类别")
     private String akb022;
-
+    @Name("网点名称")
     private String akb021;
-
+    @Name("地址")
     private String aae006;
-
+    @Name("所属分中心")
     private String fsfzx0;
 
     public String getSsqy00() {

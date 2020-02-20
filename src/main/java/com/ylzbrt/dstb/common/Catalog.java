@@ -25,5 +25,12 @@ public class Catalog {
 
 
     public static final String clock="0 0/1 9-23 ? * *";
-    public static final int fixedRate = 1000000;
+    public static final int fixedRate = 1000000000;
+    public static final String add = "add";
+    public static final String update = "update";
+    public static final String delete = "delete";
+    //一次传输量
+    public static final int size = 65000;
+
+
 }
