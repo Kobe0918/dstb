@@ -30,7 +30,7 @@ public class Catalog {
     public static final String update = "update";
     public static final String delete = "delete";
     //一次传输量
-    public static final int size = 65000;
+    public static final int size = 60000;
 
 
 }
