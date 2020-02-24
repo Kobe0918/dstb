@@ -85,11 +85,10 @@ public class DsrwService implements IDsrwService{
             //第一步：
             Map <String, Object> map = new HashMap <String, Object>();
             map.put("UPDATOR", "定时器");
-//         zwKb01Mapper.accessPro(map); 正式运行项目必须去除注释
+         zwKb01Mapper.accessPro(map); //正式运行项目必须去除注释
             // 存储过程正常
-            // map.get("code")  替换 "1"
-//         if ("1".equals(map.get("code"))) 正式运行项目必须去除注释
-            if ("1".equals("1"))//为了测试
+         if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试
             {
                 List <ZwKb01> list = zwKb01Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.kb01);
@@ -124,11 +123,10 @@ public class DsrwService implements IDsrwService{
            //第一步：
            Map <String, Object> map = new HashMap <String, Object>();
            map.put("UPDATOR", "定时器");
-//            zwQslwFwwdb0Mapper.accessPro(map); 正式运行项目必须去除注释
+            zwQslwFwwdb0Mapper.accessPro(map); //正式运行项目必须去除注释
            // 存储过程正常
-           // map.get("code")  替换 "1"
-//            if ("1".equals(map.get("code")))
-           if ("1".equals("1"))//为了测试
+            if ("1".equals(map.get("code")))
+//           if ("1".equals("1"))//为了测试
            {
                //第二步：
                List<ZwQslwFwwdb0> list = zwQslwFwwdb0Mapper.selectByExample(null);
@@ -170,10 +168,9 @@ public class DsrwService implements IDsrwService{
             //第一步：
             Map <String, Object> map = new HashMap <String, Object>();
             map.put("UPDATOR", "定时器");
-//            zwKa02Mapper.accessPro(map);
-            // map.get("code")  替换 "1"
-//            if ("1".equals(map.get("code")))
-            if ("1".equals("1"))//为了测试
+            zwKa02Mapper.accessPro(map);
+            if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试
             {
                 List <ZwKa02> list = zwKa02Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.ka02);
@@ -209,12 +206,11 @@ public class DsrwService implements IDsrwService{
             //第一步：
               Map <String, Object> map = new HashMap <String, Object>();
              map.put("UPDATOR", "定时器");
-//            zwKa17YpMapper.accessPro(map);
+            zwKa17YpMapper.accessPro(map);
             //  System.out.println(map.get("code"));
             // 存储过程正常
-            //   替换 "1"
-//            if ("1".equals(map.get("code")))
-            if ("1".equals("1"))//为了测试
+            if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试
             {
                 List <ZwKa17Yp> list = zwKa17YpMapper.selectByExample(null);
                     DealMsg dealMsg = dealPush(list, option, Catalog.ka17_yp);
@@ -253,12 +249,10 @@ public class DsrwService implements IDsrwService{
             //第一步：
               Map <String, Object> map = new HashMap <String, Object>();
              map.put("UPDATOR", "定时器");
-//              zwKa03Mapper.accessPro(map);
-            //  System.out.println(map.get("code"));
-            // 存储过程正常
-            //   替换 "1"
-//            if ("1".equals(map.get("code")))
-                if ("1".equals("1"))//为了测试
+              zwKa03Mapper.accessPro(map);
+              // 存储过程正常
+            if ("1".equals(map.get("code")))
+//                if ("1".equals("1"))//为了测试
                 {
                 List <ZwKa03> list = zwKa03Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.ka03);
@@ -299,12 +293,11 @@ public class DsrwService implements IDsrwService{
             //第一步：
               Map <String, Object> map = new HashMap <String, Object>();
              map.put("UPDATOR", "定时器");
-//            zwKa17Mapper.accessPro(map);
-            //  System.out.println(map.get("code"));
+            zwKa17Mapper.accessPro(map);
             // 存储过程正常
             // map.get("code")  替换 "1"
-//            if ("1".equals(map.get("code")))//测试存储过程时要修改
-            if ("1".equals("1"))//为了测试
+            if ("1".equals(map.get("code")))//测试存储过程时要修改
+//            if ("1".equals("1"))//为了测试
             {
                 List <ZwKa17> list = zwKa17Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.ka17);
@@ -345,10 +338,10 @@ public class DsrwService implements IDsrwService{
             Map <String, Object> map = new HashMap <String, Object>();
             map.put("UPDATOR", "定时器");
             map.put("AAA027_", "350000");
-//            zwKY65Mapper.accessPro(map);
+            zwKY65Mapper.accessPro(map);
             // 存储过程正常
-//            if ("1".equals(map.get("code")))
-            if ("1".equals("1"))//为了测试
+            if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试
             {
                 List <ZwKY65> list = zwKY65Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.ky65);
@@ -384,11 +377,10 @@ public class DsrwService implements IDsrwService{
             //第一步：
             Map <String, Object> map = new HashMap <String, Object>();
             map.put("UPDATOR", "定时器");
-//            zwMc01Mapper.accessPro(map);
+            zwMc01Mapper.accessPro(map);
             // 存储过程正常
-            // map.get("code")  替换 "1"map.get("code")
-//            if ("1".equals(map.get("code")))
-            if ("1".equals("1"))//为了测试
+            if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试
             {
                 List <ZwMc01> list = zwMc01Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.mc01);
@@ -425,10 +417,10 @@ public class DsrwService implements IDsrwService{
               Map<String, Object> map = new HashMap<String, Object>();
              map.put("UPDATOR", "定时器");
              map.put("code","");
-//              ky70Mapper.accessPro(map);
+              ky70Mapper.accessPro(map);
 //             存储过程正常执行  //测试存储过程时要修改
-//            if ("1".equals(map.get("code")))
-            if ("1".equals("1"))//为了测试
+            if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试
             {
                 List <KY70> list = ky70Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.ky70);
@@ -469,11 +461,11 @@ public class DsrwService implements IDsrwService{
             Map <String, Object> map = new HashMap <String, Object>();
             map.put("UPDATOR", "定时器");
             map.put("code","");
-//              zwMca1Mapper.accessPro(map);
+            zwMca1Mapper.accessPro(map);
             // 存储过程正常
             // map.get("code")  替换 "1"
-//            if ("1".equals(map.get("code")))
-            if ("1".equals("1"))//为了测试（不调用存储过程）
+            if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试（不调用存储过程）
             {
                 List <ZwMca1> list = zwMca1Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.mca1);
@@ -511,12 +503,11 @@ public class DsrwService implements IDsrwService{
             //第一步：
               Map <String, Object> map = new HashMap <String, Object>();
              map.put("UPDATOR", "定时器");
-//            zwMc03Mapper.accessPro(map);
-//              System.out.println(map.get("code"));
+            zwMc03Mapper.accessPro(map);
             // 存储过程正常
             //   替换 "1"  map.get("code")
-//            if ("1".equals(map.get("code")))
-            if ("1".equals("1"))//为了测试（不调用存储过程）
+            if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试（不调用存储过程）
             {
                 List <ZwMc03> list = zwMc03Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.mc03);
@@ -552,11 +543,10 @@ public class DsrwService implements IDsrwService{
             //第一步：
               Map <String, Object> map = new HashMap <String, Object>();
             map.put("UPDATOR", "定时器");
-//            my56Mapper.accessPro(map);
-            //  System.out.println(map.get("code"));
+            my56Mapper.accessPro(map);
             // 存储过程正常
-//            if ("1".equals(map.get("code")))
-            if ("1".equals("1"))//为了测试（不调用存储过程）
+            if ("1".equals(map.get("code")))
+//            if ("1".equals("1"))//为了测试（不调用存储过程）
             {
                 List <MY56> list = my56Mapper.selectByExample(null);
                 DealMsg dealMsg = dealPush(list, option, Catalog.my56);
