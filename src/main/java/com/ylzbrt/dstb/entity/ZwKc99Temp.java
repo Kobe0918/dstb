@@ -2,28 +2,30 @@ package com.ylzbrt.dstb.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import com.ylzbrt.dstb.common.ClassAnnotation;
+import com.ylzbrt.dstb.common.FieldsAnnotation;
 
-@com.ylzbrt.dstb.util.ClassAnnotation(value="zw_kc99")
+@ClassAnnotation(value="zw_kc99")
 public class ZwKc99Temp {
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "统筹区编号")
+    @FieldsAnnotation(value = "统筹区编号")
     private String aaa027;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "身份证号")
+    @FieldsAnnotation(value = "身份证号")
     private String aac002;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "姓名")
+    @FieldsAnnotation(value = "姓名")
     private String aac003;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "地区")
+    @FieldsAnnotation(value = "地区")
     private String aaa129;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "险种类型")
+    @FieldsAnnotation(value = "险种类型")
     private String aae140;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "参保日期")
+    @FieldsAnnotation(value = "参保日期")
     private Integer aab050;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "单位名称")
+    @FieldsAnnotation(value = "单位名称")
     private String aab004;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "数据更新时间")
+    @FieldsAnnotation(value = "数据更新时间")
     private String aae035;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "工作状态")
+    @FieldsAnnotation(value = "工作状态")
     private String aac066;
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "年度缴费基数")
+    @FieldsAnnotation(value = "年度缴费基数")
     private BigDecimal ndjfjs;
 
     public String getAaa027() {

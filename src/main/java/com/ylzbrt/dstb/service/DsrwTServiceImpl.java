@@ -8,7 +8,7 @@ import com.ylzbrt.dstb.dao.*;
 import com.ylzbrt.dstb.dsrw.DynamicScheduleTask;
 import com.ylzbrt.dstb.entity.*;
 import com.ylzbrt.dstb.entity.Timer;
-import com.ylzbrt.dstb.util.FieldsAnnotation;
+import com.ylzbrt.dstb.common.FieldsAnnotation;
 import com.ylzbrt.dstb.webservice.WbClient;
 import org.apache.cxf.endpoint.Client;
 import org.slf4j.Logger;

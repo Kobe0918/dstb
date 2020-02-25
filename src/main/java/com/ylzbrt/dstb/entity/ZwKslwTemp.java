@@ -1,8 +1,8 @@
 package com.ylzbrt.dstb.entity;
 
 import java.math.BigDecimal;
-import com.ylzbrt.dstb.util.ClassAnnotation;
-import com.ylzbrt.dstb.util.FieldsAnnotation;
+import com.ylzbrt.dstb.common.ClassAnnotation;
+import com.ylzbrt.dstb.common.FieldsAnnotation;
 
 
 

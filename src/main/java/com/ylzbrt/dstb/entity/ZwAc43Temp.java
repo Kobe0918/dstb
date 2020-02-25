@@ -2,45 +2,48 @@ package com.ylzbrt.dstb.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
-@com.ylzbrt.dstb.util.ClassAnnotation(value="zw_ac43")
+import com.ylzbrt.dstb.common.ClassAnnotation;
+import com.ylzbrt.dstb.common.FieldsAnnotation;
+
+@ClassAnnotation(value="zw_ac43")
 public class ZwAc43Temp {
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "统筹区编号")
+    @FieldsAnnotation(value = "统筹区编号")
     private String aaa027;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "身份证号")
+    @FieldsAnnotation(value = "身份证号")
     private String aac002;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "姓名")
+    @FieldsAnnotation(value = "姓名")
     private String aac003;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "险种类型")
+    @FieldsAnnotation(value = "险种类型")
     private String aae140;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "个人缴费划入账户金额")
+    @FieldsAnnotation(value = "个人缴费划入账户金额")
     private Short aae023;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "账目类型")
+    @FieldsAnnotation(value = "账目类型")
     private String aaa119;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "缴费基数")
+    @FieldsAnnotation(value = "缴费基数")
     private BigDecimal aae340;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "建账年月")
+    @FieldsAnnotation(value = "建账年月")
     private Integer aae206;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "数据更新时间")
+    @FieldsAnnotation(value = "数据更新时间")
     private String aae035;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "账目年月")
+    @FieldsAnnotation(value = "账目年月")
     private Integer zmny00;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "个人缴费金额")
+    @FieldsAnnotation(value = "个人缴费金额")
     private BigDecimal grjfje;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "单位缴费金额")
+    @FieldsAnnotation(value = "单位缴费金额")
     private BigDecimal dwjfje;
 
-    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "划拨日期")
+    @FieldsAnnotation(value = "划拨日期")
     private Integer hbrq00;
 
     public String getAaa027() {

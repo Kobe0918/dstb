@@ -1,8 +1,8 @@
 package com.ylzbrt.dstb.entity;
 
 import java.util.Date;
-import com.ylzbrt.dstb.util.ClassAnnotation;
-import com.ylzbrt.dstb.util.FieldsAnnotation;
+import com.ylzbrt.dstb.common.ClassAnnotation;
+import com.ylzbrt.dstb.common.FieldsAnnotation;
 
 @ClassAnnotation(value="zw_ka08")
 public class ZwKa08Temp {

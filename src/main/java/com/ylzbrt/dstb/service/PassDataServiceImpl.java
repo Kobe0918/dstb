@@ -51,7 +51,7 @@ public class PassDataServiceImpl implements PassDataService {
                 Field[] declaredFields = cl.getDeclaredFields();
                 for (Field f : declaredFields) {
                     f.setAccessible(true);
-                    str.append("<" + f.getName() + " name=\"" + f.getAnnotation(com.ylzbrt.dstb.util.FieldsAnnotation.class).value() + "\" isattachment=\"false\"><![CDATA[" + f.get(ob.get(i)) + "]]></" + f.getName() + ">");
+                    str.append("<" + f.getName() + " name=\"" + f.getAnnotation(com.ylzbrt.dstb.common.FieldsAnnotation.class).value() + "\" isattachment=\"false\"><![CDATA[" + f.get(ob.get(i)) + "]]></" + f.getName() + ">");
                 }
                 str.append("</row>");
             }
