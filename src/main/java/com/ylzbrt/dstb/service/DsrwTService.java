@@ -14,24 +14,13 @@ import org.springframework.scheduling.annotation.Async;
 public interface DsrwTService {
 
 
-      void zwAc01();
-
-      void zwKa08();
-
-      @Async
-      void zwKc01();
-
-      @Async
-      void zwKc99();
-
-      @Async
-      void zwKslw();
-
-      @Async
-      void zwAc43();
-
-      @Async
-      void zwKc26();
+      void zwAc01(ConfigEntity configEntity);
+      void zwKa08(ConfigEntity configEntity);
+      void zwKc01(ConfigEntity configEntity);
+      void zwKc99(ConfigEntity configEntity);
+      void zwKslw(ConfigEntity configEntity);
+      void zwAc43(ConfigEntity configEntity);
+      void zwKc26(ConfigEntity configEntity);
 
 
 }

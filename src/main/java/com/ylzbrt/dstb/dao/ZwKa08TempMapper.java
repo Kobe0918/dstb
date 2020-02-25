@@ -21,7 +21,7 @@ public interface ZwKa08TempMapper {
 
     void ProZwKa08(Map<String,Object> map);
 
-    List<ZwKa08Temp> selectZwKa08Temp();
+    List<ZwKa08Temp> selectZwKa08Temp(@Param("aaa027") String aaa027);
 
 
 }

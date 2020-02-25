@@ -10,7 +10,7 @@
     <result column="AAA119" jdbcType="VARCHAR" property="aaa119" />
     <result column="AAE340" jdbcType="DECIMAL" property="aae340" />
     <result column="AAE206" jdbcType="DECIMAL" property="aae206" />
-    <result column="AAE035" jdbcType="TIMESTAMP" property="aae035" />
+    <result column="AAE035" jdbcType="VARCHAR" property="aae035" />
     <result column="ZMNY00" jdbcType="DECIMAL" property="zmny00" />
     <result column="GRJFJE" jdbcType="DECIMAL" property="grjfje" />
     <result column="DWJFJE" jdbcType="DECIMAL" property="dwjfje" />
@@ -164,17 +164,25 @@
 
 
   <insert id="ProZwAc43" parameterType="java.util.Map" statementType="CALLABLE">
-    {call PRO_ZW_AC43DATAS(
+    {call PRO_ZW_AC43_DATAS(
     #{updator,mode=IN, jdbcType=VARCHAR},
+    #{aaa027,mode=IN, jdbcType=VARCHAR},
     #{result, mode=OUT, jdbcType=VARCHAR}
     )}
   </insert>
 
+    <insert id="ProZwAc43390" parameterType="java.util.Map" statementType="CALLABLE">
+    {call PRO_ZW_AC43_390_DATAS(
+    #{updator,mode=IN, jdbcType=VARCHAR},
+    #{aaa027,mode=IN, jdbcType=VARCHAR},
+    #{result, mode=OUT, jdbcType=VARCHAR}
+    )}
+  </insert>
 
-  <select id="selectZwAc43Temp"  resultMap="BaseResultMap">
+  <select id="selectZwAc43Temp"  resultMap="BaseResultMap" parameterType="java.lang.String">
     select
     <include refid="Base_Column_List"></include>
-    from zw_ac43
+    from zw_ac43  where aaa027 =  #{aaa027,jdbcType=VARCHAR}
   </select>
 
 </mapper>

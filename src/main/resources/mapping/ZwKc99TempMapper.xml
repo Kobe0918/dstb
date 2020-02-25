@@ -9,7 +9,7 @@
     <result column="AAE140" jdbcType="VARCHAR" property="aae140" />
     <result column="AAB050" jdbcType="DECIMAL" property="aab050" />
     <result column="AAB004" jdbcType="VARCHAR" property="aab004" />
-    <result column="AAE035" jdbcType="TIMESTAMP" property="aae035" />
+    <result column="AAE035" jdbcType="VARCHAR" property="aae035" />
     <result column="AAC066" jdbcType="VARCHAR" property="aac066" />
     <result column="NDJFJS" jdbcType="DECIMAL" property="ndjfjs" />
   </resultMap>
@@ -142,14 +142,15 @@
   <insert id="ProZwKc99" parameterType="java.util.Map" statementType="CALLABLE">
     {call PRO_ZW_KC99_DATAS(
     #{updator,mode=IN, jdbcType=VARCHAR},
+    #{aaa027,mode=IN, jdbcType=VARCHAR},
     #{result, mode=OUT, jdbcType=VARCHAR}
     )}
   </insert>
 
 
-  <select id="selectZwKc99Temp"  resultMap="BaseResultMap">
+  <select id="selectZwKc99Temp"  resultMap="BaseResultMap" parameterType="java.lang.String">
     select
     <include refid="Base_Column_List"></include>
-    from zw_kc99
+    from zw_kc99  where aaa027 =  #{aaa027,jdbcType=VARCHAR}
   </select>
 </mapper>

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -17,29 +18,32 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * @BelongsProject: dstb
  * @BelongsPackage: com.ylzbrt.dstb.service
- * @Author: lzh
+ * @Author:  林泽航
  * @CreateTime: 2020-02-12 21:20
  * @Description: ${Description}
  */
 @Service
 public class PassDataServiceImpl implements PassDataService {
 
-    @Autowired
-    private TimerMapper timerMapper;
+
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     @Async(value="asyncServiceExecutor")
     @Override
-    public void  passData(List <?> ob, Class <?> cl,String catalog,String guid){
+    public void passData(List <?> ob, Class <?> cl, String catalog, String guid){
         //拼接数据
+        Future<String> result = null;
         StringBuffer str = new StringBuffer();
+        List list6 = new ArrayList();
         try {
             str.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "<table>");
             for (int i = 0; i < ob.size(); i++) {
@@ -54,7 +58,9 @@ public class PassDataServiceImpl implements PassDataService {
             str.append("</table>");
         } catch (IllegalAccessException e) {
             logger.error(cl.getSimpleName() + ":" + e.toString());
+           // return new AsyncResult <>("0");
         }
+
 
             // 传输数据
             try {
@@ -69,15 +75,12 @@ public class PassDataServiceImpl implements PassDataService {
                 Node item2 = msg.item(0);
                 String valueFlag = item.getFirstChild().getNodeValue();
                 String valueMsg = item2.getFirstChild().getNodeValue();
-                if ("false".equals(valueFlag)) {
-                    logger.error(cl.getSimpleName()+ " : "+valueMsg);
-                   // timerMapper.insert(new Timer(new Date(),cl.getSimpleName(),cl.getSimpleName() + valueMsg));
-                }
-                logger.info(valueMsg);
+                logger.info(cl.getSimpleName()+ " : "+valueMsg);
             } catch (Exception e) {
                 logger.error(cl.getSimpleName() + " : 政务传输数据接口异常");
-                //timerMapper.insert(new Timer(new Date(),cl.getSimpleName(),cl.getSimpleName() + "政务传输数据接口异常"));
+               // return new AsyncResult <>("0");
             }
+        // return new AsyncResult <>("1");
         }
 
 

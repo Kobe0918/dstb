@@ -3,23 +3,33 @@ package com.ylzbrt.dstb.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@com.ylzbrt.dstb.util.ClassAnnotation(value="zw_kc01")
 public class ZwKc01Temp {
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "统筹区编号")
     private String aaa027;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "证件号码")
     private String aac002;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "姓名")
     private String aac003;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "社保卡号")
     private String aaz501;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "社保卡状态")
     private String aaz502;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "个人账户余额")
     private BigDecimal akc087;
 
-    private Date aae035;
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "数据更新时间")
+    private String aae035;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "所属区域")
     private String ssqy00;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "所属县区")
     private String ssxq00;
 
     public String getAaa027() {
@@ -70,11 +80,11 @@ public class ZwKc01Temp {
         this.akc087 = akc087;
     }
 
-    public Date getAae035() {
+    public String getAae035() {
         return aae035;
     }
 
-    public void setAae035(Date aae035) {
+    public void setAae035(String aae035) {
         this.aae035 = aae035;
     }
 

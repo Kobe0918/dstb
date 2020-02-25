@@ -4,6 +4,7 @@ import com.ylzbrt.dstb.entity.ZwKa08Temp;
 import com.ylzbrt.dstb.entity.ZwKc99Temp;
 import com.ylzbrt.dstb.entity.ZwKc99TempExample;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,5 +22,5 @@ public interface ZwKc99TempMapper {
 
     void ProZwKc99(Map<String,Object> map);
 
-    List<ZwKc99Temp> selectZwKc99Temp();
+    List<ZwKc99Temp> selectZwKc99Temp(@Param("aaa027") String aaa027);
 }

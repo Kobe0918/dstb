@@ -4,6 +4,7 @@ import com.ylzbrt.dstb.entity.ZwKa08Temp;
 import com.ylzbrt.dstb.entity.ZwKc01Temp;
 import com.ylzbrt.dstb.entity.ZwKc01TempExample;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public interface ZwKc01TempMapper {
 
     void ProZwK01(Map<String,Object> map);
 
-    List<ZwKc01Temp> selectZwKc01Temp();
+    List<ZwKc01Temp> selectZwKc01Temp(@Param("aaa027") String aaa027);
 
 
 }

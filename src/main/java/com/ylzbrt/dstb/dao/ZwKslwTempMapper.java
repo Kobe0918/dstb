@@ -22,5 +22,5 @@ public interface ZwKslwTempMapper {
 
     void ProZwKslw(Map<String,Object> map);
 
-    List<ZwKslwTemp> selectZwKslwTemp();
+    List<ZwKslwTemp> selectZwKslwTemp(@Param("aaa027") String aaa027);
 }

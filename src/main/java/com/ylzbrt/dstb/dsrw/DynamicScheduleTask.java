@@ -3,12 +3,18 @@ package com.ylzbrt.dstb.dsrw;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+
+import com.ylzbrt.dstb.common.Catalog;
 import com.ylzbrt.dstb.entity.ConfigEntity;
+
 import com.ylzbrt.dstb.service.DsrwTService;
+import com.ylzbrt.dstb.service.IDsrwService;
 import com.ylzbrt.dstb.webservice.WbClient;
 import org.apache.cxf.endpoint.Client;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -23,13 +29,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.Servlet;
+import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @BelongsProject: dstb
  * @BelongsPackage: com.ylzbrt.dstb.dsrw
- * @Author: lzh
+ * @Author: 林泽航
  * @CreateTime: 2020-01-13 11:10
  * @Description: ${Description}
  */
@@ -39,51 +47,71 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
     @Mapper
     @Repository
     public interface ConfigMapper {
+        //获取定时器 定时配置
         @Select("select cron  from zw_cron  WHERE ROWNUM = 1")
         String selectCron();
+       // 获取政务webservice 账号密码，更新统筹区等信息。为了适配省直和泉州，两个统筹区的数据，需要在该表配置所需的aaa027
+        @Select("select * from zw_config ")
+        List<ConfigEntity> selectConfig();
 
         @Select("select * from zw_config WHERE ROWNUM = 1")
-        ConfigEntity selectConfig();
+        ConfigEntity selectConfigOne();
     }
 
     @Autowired
     @SuppressWarnings("all")
     ConfigMapper configMapper;
-
     @Autowired
     private DsrwTService dsrwTService;
-
-    public static ConfigEntity configEntity;
+    @Autowired
+    private IDsrwService dsrwService;
+    public static List<ConfigEntity> configEntity;
+    public static ConfigEntity configEntityOne;
     public static Client client;
 
+    public Logger logger = LoggerFactory.getLogger(this.getClass());
 
+
+    //启动项目生成定时器，执行任务
     @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
-//           scheduledTaskRegistrar.addTriggerTask(new Runnable() {
-//               @Override
-//               public void run() {
-//                   System.out.println("nihao ");
-//               }
-//           }, new Trigger() {
-//               @Override
-//               public Date nextExecutionTime(TriggerContext triggerContext) {
-//                   String cron  = cronConfigMapper.selectCron();
-//                   if (StringUtils.isEmpty(cron)){
-//                       cron = "";//设置默认更新时间
-//                   }
-//                   return new CronTrigger(cron).nextExecutionTime(triggerContext);
-//               }
-//           });
-
 
         scheduledTaskRegistrar.addTriggerTask(() -> {
-                   dsrwTService.zwAc01();
-                    //dsrwTService.zwKa08();
-                    // dsrwTService.zwKslw();
+
+            logger.info("zw 开始更新");
+
+            for(ConfigEntity c : configEntity){
+                dsrwTService.zwAc01(c);
+                dsrwTService.zwKa08(c);
+                dsrwTService.zwKslw(c);
+                dsrwTService.zwKc01(c);
+                dsrwTService.zwKc99(c);
+                dsrwTService.zwAc43(c);
+                dsrwTService.zwKc26(c);
+            }
+
+
+
+//                    String opt = Catalog.add;
+//                    //6-19
+//                    dsrwService.dealQslwFwwdb0(opt);
+//                    dsrwService.dealKb01(opt);
+//                    dsrwService.dealKa02(opt);
+//                    dsrwService.dealKa03(opt);
+//                    dsrwService.dealKa17Yp(opt);
+//                    dsrwService.dealKa17(opt);
+//                    dsrwService.dealKy65(opt);
+//                    dsrwService.dealMc01(opt);
+//                    dsrwService.dealMca1(opt);
+//                    dsrwService.dealMc03(opt);
+//                    dsrwService.dealMy56(opt);
+//                    dsrwService.dealKy70(opt);
+
                 },
                 triggerContext -> {
                     String cron = configMapper.selectCron();
-                    configEntity = configMapper.selectConfig();
+                     configEntity = configMapper.selectConfig();
+                    configEntityOne =  configMapper.selectConfigOne();
                     client = WbClient.getWebService();
                     if (StringUtils.isEmpty(cron)) {
                         cron = "0/20 * * * * ?";  //设置默认更新时间
@@ -114,7 +142,6 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
         executor.setThreadNamePrefix("async_service");
         //线程空闲时间60s 超过销毁
         executor.setKeepAliveSeconds(20);
-
         // rejection-policy：当pool已经达到max size的时候，如何处理新任务
         // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
@@ -124,7 +151,7 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
     }
 
 
-
+//配置druid连接池
     @ConfigurationProperties(prefix = "spring.datasource")
     @Bean
     public DruidDataSource druidDataSource(){

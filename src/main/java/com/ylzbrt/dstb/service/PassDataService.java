@@ -4,6 +4,7 @@ import org.apache.cxf.endpoint.Client;
 import org.springframework.scheduling.annotation.Async;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * @BelongsProject: dstb
@@ -15,5 +16,5 @@ import java.util.List;
 public interface PassDataService {
 
     @Async
-    void passData(List <?> ob, Class <?> cl ,String catalog,String guid);
+    void passData(List <?> ob, Class <?> cl , String catalog, String guid);
 }

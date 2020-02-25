@@ -41,7 +41,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021, GXLSH0
+    AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
   </sql>
   <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKslwTempExample" resultMap="BaseResultMap">
     select
@@ -134,13 +134,14 @@
   <insert id="ProZwKslw" parameterType="java.util.Map" statementType="CALLABLE">
     {call PRO_ZW_KSLW_DATAS(
     #{updator,mode=IN, jdbcType=VARCHAR},
+    #{aaa027,mode=IN, jdbcType=VARCHAR},
     #{result, mode=OUT, jdbcType=VARCHAR}
     )}
   </insert>
 
-  <select id="selectZwKslwTemp"  resultMap="BaseResultMap">
+  <select id="selectZwKslwTemp"  resultMap="BaseResultMap" parameterType="java.lang.String">
     select
     <include refid="Base_Column_List"></include>
-    from zw_kslw_temp
+    from zw_kslw where aaa027 =  #{aaa027,jdbcType=VARCHAR}
   </select>
 </mapper>

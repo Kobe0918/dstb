@@ -22,7 +22,7 @@ public interface ZwAc01Mapper {
 
     void ProZwAc01(Map<String,Object> map);
 
-    List<ZwAc01> selectZwAC01();
+    List<ZwAc01> selectZwAC01(@Param("aaa027") String aaa027);
 
 
 }

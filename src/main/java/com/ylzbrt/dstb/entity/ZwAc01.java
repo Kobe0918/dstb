@@ -9,7 +9,7 @@ import java.util.Date;
 @ClassAnnotation(value = "zw_ac01")
 public class ZwAc01 {
 
-   @FieldsAnnotation(value = "姓名")
+    @FieldsAnnotation(value = "姓名")
     private String aac003;
     @FieldsAnnotation(value = "身份证件类型")
     private String aac058;

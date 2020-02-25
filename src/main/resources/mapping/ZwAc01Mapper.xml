@@ -174,13 +174,14 @@
   <insert id="ProZwAc01" parameterType="java.util.Map" statementType="CALLABLE">
     {call PRO_ZW_AC01_DATAS(
     #{updator,mode=IN, jdbcType=VARCHAR},
+    #{aaa027,mode=IN, jdbcType=VARCHAR},
     #{result, mode=OUT, jdbcType=VARCHAR}
     )}
   </insert>
 
-  <select id="selectZwAC01" resultMap="BaseResultMap">
+  <select id="selectZwAC01" resultMap="BaseResultMap" parameterType="java.lang.String">
     select
     <include refid="Base_Column_List"></include>
-    from zw_ac01_1
+    from zw_ac01 where aaa027 =  #{aaa027,jdbcType=VARCHAR}
   </select>
 </mapper>

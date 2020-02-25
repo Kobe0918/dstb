@@ -8,7 +8,7 @@ import com.ylzbrt.dstb.util.FieldsAnnotation;
 
 @ClassAnnotation(value="zw_kslw")
 public class ZwKslwTemp {
-    @FieldsAnnotation(value = "统筹区")
+    @FieldsAnnotation(value = "统筹区编号")
     private String aaa027;
     @FieldsAnnotation(value = "姓名")
     private String aac003;

@@ -3,49 +3,72 @@ package com.ylzbrt.dstb.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@com.ylzbrt.dstb.util.ClassAnnotation(value="zw_kc26")
 public class ZwKc26Temp {
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "统筹区编号")
     private String aaa027;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "身份证号")
     private String aac002;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "姓名")
     private String aac003;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "险种类别")
     private String aae140;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "消费时间")
     private Integer ake007;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "网点名称")
     private String akb021;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "单据流水号")
     private String aae072;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "门诊号")
     private String akc190;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "本次总费用")
     private BigDecimal akc227;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "医保费用")
     private BigDecimal bkc008;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "现金支付金额")
     private BigDecimal bkc040;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "个人账户支付")
     private BigDecimal bkc041;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "基金支付金额")
     private Short bkc045;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "商保基金支付")
     private BigDecimal bkc052;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "消费时工作状态")
     private String aac066;
 
-    private Date aae035;
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "数据更新时间")
+    private String aae035;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "就医地")
     private String bkf010;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "特殊病种类型")
     private String aka035;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "普通门诊待遇类型")
     private String pmdylx;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "消费类型")
     private String xflx00;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "所属区域")
     private String ssqy00;
 
+    @com.ylzbrt.dstb.util.FieldsAnnotation(value = "所属县区")
     private String ssxq00;
 
     public String getAaa027() {
@@ -168,11 +191,11 @@ public class ZwKc26Temp {
         this.aac066 = aac066 == null ? null : aac066.trim();
     }
 
-    public Date getAae035() {
+    public String getAae035() {
         return aae035;
     }
 
-    public void setAae035(Date aae035) {
+    public void setAae035(String aae035) {
         this.aae035 = aae035;
     }
 

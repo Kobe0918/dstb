@@ -6,7 +6,7 @@ import com.ylzbrt.dstb.util.FieldsAnnotation;
 
 @ClassAnnotation(value="zw_ka08")
 public class ZwKa08Temp {
-    @FieldsAnnotation(value = "统筹区")
+    @FieldsAnnotation(value = "统筹区编号")
     private String aaa027;
     @FieldsAnnotation(value = "身份证号")
     private String aac002;
