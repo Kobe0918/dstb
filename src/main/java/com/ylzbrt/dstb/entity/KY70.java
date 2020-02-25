@@ -1,24 +1,27 @@
 package com.ylzbrt.dstb.entity;
 
+import com.ylzbrt.dstb.common.Name;
+
 import java.math.BigDecimal;
 
 public class KY70 {
+    @Name("人员编号")
     private BigDecimal aac001;
-
+    @Name("统筹区编号")
     private String aaa027;
-
+    @Name("姓名")
     private String aac003;
-
+    @Name("身份证号码")
     private String aac002;
-
+    @Name("消费时间")
     private Integer ake007;
-
+    @Name("生育日期")
     private Integer amc020;
-
+    @Name("生育津贴")
     private BigDecimal amc030;
-
+    @Name("本次总费用")
     private BigDecimal akc227;
-
+    @Name("基金支付")
     private BigDecimal bkc045;
 
     public BigDecimal getAac001() {

@@ -1,38 +1,74 @@
 package com.ylzbrt.dstb.service;
 
 public interface IDsrwService {
+    /**  定点医疗机构和药店
+     *  数据传输
+     * @param option
+     */
+    void passKb01(String option);
+
+    /**  全省联网定点医疗机构和药店
+     *  数据传输
+     * @param option
+     */
+    void passQslwFwwdb0(String option);
+
+    /**  药品目录
+     *  数据传输
+     * @param option
+     */
+    void passKa02(String option);
+
+    /**  特殊药品目录
+     *  数据传输
+     * @param option
+     */
+    void passKa17Yp(String option);
+
+    /**  诊疗目录
+     *  数据传输
+     * @param option
+     */
+    void passKa03(String option);
+
+    /**  特殊病种诊疗目录
+     *  数据传输
+     * @param option
+     */
+    void passKa17(String option);
+
     /** 生育保险个人权益单-ky65
-     * 全量数据传输
+     * 数据传输
      * @param option
      */
      void dealZwky65Qz(String option,String AAA027);
     /** 生育产前登记-Mc01
-     * 全量数据传输
+     * 数据传输
      * @param option
      */
     void dealZwMc01Qz(String option,String AAA027);
 
     /** 生育保险刷卡记录-Ky70
-     * 全量增量数据传输
+     * 数据传输
      * @param option
      */
     void dealZwKy70Qz(String option,String AAA027);
 
     /**  生育登记信息-Mca1
-     * 全量数据传输
+     *  数据传输
      * @param option
      */
     void dealZwMca1Qz(String option,String AAA027);
 
     /** 生育待遇发放信息-Mc03
      *
-     * 全量数据传输
+     * 数据传输
      * @param option
      */
     void dealZwMc03Qz(String option,String AAA027);
     /** 生育保险个人权益单-My56
      *
-     * 全量数据传输
+     * 数据传输
      * @param option
      */
     void dealZwMy56Qz(String option,String AAA027);
