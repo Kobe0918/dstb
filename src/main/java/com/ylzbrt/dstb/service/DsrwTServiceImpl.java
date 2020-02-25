@@ -5,36 +5,18 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ylzbrt.dstb.common.Catalog;
 import com.ylzbrt.dstb.dao.*;
-import com.ylzbrt.dstb.dsrw.DynamicScheduleTask;
 import com.ylzbrt.dstb.entity.*;
-import com.ylzbrt.dstb.entity.Timer;
-import com.ylzbrt.dstb.common.FieldsAnnotation;
 import com.ylzbrt.dstb.webservice.WbClient;
 import org.apache.cxf.endpoint.Client;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Field;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @BelongsProject: dstb
@@ -98,7 +80,7 @@ public class DsrwTServiceImpl implements DsrwTService {
                 passDataService.passData(zwAC01List, ZwAc01.class, Catalog.ac01, guid);
            }
        } else {
-           logger.info("zw_ac01 : 存储过程出错");
+           logger.error("zw_ac01 : 存储过程出错");
     }
    }
 
@@ -135,7 +117,7 @@ public class DsrwTServiceImpl implements DsrwTService {
                     passDataService.passData(zwKa08Temps,ZwKa08Temp.class,Catalog.ka08,guid);
                 }
         } else {
-            logger.info("zw_ka08 : 存储过程出错");
+            logger.error("zw_ka08 : 存储过程出错");
         }
     }
 
@@ -171,7 +153,7 @@ public class DsrwTServiceImpl implements DsrwTService {
                 passDataService.passData(zwKc01Temps, ZwKc01Temp.class, Catalog.kc01, guid);
             }
         } else {
-            logger.info("zw_kc01 : 存储过程出错");
+            logger.error("zw_kc01 : 存储过程出错");
         }
     }
 
@@ -207,7 +189,7 @@ public class DsrwTServiceImpl implements DsrwTService {
                 passDataService.passData(zwKc99Temps, ZwKc99Temp.class, Catalog.kc99, guid);
             }
         } else {
-            logger.info("zw_kc99 : 存储过程出错");
+            logger.error("zw_kc99 : 存储过程出错");
         }
     }
 
@@ -244,7 +226,7 @@ public class DsrwTServiceImpl implements DsrwTService {
                 passDataService.passData(zwKslwTemps, ZwKslwTemp.class, Catalog.kslw, guid);
             }
         } else {
-            logger.info("zw_kslw : 存储过程出错");
+            logger.error("zw_kslw : 存储过程出错");
         }
     }
 
@@ -256,11 +238,11 @@ public class DsrwTServiceImpl implements DsrwTService {
         Map <String, Object> map = new HashMap <>();
         map.put("updator", configEntity.getUpdator());
         map.put("aaa027", configEntity.getAaa027());
-        //ac43Mapper.ProZwAc43(map);
-        map.put("result","1");
+        ac43Mapper.ProZwAc43(map);  //不含390险种
+
         //判断存储过程执行结果
         if ("1".equals(map.get("result"))) {
-           // ac43Mapper.ProZwAc43390(map);
+            ac43Mapper.ProZwAc43390(map);  //获取390险种对应的存储过程
             if ("1".equals(map.get("result"))) {
                 int pageNo = 1;
                 String guid = getGuid();
@@ -298,10 +280,10 @@ public class DsrwTServiceImpl implements DsrwTService {
 //                    }
                 }
             }else{
-                logger.info("zw_ac43_390 : 存储过程出错");
+                logger.error("zw_ac43_390 : 存储过程出错");
             }
         } else {
-            logger.info("zw_ac43 : 存储过程出错");
+            logger.error("zw_ac43 : 存储过程出错");
         }
     }
 
@@ -338,24 +320,30 @@ public class DsrwTServiceImpl implements DsrwTService {
                 passDataService.passData(zwKc26Temps, ZwKc26Temp.class, Catalog.kc26, guid);
             }
         } else {
-            logger.info("zwKc26 : 存储过程出错");
+            logger.error("zwKc26 : 存储过程出错");
         }
     }
 
 
-
+//登入政务平台获取 guid进行数据传输
     public  String getGuid(){
        String guid = null;
-        try {
-            Client webService = WbClient.getWebService();
-            Object[] invoke = webService.invoke("LoginByAccount", "ybjybxx_hjpt","sdo@1108");
-            guid = invoke[0].toString();
-        } catch (Exception e) {
-            logger.error("zw_ac01 : 政务平台登入方法报错"+e.toString());
-        }
+
+       while(true){
+           try {
+               Client webService = WbClient.getWebService();
+               Object[] invoke = webService.invoke("LoginByAccount", "ybjybxx_hjpt","sdo@1108");
+               guid = invoke[0].toString();
+           } catch (Exception e) {
+               logger.error("zw_ac01 : 政务平台登入方法报错"+e.toString());
+               guid = "error";
+           }
+           if(!"error".equals(guid)){
+               break;
+           }
+       }
         return guid;
     }
-
 
 
  /*

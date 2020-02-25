@@ -95,9 +95,9 @@ public class Utils {
     //实现JavaMailSender，自定义邮件发送器
     public static JavaMailSenderImpl makeMail() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(DynamicScheduleTask.configEntity.getHost());
-        mailSender.setUsername(DynamicScheduleTask.configEntity.getMailSender());
-        mailSender.setPassword(DynamicScheduleTask.configEntity.getPwd());
+        mailSender.setHost(DynamicScheduleTask.configEntityOne.getHost());
+        mailSender.setUsername(DynamicScheduleTask.configEntityOne.getMailSender());
+        mailSender.setPassword(DynamicScheduleTask.configEntityOne.getPwd());
         mailSender.setDefaultEncoding("UTF-8");
         Properties p = new Properties();
         p.setProperty("mail.smtp.auth", "true");
@@ -110,8 +110,8 @@ public class Utils {
         MimeMessage mimeMessage = makeMail().createMimeMessage();
         try {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage, true);
-            messageHelper.setFrom(DynamicScheduleTask.configEntity.getMailSender(), "定时更新政务数据");
-            messageHelper.setTo(DynamicScheduleTask.configEntity.getMailReceiver());
+            messageHelper.setFrom(DynamicScheduleTask.configEntityOne.getMailSender(), "定时更新政务数据");
+            messageHelper.setTo(DynamicScheduleTask.configEntityOne.getMailReceiver());
             messageHelper.setSubject("政务跑批更新" + LocalDateTime.now());
             messageHelper.setText(errorMsg);
             makeMail().send(mimeMessage);

@@ -7,6 +7,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
 import com.ylzbrt.dstb.common.Catalog;
 import com.ylzbrt.dstb.entity.ConfigEntity;
 
+import com.ylzbrt.dstb.service.DsrwService;
 import com.ylzbrt.dstb.service.DsrwTService;
 import com.ylzbrt.dstb.service.IDsrwService;
 import com.ylzbrt.dstb.webservice.WbClient;
@@ -64,7 +65,7 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
     @Autowired
     private DsrwTService dsrwTService;
     @Autowired
-    private IDsrwService dsrwService;
+    private DsrwService dsrwService;
     public static List<ConfigEntity> configEntity;
     public static ConfigEntity configEntityOne;
     public static Client client;
@@ -92,20 +93,20 @@ public class DynamicScheduleTask implements SchedulingConfigurer {
 
 
 
-//                    String opt = Catalog.add;
-//                    //6-19
-//                    dsrwService.dealQslwFwwdb0(opt);
-//                    dsrwService.dealKb01(opt);
-//                    dsrwService.dealKa02(opt);
-//                    dsrwService.dealKa03(opt);
-//                    dsrwService.dealKa17Yp(opt);
-//                    dsrwService.dealKa17(opt);
-//                    dsrwService.dealKy65(opt);
-//                    dsrwService.dealMc01(opt);
-//                    dsrwService.dealMca1(opt);
-//                    dsrwService.dealMc03(opt);
-//                    dsrwService.dealMy56(opt);
-//                    dsrwService.dealKy70(opt);
+                    String opt = Catalog.add;
+                    //6-19
+                    dsrwService.dealQslwFwwdb0(opt);
+                    dsrwService.dealKb01(opt);
+                    dsrwService.dealKa02(opt);
+                    dsrwService.dealKa03(opt);
+                    dsrwService.dealKa17Yp(opt);
+                    dsrwService.dealKa17(opt);
+                    dsrwService.dealKy65(opt);
+                    dsrwService.dealMc01(opt);
+                    dsrwService.dealMca1(opt);
+                    dsrwService.dealMc03(opt);
+                    dsrwService.dealMy56(opt);
+                    dsrwService.dealKy70(opt);
 
                 },
                 triggerContext -> {

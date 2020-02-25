@@ -114,6 +114,7 @@ public class DsrwService implements IDsrwService{
      * 全省联网定点医疗机构和药店-QslwFwwdb0
      */
    @Async
+
 //    @Scheduled(fixedRate = Catalog.fixedRate)  //间隔200秒
     public void dealQslwFwwdb0(String option) {
 

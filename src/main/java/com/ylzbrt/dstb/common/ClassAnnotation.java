@@ -1,4 +1,4 @@
-package com.ylzbrt.dstb.util;
+package com.ylzbrt.dstb.common;
 
 import java.lang.annotation.*;
 
