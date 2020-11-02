@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ylzbrt.dstb.dao.ZwKa08TempMapper">
+<mapper namespace="com.ylzbrt.dstb.mapper.ZwKa08TempMapper">
   <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKa08Temp">
     <result column="AAA027" jdbcType="VARCHAR" property="aaa027" />
     <result column="AAC002" jdbcType="VARCHAR" property="aac002" />
@@ -129,5 +129,106 @@
     <include refid="Base_Column_List"></include>
     from zw_ka08  where aaa027 =  #{aaa027,jdbcType=VARCHAR}
   </select>
+
+
+  <insert id="insertLists" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into zw_kslw (AAA027, AAC003, AAC002, BAE033, AAE030, AAE031,AAA129, AKB021)
+    select a.* from (
+    <foreach collection="list" item="item" index="index" separator="union all">select
+      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
+      #{item.bae033,jdbcType=VARCHAR}, #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL},
+      #{item.aaa129,jdbcType=VARCHAR}, #{item.akb021,jdbcType=VARCHAR}
+      from dual
+    </foreach>
+    )a
+  </insert>
+
+
+  <select id="selectZwKa08ErrorData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from zw_ka08_error
+  </select>
+
+
+  <select id="selectZwKa08RightDataByPage" resultMap="BaseResultMap">
+  SELECT *
+  FROM (SELECT ROWNUM AS rowno, t.aaa027,t.aac002,t.aac003,t.aae030,t.aae031,t.bke043,to_char(t.aae035,'yyyy/MM/dd HH:mm:ss') aae035
+  FROM zw_ka08  t
+  where  t.aaa027 = ${aaa027} and  t.aae035 > ${aae035}  and ROWNUM <![CDATA[ <= ]]> ${end}) table_alias
+  WHERE table_alias.rowno > ${begin}
+  </select>
+
+
+  <!--错误数据批量插入-->
+  <insert id="insertErrorList" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into ZW_KA08_error (AAA027, AAC002, AAC003, AAE030, AAE031, BKE043, status,reason)
+    select a.* from (
+    <foreach collection="list" item="item" index="index" separator="union all">select
+      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR},
+      #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL}, #{item.bke043,jdbcType=VARCHAR},
+      '0', #{item.reason,jdbcType=VARCHAR}
+      from dual
+    </foreach>
+    )a
+  </insert>
+
+  <select id="selectZwKa08ErrorDataByPage" resultMap="BaseResultMap" parameterType="java.lang.Long">
+   select AAA027, AAC002, AAC003, AAE030, AAE031, BKE043, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_ka08_error where 1=1 order by aaa027 ,aac002 ,aac003, bke043
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <!--正常流程-->
+  <insert id="doProcedure" parameterType="java.util.Map" statementType="CALLABLE">
+    {call PRO_ZW_KA08_DATAS(
+    #{result, mode=OUT, jdbcType=VARCHAR}
+    )}
+  </insert>
+
+  <select id="selectZwKa08Insert" resultMap="BaseResultMap">
+    select AAA027, AAC002, AAC003, AAE030, AAE031, BKE043, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_ka08_temp where 1=1 and ywbz00='1' order by aaa027 ,aac002 ,aac003, bke043
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <select id="selectZwKa08Update" resultMap="BaseResultMap">
+    select AAA027, AAC002, AAC003, AAE030, AAE031, BKE043, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_ka08_temp where 1=1  and ywbz00='2' order by aaa027 ,aac002 ,aac003, bke043
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+  <select id="selectZwKa08Delete" resultMap="BaseResultMap">
+    select AAA027, AAC002, AAC003, AAE030, AAE031, BKE043, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_ka08_temp where 1=1 and ywbz00='3' order by aaa027 ,aac002 ,aac003, bke043
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <insert id="insertZwKa08" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into test_ZW_KA08 (AAA027, AAC002, AAC003, AAE030, AAE031, BKE043)
+    select a.* from (
+    <foreach collection="list" item="item" index="index" separator="union all">select
+      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR},
+      #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL}, #{item.bke043,jdbcType=VARCHAR}
+      from dual
+    </foreach>
+    )a
+  </insert>
+
 
 </mapper>

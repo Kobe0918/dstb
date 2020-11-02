@@ -1,108 +1,58 @@
 package com.ylzbrt.dstb.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.ylzbrt.dstb.annotion.ClassAnnotation;
+import com.ylzbrt.dstb.annotion.FieldsAnnotation;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
-import java.util.Date;
-import com.ylzbrt.dstb.common.ClassAnnotation;
-import com.ylzbrt.dstb.common.FieldsAnnotation;
 
 @ClassAnnotation(value="zw_kc01")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ZwKc01Temp {
+    //政务接口传输的字段对应标签
     @FieldsAnnotation(value = "统筹区编号")
+    //excel对应实体类模板 value为表头，index为excel中的排列位置（从0开始）
+    @ExcelProperty(value = "统筹区编号(必填)", index = 0)
     private String aaa027;
 
     @FieldsAnnotation(value = "证件号码")
+    @ExcelProperty(value = "证件号码(必填)", index = 1)
     private String aac002;
 
     @FieldsAnnotation(value = "姓名")
+    @ExcelProperty(value = "姓名(必填)", index = 2)
     private String aac003;
 
     @FieldsAnnotation(value = "社保卡号")
+    @ExcelProperty(value = "社保卡号", index = 5)
     private String aaz501;
 
     @FieldsAnnotation(value = "社保卡状态")
+    @ExcelProperty(value = "社保卡状态", index = 6)
     private String aaz502;
 
     @FieldsAnnotation(value = "个人账户余额")
+    @ExcelProperty(value = "个人账户余额", index = 7)
     private BigDecimal akc087;
 
     @FieldsAnnotation(value = "数据更新时间")
     private String aae035;
 
     @FieldsAnnotation(value = "所属区域")
+    @ExcelProperty(value = "所属区域", index = 3)
     private String ssqy00;
 
     @FieldsAnnotation(value = "所属县区")
+    @ExcelProperty(value = "所属县区", index = 4)
     private String ssxq00;
 
-    public String getAaa027() {
-        return aaa027;
-    }
 
-    public void setAaa027(String aaa027) {
-        this.aaa027 = aaa027 == null ? null : aaa027.trim();
-    }
+    @ExcelProperty(value = "问题描述（内部）", index = 10)
+    private String reason;
 
-    public String getAac002() {
-        return aac002;
-    }
-
-    public void setAac002(String aac002) {
-        this.aac002 = aac002 == null ? null : aac002.trim();
-    }
-
-    public String getAac003() {
-        return aac003;
-    }
-
-    public void setAac003(String aac003) {
-        this.aac003 = aac003 == null ? null : aac003.trim();
-    }
-
-    public String getAaz501() {
-        return aaz501;
-    }
-
-    public void setAaz501(String aaz501) {
-        this.aaz501 = aaz501 == null ? null : aaz501.trim();
-    }
-
-    public String getAaz502() {
-        return aaz502;
-    }
-
-    public void setAaz502(String aaz502) {
-        this.aaz502 = aaz502 == null ? null : aaz502.trim();
-    }
-
-    public BigDecimal getAkc087() {
-        return akc087;
-    }
-
-    public void setAkc087(BigDecimal akc087) {
-        this.akc087 = akc087;
-    }
-
-    public String getAae035() {
-        return aae035;
-    }
-
-    public void setAae035(String aae035) {
-        this.aae035 = aae035;
-    }
-
-    public String getSsqy00() {
-        return ssqy00;
-    }
-
-    public void setSsqy00(String ssqy00) {
-        this.ssqy00 = ssqy00 == null ? null : ssqy00.trim();
-    }
-
-    public String getSsxq00() {
-        return ssxq00;
-    }
-
-    public void setSsxq00(String ssxq00) {
-        this.ssxq00 = ssxq00 == null ? null : ssxq00.trim();
-    }
 }

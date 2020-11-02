@@ -1,110 +1,50 @@
 package com.ylzbrt.dstb.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.ylzbrt.dstb.annotion.ClassAnnotation;
+import com.ylzbrt.dstb.annotion.FieldsAnnotation;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
-import java.util.Date;
-import com.ylzbrt.dstb.common.ClassAnnotation;
-import com.ylzbrt.dstb.common.FieldsAnnotation;
 
 @ClassAnnotation(value="zw_kc99")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ZwKc99Temp {
+    //政务接口传输的字段对应标签
     @FieldsAnnotation(value = "统筹区编号")
+    //excel对应实体类模板 value为表头，index为excel中的排列位置（从0开始）
+    @ExcelProperty(value = "统筹区编号(必填)", index = 0)
     private String aaa027;
     @FieldsAnnotation(value = "身份证号")
+    @ExcelProperty(value = "身份证号(必填)", index = 2)
     private String aac002;
     @FieldsAnnotation(value = "姓名")
+    @ExcelProperty(value = "姓名(必填)", index = 1)
     private String aac003;
     @FieldsAnnotation(value = "地区")
+    @ExcelProperty(value = "地区", index = 3)
     private String aaa129;
     @FieldsAnnotation(value = "险种类型")
+    @ExcelProperty(value = "险种类型", index = 4)
     private String aae140;
     @FieldsAnnotation(value = "参保日期")
+    @ExcelProperty(value = "参保日期", index = 5)
     private Integer aab050;
     @FieldsAnnotation(value = "单位名称")
+    @ExcelProperty(value = "单位名称", index = 7)
     private String aab004;
     @FieldsAnnotation(value = "数据更新时间")
     private String aae035;
     @FieldsAnnotation(value = "工作状态")
+    @ExcelProperty(value = "工作状态", index = 8)
     private String aac066;
     @FieldsAnnotation(value = "年度缴费基数")
+    @ExcelProperty(value = "年度缴费基数", index = 6)
     private BigDecimal ndjfjs;
-
-    public String getAaa027() {
-        return aaa027;
-    }
-
-    public void setAaa027(String aaa027) {
-        this.aaa027 = aaa027 == null ? null : aaa027.trim();
-    }
-
-    public String getAac002() {
-        return aac002;
-    }
-
-    public void setAac002(String aac002) {
-        this.aac002 = aac002 == null ? null : aac002.trim();
-    }
-
-    public String getAac003() {
-        return aac003;
-    }
-
-    public void setAac003(String aac003) {
-        this.aac003 = aac003 == null ? null : aac003.trim();
-    }
-
-    public String getAaa129() {
-        return aaa129;
-    }
-
-    public void setAaa129(String aaa129) {
-        this.aaa129 = aaa129 == null ? null : aaa129.trim();
-    }
-
-    public String getAae140() {
-        return aae140;
-    }
-
-    public void setAae140(String aae140) {
-        this.aae140 = aae140 == null ? null : aae140.trim();
-    }
-
-    public Integer getAab050() {
-        return aab050;
-    }
-
-    public void setAab050(Integer aab050) {
-        this.aab050 = aab050;
-    }
-
-    public String getAab004() {
-        return aab004;
-    }
-
-    public void setAab004(String aab004) {
-        this.aab004 = aab004 == null ? null : aab004.trim();
-    }
-
-    public String getAae035() {
-        return aae035;
-    }
-
-    public void setAae035(String aae035) {
-        this.aae035 = aae035;
-    }
-
-    public String getAac066() {
-        return aac066;
-    }
-
-    public void setAac066(String aac066) {
-        this.aac066 = aac066 == null ? null : aac066.trim();
-    }
-
-    public BigDecimal getNdjfjs() {
-        return ndjfjs;
-    }
-
-    public void setNdjfjs(BigDecimal ndjfjs) {
-        this.ndjfjs = ndjfjs;
-    }
+    @ExcelProperty(value = "问题描述（内部）", index = 11)
+    private String reason;
 }

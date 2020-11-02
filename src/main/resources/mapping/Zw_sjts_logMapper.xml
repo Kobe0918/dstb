@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylzbrt.dstb.mapper.Zw_sjts_logMapper">
+    <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.Zw_sjts_log">
+        <id column="LOGID" jdbcType="VARCHAR" property="logid"/>
+        <result column="CATALOG" jdbcType="VARCHAR" property="catalog"/>
+        <result column="RESULTS" jdbcType="VARCHAR" property="results"/>
+        <result column="SUCCESS" jdbcType="VARCHAR" property="success"/>
+        <result column="RESUBMIT" jdbcType="VARCHAR" property="resubmit"/>
+        <result column="IN_DATE" jdbcType="TIMESTAMP" property="inDate"/>
+        <result column="RESUB_DATE" jdbcType="TIMESTAMP" property="resubDate"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ylzbrt.dstb.entity.Zw_sjts_log">
+        <result column="SOAPINXML" jdbcType="CLOB" property="soapinxml"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    LOGID, CATALOG, RESULTS, SUCCESS, RESUBMIT, IN_DATE, RESUB_DATE
+  </sql>
+    <sql id="Blob_Column_List">
+    SOAPINXML
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from ZW_SJTS_LOG
+        where LOGID = #{logid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ZW_SJTS_LOG
+    where LOGID = #{logid,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.ylzbrt.dstb.entity.Zw_sjts_log">
+    insert into ZW_SJTS_LOG (LOGID, CATALOG, RESULTS, 
+      SUCCESS, RESUBMIT, IN_DATE, 
+      SOAPINXML)
+    values (#{logid,jdbcType=VARCHAR}, #{catalog,jdbcType=VARCHAR}, #{results,jdbcType=VARCHAR}, 
+      #{success,jdbcType=VARCHAR}, '0', sysdate,
+      #{soapinxml,jdbcType=CLOB})
+  </insert>
+    <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.Zw_sjts_log">
+        insert into ZW_SJTS_LOG
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="logid != null">
+                LOGID,
+            </if>
+            <if test="catalog != null">
+                CATALOG,
+            </if>
+            <if test="results != null">
+                RESULTS,
+            </if>
+            <if test="success != null">
+                SUCCESS,
+            </if>
+            <if test="resubmit != null">
+                RESUBMIT,
+            </if>
+            <if test="inDate != null">
+                IN_DATE,
+            </if>
+            <if test="resubDate != null">
+                RESUB_DATE,
+            </if>
+            <if test="soapinxml != null">
+                SOAPINXML,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="logid != null">
+                #{logid,jdbcType=VARCHAR},
+            </if>
+            <if test="catalog != null">
+                #{catalog,jdbcType=VARCHAR},
+            </if>
+            <if test="results != null">
+                #{results,jdbcType=VARCHAR},
+            </if>
+            <if test="success != null">
+                #{success,jdbcType=VARCHAR},
+            </if>
+            <if test="resubmit != null">
+                #{resubmit,jdbcType=VARCHAR},
+            </if>
+            <if test="inDate != null">
+                #{inDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="resubDate != null">
+                #{resubDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="soapinxml != null">
+                #{soapinxml,jdbcType=CLOB},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ylzbrt.dstb.entity.Zw_sjts_log">
+        update ZW_SJTS_LOG
+        <set>
+            <if test="catalog != null">
+                CATALOG = #{catalog,jdbcType=VARCHAR},
+            </if>
+            <if test="results != null">
+                RESULTS = #{results,jdbcType=VARCHAR},
+            </if>
+            <if test="success != null">
+                SUCCESS = #{success,jdbcType=VARCHAR},
+            </if>
+            <if test="resubmit != null">
+                RESUBMIT = #{resubmit,jdbcType=VARCHAR},
+            </if>
+            <if test="inDate != null">
+                IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="resubDate != null">
+                RESUB_DATE = #{resubDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="soapinxml != null">
+                SOAPINXML = #{soapinxml,jdbcType=CLOB},
+            </if>
+        </set>
+        where LOGID = #{logid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ylzbrt.dstb.entity.Zw_sjts_log">
+    update ZW_SJTS_LOG
+    set CATALOG = #{catalog,jdbcType=VARCHAR},
+      RESULTS = #{results,jdbcType=VARCHAR},
+      SUCCESS = #{success,jdbcType=VARCHAR},
+      RESUBMIT = #{resubmit,jdbcType=VARCHAR},
+      IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      RESUB_DATE = #{resubDate,jdbcType=TIMESTAMP},
+      SOAPINXML = #{soapinxml,jdbcType=CLOB}
+    where LOGID = #{logid,jdbcType=VARCHAR}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.ylzbrt.dstb.entity.Zw_sjts_log">
+    update ZW_SJTS_LOG
+    set CATALOG = #{catalog,jdbcType=VARCHAR},
+      RESULTS = #{results,jdbcType=VARCHAR},
+      SUCCESS = #{success,jdbcType=VARCHAR},
+      RESUBMIT = #{resubmit,jdbcType=VARCHAR},
+      IN_DATE = #{inDate,jdbcType=TIMESTAMP},
+      RESUB_DATE = #{resubDate,jdbcType=TIMESTAMP}
+    where LOGID = #{logid,jdbcType=VARCHAR}
+  </update>
+
+
+    <select id="selectZwSjtsLogDataByPageBeforeTime" resultMap="ResultMapWithBLOBs">
+  SELECT *
+  FROM (SELECT ROWNUM AS rowno, t.logid,t.catalog,t.soapinxml,t.results,t.RESUBMIT
+  FROM ZW_SJTS_LOG  t
+  where  to_number(to_char(in_date,'yyyymmdd')) <![CDATA[ <= ]]> ${upTime} AND ROWNUM <![CDATA[ <= ]]> ${end}) table_alias
+  WHERE table_alias.rowno > ${begin}
+  </select>
+
+    <select id="selectZwSjtsLogDataByPageAfterTime" resultMap="ResultMapWithBLOBs">
+  SELECT *
+  FROM (SELECT ROWNUM AS rowno, t.logid,t.catalog,t.soapinxml,t.results,t.RESUBMIT
+  FROM ZW_SJTS_LOG  t
+  where  to_number(to_char(in_date,'yyyymmdd')) <![CDATA[ = ]]> ${upTime} AND ROWNUM <![CDATA[ <= ]]> ${end}) table_alias
+  WHERE table_alias.rowno > ${begin}
+  </select>
+
+
+    <select id="selectCount" resultType="java.lang.Integer">
+  select count(*) from zw_sjts_log
+  where 1=1
+  and  (in_date  between to_date(#{beginTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss') and to_date(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss'))
+  and catalog = #{catalog}
+</select>
+
+    <select id="selectByTime" resultMap="ResultMapWithBLOBs">
+  select * from (
+  select rownum as rowno,a.* from (
+  select logid,catalog,soapinxml,results from zw_sjts_log where 1=1
+  and  (in_date  between to_date(#{beginTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss') and to_date(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss'))
+  and  catalog = #{catalog} order by logid,in_date
+  )a where rownum &lt;= #{end}
+  )b where b.rowno > #{begin}
+</select>
+
+
+</mapper>

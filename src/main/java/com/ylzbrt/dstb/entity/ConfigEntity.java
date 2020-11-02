@@ -1,5 +1,7 @@
 package com.ylzbrt.dstb.entity;
 
+import java.util.Date;
+
 /**
  * @BelongsProject: dstb
  * @BelongsPackage: com.ylzbrt.dstb.entity
@@ -17,6 +19,7 @@ public class ConfigEntity {
     private String title;           //邮件标题
     private String zw_account;   //政务webservice账号
     private String zw_pwd;        //政务webservice密码
+    private Date lastPassTime;
 
     public String getZw_account() {
         return zw_account;
@@ -90,5 +93,13 @@ public class ConfigEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setLastPassTime(Date lastPassTime) {
+        this.lastPassTime = lastPassTime;
+    }
+
+    public Date getLastPassTime() {
+        return lastPassTime;
     }
 }

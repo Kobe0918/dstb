@@ -1,6 +1,33 @@
 package com.ylzbrt.dstb.service;
 
 public interface IDsrwService {
+
+    void dealQslwFwwdb0(String option);
+
+    void dealKb01(String option);
+
+    void dealKa02(String option);
+
+    void dealKa03(String option);
+
+    void dealKa17Yp(String option);
+
+    void dealKa17(String option);
+
+    void dealKy65(String option);
+
+    void dealMc01(String option);
+
+    void dealMca1(String option);
+
+    void dealMc03(String option);
+
+    void dealMy56(String option);
+
+    void dealKy70(String option);
+
+
+
     /**  定点医疗机构和药店
      *  数据传输
      * @param option

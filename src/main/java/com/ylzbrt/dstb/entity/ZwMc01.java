@@ -1,8 +1,6 @@
 package com.ylzbrt.dstb.entity;
 
-import com.ylzbrt.dstb.common.Name;
-
-import java.util.Date;
+import com.ylzbrt.dstb.annotion.Name;
 
 public class ZwMc01 {
     @Name("统筹区编号")

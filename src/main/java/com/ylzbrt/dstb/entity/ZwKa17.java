@@ -1,6 +1,6 @@
 package com.ylzbrt.dstb.entity;
 
-import com.ylzbrt.dstb.common.Name;
+import com.ylzbrt.dstb.annotion.Name;
 
 public class ZwKa17 {
     @Name("病种名称")

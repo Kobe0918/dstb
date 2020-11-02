@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ylzbrt.dstb.dao.ZwAc01Mapper">
+<mapper namespace="com.ylzbrt.dstb.mapper.ZwAc01Mapper">
   <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwAc01">
     <result column="AAC003" jdbcType="VARCHAR" property="aac003" />
     <result column="AAC058" jdbcType="VARCHAR" property="aac058" />
@@ -169,8 +169,7 @@
     </trim>
   </insert>
 
-
-
+  <!--20200231 代码执行存储过程（一周一次）-->
   <insert id="ProZwAc01" parameterType="java.util.Map" statementType="CALLABLE">
     {call PRO_ZW_AC01_DATAS(
     #{updator,mode=IN, jdbcType=VARCHAR},
@@ -179,9 +178,120 @@
     )}
   </insert>
 
+  <!--获取推送政务平台的数据-->
   <select id="selectZwAC01" resultMap="BaseResultMap" parameterType="java.lang.String">
     select
     <include refid="Base_Column_List"></include>
     from zw_ac01 where aaa027 =  #{aaa027,jdbcType=VARCHAR}
   </select>
+
+
+  <select id="selectZwAC01RightDataByPage" resultMap="BaseResultMap">
+  SELECT *
+  FROM (SELECT ROWNUM AS rowno, t.aac003, t.aac058, t.aac002,t.aac004, t.aac005, t.aac006, t.aae005, t.aae006, t.aae007, t.aaa027, t.yae512,t.acb501, t.aae013,to_char(t.aae035,'yyyy/MM/dd HH:mm:ss') aae035
+  FROM zw_ac01  t
+  where  t.aaa027 = ${aaa027} and  t.aae035 > ${aae035} and ROWNUM <![CDATA[ <= ]]> ${end}) table_alias
+  WHERE table_alias.rowno > ${begin}
+  </select>
+
+
+  <!--获取错误数据-->
+  <select id="selectZwAC01ErrorData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from zw_ac01_error
+  </select>
+
+
+  <!--错误数据批量插入-->
+  <insert id="insertErrorList" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into ZW_ac01_error (AAC003, AAC058, AAC002,AAC004, AAC005, AAC006, AAE005, AAE006, AAE007, AAA027,
+    YAE512,ACB501, AAE013, status, reason)
+    select a.* from (
+    <foreach collection="list" item="item" index="index" separator="union all">select
+      #{item.aac003,jdbcType=VARCHAR}, #{item.aac058,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
+      #{item.aac004,jdbcType=VARCHAR}, #{item.aac005,jdbcType=VARCHAR}, #{item.aac006,jdbcType=DECIMAL},
+      #{item.aae005,jdbcType=VARCHAR}, #{item.aae006,jdbcType=VARCHAR}, #{item.aae007,jdbcType=VARCHAR},
+      #{item.aaa027,jdbcType=VARCHAR},
+      #{item.yae512,jdbcType=VARCHAR}, #{item.acb501,jdbcType=VARCHAR}, #{item.aae013,jdbcType=VARCHAR},
+      '0', #{item.reason,jdbcType=VARCHAR}
+      from dual
+    </foreach>
+    )a
+  </insert>
+  <select id="selectZwAC01ErrorDataByPage" resultMap="BaseResultMap" parameterType="java.lang.Long">
+   select
+    AAC003, AAC058, AAC002, AAC004, AAC005, AAC006, AAE005, AAE006, AAE007, AAA027, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, --修改
+    YAE512, ACB501, AAE013
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_ac01_error where 1=1   order by aac002,aac003,aaa027
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <!--正常流程-->
+  <insert id="doProcedure" parameterType="java.util.Map" statementType="CALLABLE">
+    {call PRO_ZW_AC01_DATAS(
+    #{result, mode=OUT, jdbcType=VARCHAR}
+    )}
+  </insert>
+
+
+  <select id="selectZwAc01TempInsert" resultMap="BaseResultMap">
+    select
+    AAC003, AAC058, AAC002, AAC004, AAC005, AAC006, AAE005, AAE006, AAE007, AAA027, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, --修改
+    YAE512, ACB501, AAE013
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_ac01_temp where 1=1  and ywbz00='1' order by aac002,aac003,aaa027
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <select id="selectZwAc01TempUpdate" resultMap="BaseResultMap">
+    select
+    AAC003, AAC058, AAC002, AAC004, AAC005, AAC006, AAE005, AAE006, AAE007, AAA027, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, --修改
+    YAE512, ACB501, AAE013
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_ac01_temp where 1=1  and ywbz00='2' order by aac002,aac003,aaa027
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <select id="selectZwAc01TempDelete" resultMap="BaseResultMap">
+    select
+    AAC003, AAC058, AAC002, AAC004, AAC005, AAC006, AAE005, AAE006, AAE007, AAA027, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, --修改
+    YAE512, ACB501, AAE013
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_ac01_temp where 1=1  and  ywbz00='3' order by aac002,aac003,aaa027
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <insert id="insertZwAc01" parameterType="java.util.List">
+    insert into test_zw_ac01 (AAC003, AAC058, AAC002,
+    AAC004, AAC005, AAC006,
+    AAE005, AAE006, AAE007,
+    AAA027, YAE512,
+    ACB501, AAE013)
+    select a.* from (
+    <foreach collection="list" item="item" index="index" separator="union all">select
+      #{item.aac003,jdbcType=VARCHAR}, #{item.aac058,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
+      #{item.aac004,jdbcType=VARCHAR}, #{item.aac005,jdbcType=VARCHAR}, #{item.aac006,jdbcType=DECIMAL},
+      #{item.aae005,jdbcType=VARCHAR}, #{item.aae006,jdbcType=VARCHAR}, #{item.aae007,jdbcType=VARCHAR},
+      #{item.aaa027,jdbcType=VARCHAR},
+      #{item.yae512,jdbcType=VARCHAR}, #{item.acb501,jdbcType=VARCHAR}, #{item.aae013,jdbcType=VARCHAR}
+      from dual
+    </foreach>
+    )a
+  </insert>
+
+
 </mapper>

@@ -1,6 +1,6 @@
 package com.ylzbrt.dstb.entity;
 
-import com.ylzbrt.dstb.common.Name;
+import com.ylzbrt.dstb.annotion.Name;
 
 public class ZwQslwFwwdb0 {
     @Name("网点编号")

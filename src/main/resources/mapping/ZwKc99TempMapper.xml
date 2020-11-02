@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ylzbrt.dstb.dao.ZwKc99TempMapper">
+<mapper namespace="com.ylzbrt.dstb.mapper.ZwKc99TempMapper">
   <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKc99Temp">
     <result column="AAA027" jdbcType="VARCHAR" property="aaa027" />
     <result column="AAC002" jdbcType="VARCHAR" property="aac002" />
@@ -153,4 +153,98 @@
     <include refid="Base_Column_List"></include>
     from zw_kc99  where aaa027 =  #{aaa027,jdbcType=VARCHAR}
   </select>
+
+
+  <select id="selectZwKc99ErrorData" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from zw_kc99_error
+  </select>
+
+
+  <!--错误数据批量插入-->
+  <insert id="insertErrorList" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into zw_kc99_error (AAA027, AAC003, AAC002, AAA129, AAE140, AAB050,AAB004, AAC066, NDJFJS, status, reason)
+    select a.* from (
+    <foreach collection="list" item="item" index="index" separator="union all">select
+      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
+      #{item.aaa129,jdbcType=VARCHAR}, #{item.aae140,jdbcType=VARCHAR}, #{item.aab050,jdbcType=DECIMAL},
+      #{item.aab004,jdbcType=VARCHAR}, #{item.aac066,jdbcType=VARCHAR}, #{item.ndjfjs,jdbcType=DECIMAL},
+      '0', #{item.reason,jdbcType=VARCHAR}
+      from dual
+    </foreach>
+    )a
+  </insert>
+
+  <select id="selectZwKc99ErrorDataByPage" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select
+    AAA027, AAC002, AAC003, AAA129, AAE140, AAB050, AAB004,to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, AAC066, NDJFJS
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_kc99_error where 1=1  order by aaa027,aac002,aac003,aae140
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <!--正常流程-->
+  <insert id="doProcedure" parameterType="java.util.Map" statementType="CALLABLE">
+    {call PRO_ZW_KC99_DATAS(
+    #{result, mode=OUT, jdbcType=VARCHAR}
+    )}
+  </insert>
+
+
+  <select id="selectZwKc99TempInsert" resultMap="BaseResultMap">
+    select
+    AAA027, AAC002, AAC003, AAA129, AAE140, AAB050, AAB004,to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, AAC066, NDJFJS
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_kc99_temp where 1=1 and ywbz00='1' order by aaa027,aac002,aac003,aae140
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+  <select id="selectZwKc99TempUpdate" resultMap="BaseResultMap">
+    select
+    AAA027, AAC002, AAC003, AAA129, AAE140, AAB050, AAB004,to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, AAC066, NDJFJS
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_kc99_temp where 1=1 and ywbz00='2' order by aaa027,aac002,aac003,aae140
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+  <select id="selectZwKc99TempDelete" resultMap="BaseResultMap">
+    select
+    AAA027, AAC002, AAC003, AAA129, AAE140, AAB050, AAB004,to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, AAC066, NDJFJS
+    from (
+    select rownum as rowno ,a.* from (
+    select /*+parallel(20)+*/ * from zw_kc99_temp where 1=1 and ywbz00='3' order by aaa027,aac002,aac003,aae140
+    )a  where rownum &lt;= #{end} ) T
+    where T.rowno > #{begin}
+  </select>
+
+
+  <select id="selectCountPassToZw" resultType="int">
+    select count(*) from zw_kc99
+     where    1=1   and aaa027 = #{aaa027}
+       and  (aae035 between to_date(#{beginTime},'yyyy-MM-dd hh24:mi:ss') and  to_date(#{endTime},'yyyy-MM-dd hh24:mi:ss'))
+  </select>
+
+
+  <insert id="insertZwKc99" parameterType="java.util.List">
+    insert into test_zw_kc99 (AAA027, AAC002, AAC003,
+    AAA129, AAE140, AAB050,
+    AAB004, AAC066,
+    NDJFJS)
+    select a.* from (
+    <foreach collection="list" item="item" index="index" separator="union all">select
+      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR},
+      #{item.aaa129,jdbcType=VARCHAR}, #{item.aae140,jdbcType=VARCHAR}, #{item.aab050,jdbcType=DECIMAL},
+      #{item.aab004,jdbcType=VARCHAR}, #{item.aac066,jdbcType=VARCHAR}, #{item.ndjfjs,jdbcType=DECIMAL}
+      from dual
+    </foreach>
+    )a
+  </insert>
 </mapper>

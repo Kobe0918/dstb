@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ylzbrt.dstb.dao.ZwKb01Mapper">
+<mapper namespace="com.ylzbrt.dstb.mapper.ZwKb01Mapper">
   <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKb01">
     <result column="SSQY00" jdbcType="VARCHAR" property="ssqy00" />
     <result column="AKB020" jdbcType="VARCHAR" property="akb020" />
