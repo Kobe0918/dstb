@@ -16,7 +16,7 @@ import java.util.List;
 @SpringBootTest
 //@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class DstbApplicationTests {
-//    @Resource
+    //    @Resource
 //    private Ky60Mapper ky60Mapper;
     @Test
     public void contextLoads() throws Exception {
@@ -40,6 +40,7 @@ public class DstbApplicationTests {
     public ZwKslwTempMapper mapper;
     @Autowired
     public IDstbService IDstbService;
+
     @Test
     public void test2() {
         int count = mapper.selectCountAkb021IsNotNull("350500");

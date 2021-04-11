@@ -12,10 +12,10 @@ import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
  * @Modified By:
  */
 
-public  class WbClient {
+public class WbClient {
 
 
-    public static Client getWebService(){
+    public static Client getWebService() {
 
         //16.37  06f3f2a4-5c7a-4b1a-9df7-a03f30c75fb6
         //17.07  e9497ef9-17ef-4c02-8585-fdc39ba181ae
@@ -36,8 +36,6 @@ public  class WbClient {
         Object[] guidObjects = client.invoke("LoginByAccount", new Object[]{"ybjybxx_hjpt", "sdo@1108"});
         System.out.println(guidObjects[0].toString());
     }
-
-
 
 
 }

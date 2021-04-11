@@ -1,8 +1,9 @@
 package com.ylzbrt.dstb.controller;
 
+
 import com.alibaba.excel.util.StringUtils;
+import com.ylzbrt.dstb.common.Catalog;
 import com.ylzbrt.dstb.entity.ZwDynamicConfigEntity;
-import com.ylzbrt.dstb.service.IDstbService2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,87 +20,103 @@ import java.util.concurrent.ScheduledFuture;
 
 @Configuration
 public class DynamicScheduleTask2 implements SchedulingConfigurer {
-    public Logger logger = LoggerFactory.getLogger(getClass());
+
+    public Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private volatile ScheduledTaskRegistrar registrar;
-
-    private final ConcurrentHashMap<String, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<>();
-
-    private final ConcurrentHashMap<String, CronTask> cronTasks = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<String, ScheduledFuture<?>>();
+    private final ConcurrentHashMap<String, CronTask> cronTasks = new ConcurrentHashMap<String, CronTask>();
 
     @Autowired
-    private IDstbService2 IDstbService;
+    private com.ylzbrt.dstb.service.IDstbService2 IDstbService;
 
+    @Override
     public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
         scheduledTaskRegistrar.setScheduler(Executors.newScheduledThreadPool(20));
         this.registrar = scheduledTaskRegistrar;
     }
 
     public void refreshTask(List<ZwDynamicConfigEntity> tasks) {
-        Set<String> tids = this.scheduledFutures.keySet();
+        //取消已经删除的策略任务
+        Set<String> tids = scheduledFutures.keySet();
         for (String tid : tids) {
-            if (!exists(tasks, tid))
-                ((ScheduledFuture) this.scheduledFutures.get(tid)).cancel(false);
+            if (!exists(tasks, tid)) {
+                scheduledFutures.get(tid).cancel(false);
+            }
         }
         for (ZwDynamicConfigEntity task : tasks) {
+            //cron表达式
             String expression = task.getCronExpression();
-            final String tid = task.getTid();
-            if (StringUtils.isEmpty(task))
+            String tid = task.getTid();
+            //表达式为空，跳过
+            if (StringUtils.isEmpty(task)) {
                 continue;
-            if (this.scheduledFutures.containsKey(tid) && ((CronTask) this.cronTasks.get(tid)).getExpression().equals(expression))
-                continue;
-            if (this.scheduledFutures.containsKey(tid)) {
-                ((ScheduledFuture) this.scheduledFutures.get(tid)).cancel(false);
-                this.scheduledFutures.remove(tid);
-                this.cronTasks.remove(tid);
             }
+            //计划任务已存在并且表达式未发生变化则跳过
+            if (scheduledFutures.containsKey(tid) && cronTasks.get(tid).getExpression().equals(expression)) {
+                continue;
+            }
+            //如果策略执行时间发生了变化，则取消当前策略的任务
+            if (scheduledFutures.containsKey(tid)) {
+                scheduledFutures.get(tid).cancel(false);
+                scheduledFutures.remove(tid);
+                cronTasks.remove(tid);
+            }
+
             CronTask cronTask = new CronTask(new Runnable() {
+                @Override
                 public void run() {
+                    //每个计划任务实际需要执行的具体业务逻辑
                     switch (tid) {
                         case "WEB2382_390":
-                            DynamicScheduleTask2.this.IDstbService.zwAc43390IncrementData();
+                            IDstbService.zwAc43390IncrementData();
                             break;
-                        case "WEB2382":
-                            DynamicScheduleTask2.this.IDstbService.zwAc43IncrementData();
+                        case Catalog.ac43:
+                            IDstbService.zwAc43IncrementData();
                             break;
-                        case "WEB2385":
-                            DynamicScheduleTask2.this.IDstbService.zwKc26IncrementData();
+                        case Catalog.kc26:
+                            IDstbService.zwKc26IncrementData();
                             break;
-                        case "WEB2388":
-                            DynamicScheduleTask2.this.IDstbService.zwKc01IncrementData();
+                        case Catalog.kc01:
+                            IDstbService.zwKc01IncrementData();
                             break;
-                        case "WEB2389":
-                            DynamicScheduleTask2.this.IDstbService.zwKc99IncrementData();
+                        case Catalog.kc99:
+                            IDstbService.zwKc99IncrementData();
                             break;
-                        case "WEB2390":
-                            DynamicScheduleTask2.this.IDstbService.zwAc01IncrementData();
+                        case Catalog.ac01:
+                            IDstbService.zwAc01IncrementData();
                             break;
-                        case "WEB2384":
-                            DynamicScheduleTask2.this.IDstbService.zwKslwIncrementData();
+                        case Catalog.kslw:
+                            IDstbService.zwKslwIncrementData();
                             break;
-                        case "WEB2387":
-                            DynamicScheduleTask2.this.IDstbService.zwKa08IncrementData();
+                        case Catalog.ka08:
+                            IDstbService.zwKa08IncrementData();
                             break;
-                        case "WEB6064":
-                            DynamicScheduleTask2.this.IDstbService.zwTrrymxYdIncrementData();
+                        case Catalog.temp_trrymx_yd_zw:
+                            IDstbService.zwTrrymxYdIncrementData();
                             break;
                         case "ERRORDATA":
-                            DynamicScheduleTask2.this.IDstbService.zwSjtsLog();
+                            IDstbService.zwSjtsLog();
+                            break;
+                        default:
+                            ;
                             break;
                     }
                 }
             }, expression);
-            ScheduledFuture<?> future = this.registrar.getScheduler().schedule(cronTask.getRunnable(), cronTask.getTrigger());
-            this.cronTasks.put(tid, cronTask);
-            this.scheduledFutures.put(task.getTid(), future);
+            ScheduledFuture<?> future = registrar.getScheduler().schedule(cronTask.getRunnable(), cronTask.getTrigger());
+            cronTasks.put(tid, cronTask);
+            scheduledFutures.put(task.getTid(), future);
         }
     }
 
     private boolean exists(List<ZwDynamicConfigEntity> tasks, String tid) {
         for (ZwDynamicConfigEntity s : tasks) {
-            if (tid.equals(s.getTid()))
+            if (tid.equals(s.getTid())) {
                 return true;
+            }
         }
         return false;
     }
+
 }

@@ -37,7 +37,7 @@ public interface ZwAc43TempMapper {
     //begin   excel错误数据处理
     void insertErrorList(@Param("list") List<ZwAc43Temp> list);
 
-    @Select(value = "select count(*) from zw_ac43_error")
+    @Select(value = "select count(*) from zw_ac43_error where  status = '0'")
     Long selectCount();
 
     List<ZwAc43Temp> selectZwAc43ErrorDataByPage(@Param("begin") long begin, @Param("end") long end);

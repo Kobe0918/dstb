@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@ClassAnnotation(value="zw_kc01")
+@ClassAnnotation(value = "zw_kc01")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

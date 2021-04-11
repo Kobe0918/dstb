@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -141,7 +142,6 @@ public class Utils {
             e.printStackTrace();
         }
     }
-
 
 
     //实现JavaMailSender，自定义邮件发送器
@@ -325,5 +325,42 @@ public class Utils {
 
 */
 
+    public static String[] getKc26DateArray() throws ParseException {
 
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date1 = format.parse("2020-12-06");
+        Date date2 = format.parse("2020-11-01");
+        int a = (int) ((date1.getTime() - date2.getTime()) / (1000 * 3600 * 24));
+        System.out.println(a);
+        String[] times = new String[a];
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar c = Calendar.getInstance();
+        c.setTime(simpleDateFormat.parse("2020-10-31 18:00:00"));
+        for (int i = 0; i < a; i++) {
+            c.add(Calendar.DATE, +1);
+            Date time = c.getTime();
+            times[i] = simpleDateFormat.format(time);
+            System.out.println(simpleDateFormat.format(time));
+        }
+
+        return times;
+    }
+
+    public static void main(String[] args) {
+        try {
+            String[] times = getKc26DateArray();
+            int count = times.length;
+            for (int i = 0; i < count; i++) {
+                if (count == i + 1) {
+                    break;
+                } else {
+                    System.out.println(times[i]);
+                    System.out.println(times[i + 1]);
+                    System.out.println("-------------------------------");
+                }
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }

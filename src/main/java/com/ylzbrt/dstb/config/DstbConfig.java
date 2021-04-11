@@ -46,6 +46,8 @@ public class DstbConfig {
         executor.setKeepAliveSeconds(60);
         // rejection-policy：当pool已经达到max size的时候，如何处理新任务
         // CALLER_RUNS：不在新线程中执行任务，而是有调用者所在的线程来执行
+        //既不抛弃任务也不抛出异常，直接运行任务的run方法，换言之将任务回退给调用者来直接运行。使用该策略时线程池饱和后将由调用线程池的主线程自己来执行任务，
+        //因此在执行任务的这段时间里主线程无法再提交新任务，从而使线程池中工作线程有时间将正在处理的任务处理完成。
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         //执行初始化
         executor.initialize();

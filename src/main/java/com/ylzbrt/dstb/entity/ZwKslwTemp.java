@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@ClassAnnotation(value="zw_kslw")
+@ClassAnnotation(value = "zw_kslw")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,7 +41,6 @@ public class ZwKslwTemp {
     private String akb021;
     @ExcelProperty(value = "问题描述（内部）", index = 9)
     private String reason;
-
 
 
 }

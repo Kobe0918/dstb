@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@ClassAnnotation(value="zw_ka08")
+@ClassAnnotation(value = "zw_ka08")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

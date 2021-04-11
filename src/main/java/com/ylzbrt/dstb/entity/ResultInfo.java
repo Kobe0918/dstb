@@ -7,9 +7,9 @@ package com.ylzbrt.dstb.entity;
  * @Modified By:
  */
 public class ResultInfo {
-    private String code ;
-    private String msg  ;
-    private String date ;
+    private String code;
+    private String msg;
+    private String date;
 
     public ResultInfo(String code, String msg, String date) {
         this.code = code;

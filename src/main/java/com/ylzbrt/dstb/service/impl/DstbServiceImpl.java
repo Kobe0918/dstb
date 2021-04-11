@@ -603,12 +603,12 @@ public class DstbServiceImpl implements IDstbService {
                                 case "ZwAc01":
                                     InsertConsumer.insertData(list, ac01Mapper::insertErrorList);
                                     break;
-//                                case "ZwAc43":
-//                                    InsertConsumer.insertData(list, ac43Mapper::insertErrorList);
-//                                    break;
-//                                case "ZwKc26":
-//                                    InsertConsumer.insertData(list, kc26Mapper::insertErrorList);
-//                                    break;
+                                case "ZwAc43":
+                                    InsertConsumer.insertData(list, ac43Mapper::insertErrorList);
+                                    break;
+                                case "ZwKc26":
+                                    InsertConsumer.insertData(list, kc26Mapper::insertErrorList);
+                                    break;
                                 case "ZwKc99":
                                     InsertConsumer.insertData(list, kc99Mapper::insertErrorList);
                                     break;

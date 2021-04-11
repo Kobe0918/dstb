@@ -15,6 +15,7 @@ public class Timer {
         this.tableName = tableName;
         this.msg = msg;
     }
+
     public Date getExecTime() {
         return execTime;
     }
