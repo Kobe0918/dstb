@@ -1,114 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ylzbrt.dstb.mapper.ZwKb01Mapper">
-  <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKb01">
-    <result column="SSQY00" jdbcType="VARCHAR" property="ssqy00" />
-    <result column="AKB020" jdbcType="VARCHAR" property="akb020" />
-    <result column="AKB022" jdbcType="VARCHAR" property="akb022" />
-    <result column="AKB021" jdbcType="VARCHAR" property="akb021" />
-    <result column="AAE006" jdbcType="VARCHAR" property="aae006" />
-    <result column="FSFZX0" jdbcType="VARCHAR" property="fsfzx0" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKb01">
+        <result column="SSQY00" jdbcType="VARCHAR" property="ssqy00"/>
+        <result column="AKB020" jdbcType="VARCHAR" property="akb020"/>
+        <result column="AKB022" jdbcType="VARCHAR" property="akb022"/>
+        <result column="AKB021" jdbcType="VARCHAR" property="akb021"/>
+        <result column="AAE006" jdbcType="VARCHAR" property="aae006"/>
+        <result column="FSFZX0" jdbcType="VARCHAR" property="fsfzx0"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        SSQY00, AKB020, AKB022, AKB021, AAE006, FSFZX0
+    </sql>
+    <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKb01Example" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    SSQY00, AKB020, AKB022, AKB021, AAE006, FSFZX0
-  </sql>
-  <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKb01Example" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    from ZW_KB01
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKb01">
-    insert into ZW_KB01 (SSQY00, AKB020, AKB022, 
-      AKB021, AAE006, FSFZX0
-      )
-    values (#{ssqy00,jdbcType=VARCHAR}, #{akb020,jdbcType=VARCHAR}, #{akb022,jdbcType=VARCHAR}, 
-      #{akb021,jdbcType=VARCHAR}, #{aae006,jdbcType=VARCHAR}, #{fsfzx0,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKb01">
-    insert into ZW_KB01
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="ssqy00 != null">
-        SSQY00,
-      </if>
-      <if test="akb020 != null">
-        AKB020,
-      </if>
-      <if test="akb022 != null">
-        AKB022,
-      </if>
-      <if test="akb021 != null">
-        AKB021,
-      </if>
-      <if test="aae006 != null">
-        AAE006,
-      </if>
-      <if test="fsfzx0 != null">
-        FSFZX0,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="ssqy00 != null">
-        #{ssqy00,jdbcType=VARCHAR},
-      </if>
-      <if test="akb020 != null">
-        #{akb020,jdbcType=VARCHAR},
-      </if>
-      <if test="akb022 != null">
-        #{akb022,jdbcType=VARCHAR},
-      </if>
-      <if test="akb021 != null">
-        #{akb021,jdbcType=VARCHAR},
-      </if>
-      <if test="aae006 != null">
-        #{aae006,jdbcType=VARCHAR},
-      </if>
-      <if test="fsfzx0 != null">
-        #{fsfzx0,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+        'false' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from ZW_KB01
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKb01">
+        insert into ZW_KB01 (SSQY00, AKB020, AKB022,
+        AKB021, AAE006, FSFZX0
+        )
+        values (#{ssqy00,jdbcType=VARCHAR}, #{akb020,jdbcType=VARCHAR}, #{akb022,jdbcType=VARCHAR},
+        #{akb021,jdbcType=VARCHAR}, #{aae006,jdbcType=VARCHAR}, #{fsfzx0,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKb01">
+        insert into ZW_KB01
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ssqy00 != null">
+                SSQY00,
+            </if>
+            <if test="akb020 != null">
+                AKB020,
+            </if>
+            <if test="akb022 != null">
+                AKB022,
+            </if>
+            <if test="akb021 != null">
+                AKB021,
+            </if>
+            <if test="aae006 != null">
+                AAE006,
+            </if>
+            <if test="fsfzx0 != null">
+                FSFZX0,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ssqy00 != null">
+                #{ssqy00,jdbcType=VARCHAR},
+            </if>
+            <if test="akb020 != null">
+                #{akb020,jdbcType=VARCHAR},
+            </if>
+            <if test="akb022 != null">
+                #{akb022,jdbcType=VARCHAR},
+            </if>
+            <if test="akb021 != null">
+                #{akb021,jdbcType=VARCHAR},
+            </if>
+            <if test="aae006 != null">
+                #{aae006,jdbcType=VARCHAR},
+            </if>
+            <if test="fsfzx0 != null">
+                #{fsfzx0,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 
-  <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
-    {call pro_zw_kb01(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
-  </select>
+    <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
+        {call pro_zw_kb01(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
+    </select>
 </mapper>

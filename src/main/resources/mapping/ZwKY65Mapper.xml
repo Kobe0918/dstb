@@ -1,202 +1,205 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ylzbrt.dstb.mapper.ZwKY65Mapper">
-  <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKY65">
-    <result column="AAA027" jdbcType="VARCHAR" property="aaa027" />
-    <result column="AAC002" jdbcType="VARCHAR" property="aac002" />
-    <result column="AAC003" jdbcType="VARCHAR" property="aac003" />
-    <result column="AAB004" jdbcType="VARCHAR" property="aab004" />
-    <result column="AAE001" jdbcType="DECIMAL" property="aae001" />
-    <result column="AAE340" jdbcType="DECIMAL" property="aae340" />
-    <result column="AKE505" jdbcType="DECIMAL" property="ake505" />
-    <result column="AKC501" jdbcType="DECIMAL" property="akc501" />
-    <result column="BNYDFY" jdbcType="DECIMAL" property="bnydfy" />
-    <result column="BNPMLJ" jdbcType="DECIMAL" property="bnpmlj" />
-    <result column="BNTMLJ" jdbcType="DECIMAL" property="bntmlj" />
-    <result column="BNZYLJ" jdbcType="DECIMAL" property="bnzylj" />
-    <result column="BKC041" jdbcType="DECIMAL" property="bkc041" />
-    <result column="BKC045" jdbcType="DECIMAL" property="bkc045" />
-    <result column="BKC052" jdbcType="DECIMAL" property="bkc052" />
-    <result column="AKC502" jdbcType="DECIMAL" property="akc502" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKY65">
+        <result column="AAA027" jdbcType="VARCHAR" property="aaa027"/>
+        <result column="AAC002" jdbcType="VARCHAR" property="aac002"/>
+        <result column="AAC003" jdbcType="VARCHAR" property="aac003"/>
+        <result column="AAB004" jdbcType="VARCHAR" property="aab004"/>
+        <result column="AAE001" jdbcType="DECIMAL" property="aae001"/>
+        <result column="AAE340" jdbcType="DECIMAL" property="aae340"/>
+        <result column="AKE505" jdbcType="DECIMAL" property="ake505"/>
+        <result column="AKC501" jdbcType="DECIMAL" property="akc501"/>
+        <result column="BNYDFY" jdbcType="DECIMAL" property="bnydfy"/>
+        <result column="BNPMLJ" jdbcType="DECIMAL" property="bnpmlj"/>
+        <result column="BNTMLJ" jdbcType="DECIMAL" property="bntmlj"/>
+        <result column="BNZYLJ" jdbcType="DECIMAL" property="bnzylj"/>
+        <result column="BKC041" jdbcType="DECIMAL" property="bkc041"/>
+        <result column="BKC045" jdbcType="DECIMAL" property="bkc045"/>
+        <result column="BKC052" jdbcType="DECIMAL" property="bkc052"/>
+        <result column="AKC502" jdbcType="DECIMAL" property="akc502"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        aaa027, aac002, aac003, aab004, aae001, aae340, ake505, akc501, bnydfy, bnpmlj, bntmlj, bnzylj, bkc041, bkc045,
+        bkc052, akc502
+    </sql>
+    <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKY65Example" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    aaa027, aac002, aac003, aab004, aae001, aae340, ake505, akc501, bnydfy, bnpmlj, bntmlj,    bnzylj, bkc041, bkc045, bkc052, akc502
-  </sql>
-  <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKY65Example" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    from KY65_12333
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKY65">
-    insert into KY65_12333 (AAA027, AAC002, AAC003, 
-      AAB004, AAE001, AAE340, 
-      AKE505, AKC501, BNYDFY, 
-      BNPMLJ, BNTMLJ, BNZYLJ, 
-      BKC041, BKC045, BKC052, 
-      AKC502)
-    values (#{aaa027,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR}, 
-      #{aab004,jdbcType=VARCHAR}, #{aae001,jdbcType=DECIMAL}, #{aae340,jdbcType=DECIMAL}, 
-      #{ake505,jdbcType=DECIMAL}, #{akc501,jdbcType=DECIMAL}, #{bnydfy,jdbcType=DECIMAL}, 
-      #{bnpmlj,jdbcType=DECIMAL}, #{bntmlj,jdbcType=DECIMAL}, #{bnzylj,jdbcType=DECIMAL}, 
-      #{bkc041,jdbcType=DECIMAL}, #{bkc045,jdbcType=DECIMAL}, #{bkc052,jdbcType=DECIMAL}, 
-      #{akc502,jdbcType=DECIMAL})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKY65">
-    insert into KY65_12333
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="aaa027 != null">
-        AAA027,
-      </if>
-      <if test="aac002 != null">
-        AAC002,
-      </if>
-      <if test="aac003 != null">
-        AAC003,
-      </if>
-      <if test="aab004 != null">
-        AAB004,
-      </if>
-      <if test="aae001 != null">
-        AAE001,
-      </if>
-      <if test="aae340 != null">
-        AAE340,
-      </if>
-      <if test="ake505 != null">
-        AKE505,
-      </if>
-      <if test="akc501 != null">
-        AKC501,
-      </if>
-      <if test="bnydfy != null">
-        BNYDFY,
-      </if>
-      <if test="bnpmlj != null">
-        BNPMLJ,
-      </if>
-      <if test="bntmlj != null">
-        BNTMLJ,
-      </if>
-      <if test="bnzylj != null">
-        BNZYLJ,
-      </if>
-      <if test="bkc041 != null">
-        BKC041,
-      </if>
-      <if test="bkc045 != null">
-        BKC045,
-      </if>
-      <if test="bkc052 != null">
-        BKC052,
-      </if>
-      <if test="akc502 != null">
-        AKC502,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="aaa027 != null">
-        #{aaa027,jdbcType=VARCHAR},
-      </if>
-      <if test="aac002 != null">
-        #{aac002,jdbcType=VARCHAR},
-      </if>
-      <if test="aac003 != null">
-        #{aac003,jdbcType=VARCHAR},
-      </if>
-      <if test="aab004 != null">
-        #{aab004,jdbcType=VARCHAR},
-      </if>
-      <if test="aae001 != null">
-        #{aae001,jdbcType=DECIMAL},
-      </if>
-      <if test="aae340 != null">
-        #{aae340,jdbcType=DECIMAL},
-      </if>
-      <if test="ake505 != null">
-        #{ake505,jdbcType=DECIMAL},
-      </if>
-      <if test="akc501 != null">
-        #{akc501,jdbcType=DECIMAL},
-      </if>
-      <if test="bnydfy != null">
-        #{bnydfy,jdbcType=DECIMAL},
-      </if>
-      <if test="bnpmlj != null">
-        #{bnpmlj,jdbcType=DECIMAL},
-      </if>
-      <if test="bntmlj != null">
-        #{bntmlj,jdbcType=DECIMAL},
-      </if>
-      <if test="bnzylj != null">
-        #{bnzylj,jdbcType=DECIMAL},
-      </if>
-      <if test="bkc041 != null">
-        #{bkc041,jdbcType=DECIMAL},
-      </if>
-      <if test="bkc045 != null">
-        #{bkc045,jdbcType=DECIMAL},
-      </if>
-      <if test="bkc052 != null">
-        #{bkc052,jdbcType=DECIMAL},
-      </if>
-      <if test="akc502 != null">
-        #{akc502,jdbcType=DECIMAL},
-      </if>
-    </trim>
-  </insert>
-  <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
-    {call pro_zw_KY65(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{AAA027_,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
-  </select>
+        'false' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from KY65_12333
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKY65">
+        insert into KY65_12333 (AAA027, AAC002, AAC003,
+        AAB004, AAE001, AAE340,
+        AKE505, AKC501, BNYDFY,
+        BNPMLJ, BNTMLJ, BNZYLJ,
+        BKC041, BKC045, BKC052,
+        AKC502)
+        values (#{aaa027,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR},
+        #{aab004,jdbcType=VARCHAR}, #{aae001,jdbcType=DECIMAL}, #{aae340,jdbcType=DECIMAL},
+        #{ake505,jdbcType=DECIMAL}, #{akc501,jdbcType=DECIMAL}, #{bnydfy,jdbcType=DECIMAL},
+        #{bnpmlj,jdbcType=DECIMAL}, #{bntmlj,jdbcType=DECIMAL}, #{bnzylj,jdbcType=DECIMAL},
+        #{bkc041,jdbcType=DECIMAL}, #{bkc045,jdbcType=DECIMAL}, #{bkc052,jdbcType=DECIMAL},
+        #{akc502,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKY65">
+        insert into KY65_12333
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aaa027 != null">
+                AAA027,
+            </if>
+            <if test="aac002 != null">
+                AAC002,
+            </if>
+            <if test="aac003 != null">
+                AAC003,
+            </if>
+            <if test="aab004 != null">
+                AAB004,
+            </if>
+            <if test="aae001 != null">
+                AAE001,
+            </if>
+            <if test="aae340 != null">
+                AAE340,
+            </if>
+            <if test="ake505 != null">
+                AKE505,
+            </if>
+            <if test="akc501 != null">
+                AKC501,
+            </if>
+            <if test="bnydfy != null">
+                BNYDFY,
+            </if>
+            <if test="bnpmlj != null">
+                BNPMLJ,
+            </if>
+            <if test="bntmlj != null">
+                BNTMLJ,
+            </if>
+            <if test="bnzylj != null">
+                BNZYLJ,
+            </if>
+            <if test="bkc041 != null">
+                BKC041,
+            </if>
+            <if test="bkc045 != null">
+                BKC045,
+            </if>
+            <if test="bkc052 != null">
+                BKC052,
+            </if>
+            <if test="akc502 != null">
+                AKC502,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="aaa027 != null">
+                #{aaa027,jdbcType=VARCHAR},
+            </if>
+            <if test="aac002 != null">
+                #{aac002,jdbcType=VARCHAR},
+            </if>
+            <if test="aac003 != null">
+                #{aac003,jdbcType=VARCHAR},
+            </if>
+            <if test="aab004 != null">
+                #{aab004,jdbcType=VARCHAR},
+            </if>
+            <if test="aae001 != null">
+                #{aae001,jdbcType=DECIMAL},
+            </if>
+            <if test="aae340 != null">
+                #{aae340,jdbcType=DECIMAL},
+            </if>
+            <if test="ake505 != null">
+                #{ake505,jdbcType=DECIMAL},
+            </if>
+            <if test="akc501 != null">
+                #{akc501,jdbcType=DECIMAL},
+            </if>
+            <if test="bnydfy != null">
+                #{bnydfy,jdbcType=DECIMAL},
+            </if>
+            <if test="bnpmlj != null">
+                #{bnpmlj,jdbcType=DECIMAL},
+            </if>
+            <if test="bntmlj != null">
+                #{bntmlj,jdbcType=DECIMAL},
+            </if>
+            <if test="bnzylj != null">
+                #{bnzylj,jdbcType=DECIMAL},
+            </if>
+            <if test="bkc041 != null">
+                #{bkc041,jdbcType=DECIMAL},
+            </if>
+            <if test="bkc045 != null">
+                #{bkc045,jdbcType=DECIMAL},
+            </if>
+            <if test="bkc052 != null">
+                #{bkc052,jdbcType=DECIMAL},
+            </if>
+            <if test="akc502 != null">
+                #{akc502,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+    <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
+        {call
+        pro_zw_KY65(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{AAA027_,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
+    </select>
 
 
-  <select id="selectByCondition" parameterType="com.ylzbrt.dstb.entity.ZwKY65" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from KY65_12333
-    <where>
-      <if test="aaa027 != null and aaa027 != ''">
-        AND aaa027 = #{aaa027}
-      </if>
-    </where>
-      order by aac002 desc
-  </select>
+    <select id="selectByCondition" parameterType="com.ylzbrt.dstb.entity.ZwKY65" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from KY65_12333
+        <where>
+            <if test="aaa027 != null and aaa027 != ''">
+                AND aaa027 = #{aaa027}
+            </if>
+        </where>
+        order by aac002 desc
+    </select>
 </mapper>

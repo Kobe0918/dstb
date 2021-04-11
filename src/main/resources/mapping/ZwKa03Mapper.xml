@@ -1,113 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ylzbrt.dstb.mapper.ZwKa03Mapper">
-  <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKa03">
-    <result column="AKA091" jdbcType="VARCHAR" property="aka091" />
-    <result column="AKA074" jdbcType="VARCHAR" property="aka074" />
-    <result column="BKA001" jdbcType="VARCHAR" property="bka001" />
-    <result column="BKA010" jdbcType="VARCHAR" property="bka010" />
-    <result column="SSQY00" jdbcType="VARCHAR" property="ssqy00" />
-    <result column="AKA090" jdbcType="VARCHAR" property="aka090" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKa03">
+        <result column="AKA091" jdbcType="VARCHAR" property="aka091"/>
+        <result column="AKA074" jdbcType="VARCHAR" property="aka074"/>
+        <result column="BKA001" jdbcType="VARCHAR" property="bka001"/>
+        <result column="BKA010" jdbcType="VARCHAR" property="bka010"/>
+        <result column="SSQY00" jdbcType="VARCHAR" property="ssqy00"/>
+        <result column="AKA090" jdbcType="VARCHAR" property="aka090"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        AKA091, AKA074, BKA001, BKA010, SSQY00, AKA090
+    </sql>
+    <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKa03Example" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    AKA091, AKA074, BKA001, BKA010, SSQY00, AKA090
-  </sql>
-  <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKa03Example" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    from ZW_KA03
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKa03">
-    insert into ZW_KA03 (AKA091, AKA074, BKA001, 
-      BKA010, SSQY00, AKA090
-      )
-    values (#{aka091,jdbcType=VARCHAR}, #{aka074,jdbcType=VARCHAR}, #{bka001,jdbcType=VARCHAR}, 
-      #{bka010,jdbcType=VARCHAR}, #{ssqy00,jdbcType=VARCHAR}, #{aka090,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKa03">
-    insert into ZW_KA03
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="aka091 != null">
-        AKA091,
-      </if>
-      <if test="aka074 != null">
-        AKA074,
-      </if>
-      <if test="bka001 != null">
-        BKA001,
-      </if>
-      <if test="bka010 != null">
-        BKA010,
-      </if>
-      <if test="ssqy00 != null">
-        SSQY00,
-      </if>
-      <if test="aka090 != null">
-        AKA090,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="aka091 != null">
-        #{aka091,jdbcType=VARCHAR},
-      </if>
-      <if test="aka074 != null">
-        #{aka074,jdbcType=VARCHAR},
-      </if>
-      <if test="bka001 != null">
-        #{bka001,jdbcType=VARCHAR},
-      </if>
-      <if test="bka010 != null">
-        #{bka010,jdbcType=VARCHAR},
-      </if>
-      <if test="ssqy00 != null">
-        #{ssqy00,jdbcType=VARCHAR},
-      </if>
-      <if test="aka090 != null">
-        #{aka090,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
-    {call pro_zw_ka03(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
-  </select>
+        'false' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from ZW_KA03
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKa03">
+        insert into ZW_KA03 (AKA091, AKA074, BKA001,
+        BKA010, SSQY00, AKA090
+        )
+        values (#{aka091,jdbcType=VARCHAR}, #{aka074,jdbcType=VARCHAR}, #{bka001,jdbcType=VARCHAR},
+        #{bka010,jdbcType=VARCHAR}, #{ssqy00,jdbcType=VARCHAR}, #{aka090,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKa03">
+        insert into ZW_KA03
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aka091 != null">
+                AKA091,
+            </if>
+            <if test="aka074 != null">
+                AKA074,
+            </if>
+            <if test="bka001 != null">
+                BKA001,
+            </if>
+            <if test="bka010 != null">
+                BKA010,
+            </if>
+            <if test="ssqy00 != null">
+                SSQY00,
+            </if>
+            <if test="aka090 != null">
+                AKA090,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="aka091 != null">
+                #{aka091,jdbcType=VARCHAR},
+            </if>
+            <if test="aka074 != null">
+                #{aka074,jdbcType=VARCHAR},
+            </if>
+            <if test="bka001 != null">
+                #{bka001,jdbcType=VARCHAR},
+            </if>
+            <if test="bka010 != null">
+                #{bka010,jdbcType=VARCHAR},
+            </if>
+            <if test="ssqy00 != null">
+                #{ssqy00,jdbcType=VARCHAR},
+            </if>
+            <if test="aka090 != null">
+                #{aka090,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="accessPro" parameterType="java.util.Map" statementType="CALLABLE">
+        {call pro_zw_ka03(#{UPDATOR,mode=IN,jdbcType=VARCHAR},#{code,mode=OUT,jdbcType=VARCHAR})}
+    </select>
 </mapper>

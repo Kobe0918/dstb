@@ -1,288 +1,289 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ylzbrt.dstb.mapper.ZwKslwTempMapper">
-  <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKslwTemp">
-    <result column="AAA027" jdbcType="VARCHAR" property="aaa027" />
-    <result column="AAC003" jdbcType="VARCHAR" property="aac003" />
-    <result column="AAC002" jdbcType="VARCHAR" property="aac002" />
-    <result column="BAE033" jdbcType="VARCHAR" property="bae033" />
-    <result column="AAE030" jdbcType="DECIMAL" property="aae030" />
-    <result column="AAE031" jdbcType="DECIMAL" property="aae031" />
-    <result column="AAA129" jdbcType="VARCHAR" property="aaa129" />
-    <result column="AKB021" jdbcType="VARCHAR" property="akb021" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwKslwTemp">
+        <result column="AAA027" jdbcType="VARCHAR" property="aaa027"/>
+        <result column="AAC003" jdbcType="VARCHAR" property="aac003"/>
+        <result column="AAC002" jdbcType="VARCHAR" property="aac002"/>
+        <result column="BAE033" jdbcType="VARCHAR" property="bae033"/>
+        <result column="AAE030" jdbcType="DECIMAL" property="aae030"/>
+        <result column="AAE031" jdbcType="DECIMAL" property="aae031"/>
+        <result column="AAA129" jdbcType="VARCHAR" property="aaa129"/>
+        <result column="AKB021" jdbcType="VARCHAR" property="akb021"/>
+    </resultMap>
 
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
+    </sql>
+    <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKslwTempExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
-  </sql>
-  <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwKslwTempExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    from ZW_KSLW_TEMP
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKslwTemp">
-    insert into ZW_KSLW_TEMP (AAA027, AAC003, AAC002, 
-      BAE033, AAE030, AAE031, 
-      AAA129, AKB021, GXLSH0
-      )
-    values (#{aaa027,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, 
-      #{bae033,jdbcType=VARCHAR}, #{aae030,jdbcType=DECIMAL}, #{aae031,jdbcType=DECIMAL}, 
-      #{aaa129,jdbcType=VARCHAR}, #{akb021,jdbcType=VARCHAR}, #{gxlsh0,jdbcType=DECIMAL}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKslwTemp">
-    insert into ZW_KSLW_TEMP
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="aaa027 != null">
-        AAA027,
-      </if>
-      <if test="aac003 != null">
-        AAC003,
-      </if>
-      <if test="aac002 != null">
-        AAC002,
-      </if>
-      <if test="bae033 != null">
-        BAE033,
-      </if>
-      <if test="aae030 != null">
-        AAE030,
-      </if>
-      <if test="aae031 != null">
-        AAE031,
-      </if>
-      <if test="aaa129 != null">
-        AAA129,
-      </if>
-      <if test="akb021 != null">
-        AKB021,
-      </if>
-      <if test="gxlsh0 != null">
-        GXLSH0,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="aaa027 != null">
-        #{aaa027,jdbcType=VARCHAR},
-      </if>
-      <if test="aac003 != null">
-        #{aac003,jdbcType=VARCHAR},
-      </if>
-      <if test="aac002 != null">
-        #{aac002,jdbcType=VARCHAR},
-      </if>
-      <if test="bae033 != null">
-        #{bae033,jdbcType=VARCHAR},
-      </if>
-      <if test="aae030 != null">
-        #{aae030,jdbcType=DECIMAL},
-      </if>
-      <if test="aae031 != null">
-        #{aae031,jdbcType=DECIMAL},
-      </if>
-      <if test="aaa129 != null">
-        #{aaa129,jdbcType=VARCHAR},
-      </if>
-      <if test="akb021 != null">
-        #{akb021,jdbcType=VARCHAR},
-      </if>
-      <if test="gxlsh0 != null">
-        #{gxlsh0,jdbcType=DECIMAL},
-      </if>
-    </trim>
-  </insert>
+        'false' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from ZW_KSLW_TEMP
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwKslwTemp">
+        insert into ZW_KSLW_TEMP (AAA027, AAC003, AAC002,
+        BAE033, AAE030, AAE031,
+        AAA129, AKB021, GXLSH0
+        )
+        values (#{aaa027,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR},
+        #{bae033,jdbcType=VARCHAR}, #{aae030,jdbcType=DECIMAL}, #{aae031,jdbcType=DECIMAL},
+        #{aaa129,jdbcType=VARCHAR}, #{akb021,jdbcType=VARCHAR}, #{gxlsh0,jdbcType=DECIMAL}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwKslwTemp">
+        insert into ZW_KSLW_TEMP
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aaa027 != null">
+                AAA027,
+            </if>
+            <if test="aac003 != null">
+                AAC003,
+            </if>
+            <if test="aac002 != null">
+                AAC002,
+            </if>
+            <if test="bae033 != null">
+                BAE033,
+            </if>
+            <if test="aae030 != null">
+                AAE030,
+            </if>
+            <if test="aae031 != null">
+                AAE031,
+            </if>
+            <if test="aaa129 != null">
+                AAA129,
+            </if>
+            <if test="akb021 != null">
+                AKB021,
+            </if>
+            <if test="gxlsh0 != null">
+                GXLSH0,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="aaa027 != null">
+                #{aaa027,jdbcType=VARCHAR},
+            </if>
+            <if test="aac003 != null">
+                #{aac003,jdbcType=VARCHAR},
+            </if>
+            <if test="aac002 != null">
+                #{aac002,jdbcType=VARCHAR},
+            </if>
+            <if test="bae033 != null">
+                #{bae033,jdbcType=VARCHAR},
+            </if>
+            <if test="aae030 != null">
+                #{aae030,jdbcType=DECIMAL},
+            </if>
+            <if test="aae031 != null">
+                #{aae031,jdbcType=DECIMAL},
+            </if>
+            <if test="aaa129 != null">
+                #{aaa129,jdbcType=VARCHAR},
+            </if>
+            <if test="akb021 != null">
+                #{akb021,jdbcType=VARCHAR},
+            </if>
+            <if test="gxlsh0 != null">
+                #{gxlsh0,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
 
-  <select id="selectZwKslwTempAkb021" resultMap="BaseResultMap" parameterType="java.lang.String">
-    select
-    <include refid="Base_Column_List"></include>
-    from zw_kslw where aaa027 = #{aaa027,jdbcType=VARCHAR}
-    and akb021 is not null
-  </select>
+    <select id="selectZwKslwTempAkb021" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"></include>
+        from zw_kslw where aaa027 = #{aaa027,jdbcType=VARCHAR}
+        and akb021 is not null
+    </select>
 
-  <select id="selectZwKslwTempAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"></include>
-    from zw_kslw_otheraaa027_lzh where akb021 is not null
-  </select>
+    <select id="selectZwKslwTempAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from zw_kslw_otheraaa027_lzh where akb021 is not null
+    </select>
 
-  <insert id="ProZwKslw" parameterType="java.util.Map" statementType="CALLABLE">
-    {call PRO_ZW_KSLW_DATAS(
-    #{updator,mode=IN, jdbcType=VARCHAR},
-    #{aaa027,mode=IN, jdbcType=VARCHAR},
-    #{result, mode=OUT, jdbcType=VARCHAR}
-    )}
-  </insert>
+    <insert id="ProZwKslw" parameterType="java.util.Map" statementType="CALLABLE">
+        {call PRO_ZW_KSLW_DATAS(
+        #{updator,mode=IN, jdbcType=VARCHAR},
+        #{aaa027,mode=IN, jdbcType=VARCHAR},
+        #{result, mode=OUT, jdbcType=VARCHAR}
+        )}
+    </insert>
 
-  <select id="selectZwKslwTemp"  resultMap="BaseResultMap" parameterType="java.lang.String">
-    select
-    <include refid="Base_Column_List"></include>
-    from zw_kslw where aaa027 =  #{aaa027,jdbcType=VARCHAR}
-  </select>
+    <select id="selectZwKslwTemp" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"></include>
+        from zw_kslw where aaa027 = #{aaa027,jdbcType=VARCHAR}
+    </select>
 
-  <select id="selectZwKslwTempByAll" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"></include>
-    from zw_kslw_otheraaa027_lzh
-  </select>
+    <select id="selectZwKslwTempByAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from zw_kslw_otheraaa027_lzh
+    </select>
 
-  <select id="getAkb021FromQglwKb01" parameterType="java.util.List" resultType="java.lang.String">
-    SELECT akb021 FROM ybjh.qglw_kb01 WHERE (akb020 , aab299) in
-    <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
-      (#{item.akb020},#{item.aab299})
-    </foreach>
-  </select>
-  <!--edit  zw_kslw to  zw_kslw_otheraaa027_lzh-->
-  <insert id="insertDataAkb021" parameterType="java.util.List" useGeneratedKeys="false">
-    insert into zw_kslw (AAA027, AAC003, AAC002, BAE033, AAE030, AAE031,AAA129, AKB021)
-    select a.* from (
-    <foreach collection="list" item="item" index="index" separator="union all">select
-      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
-      #{item.bae033,jdbcType=VARCHAR}, #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL},
-      #{item.aaa129,jdbcType=VARCHAR}, #{item.akb021,jdbcType=VARCHAR}
-      from dual
-    </foreach>
-    )a
-  </insert>
+    <select id="getAkb021FromQglwKb01" parameterType="java.util.List" resultType="java.lang.String">
+        SELECT akb021 FROM ybjh.qglw_kb01 WHERE (akb020 , aab299) in
+        <foreach collection="list" index="index" item="item" separator="," open="(" close=")">
+            (#{item.akb020},#{item.aab299})
+        </foreach>
+    </select>
+    <!--edit  zw_kslw to  zw_kslw_otheraaa027_lzh-->
+    <insert id="insertDataAkb021" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into zw_kslw (AAA027, AAC003, AAC002, BAE033, AAE030, AAE031,AAA129, AKB021)
+        select a.* from (
+        <foreach collection="list" item="item" index="index" separator="union all">select
+            #{item.aaa027,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
+            #{item.bae033,jdbcType=VARCHAR}, #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL},
+            #{item.aaa129,jdbcType=VARCHAR}, #{item.akb021,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )a
+    </insert>
 
 
-  <select id="selectZwKslwErrorData" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"></include>
-    from zw_kslw_error
-  </select>
+    <select id="selectZwKslwErrorData" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from zw_kslw_error
+    </select>
 
 
-  <!--错误数据批量插入-->
-  <select id="selectZwKslwErrorDataByPage" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    <!--错误数据批量插入-->
+    <select id="selectZwKslwErrorDataByPage" resultMap="BaseResultMap" parameterType="java.lang.Long">
 
-  </select>
+    </select>
 
-  <insert id="insertErrorList" parameterType="java.util.List" useGeneratedKeys="false">
-    insert into zw_kslw_error (AAA027, AAC003, AAC002, BAE033, AAE030, AAE031,AAA129, AKB021, status, reason)
-    select a.* from (
-    <foreach collection="list" item="item" index="index" separator="union all">select
-      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
-      #{item.bae033,jdbcType=VARCHAR}, #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL},
-      #{item.aaa129,jdbcType=VARCHAR}, #{item.akb021,jdbcType=VARCHAR}, '0', #{item.reason,jdbcType=VARCHAR}
-      from dual
-    </foreach>
-    )a
-  </insert>
+    <insert id="insertErrorList" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into zw_kslw_error (AAA027, AAC003, AAC002, BAE033, AAE030, AAE031,AAA129, AKB021, status, reason)
+        select a.* from (
+        <foreach collection="list" item="item" index="index" separator="union all">select
+            #{item.aaa027,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
+            #{item.bae033,jdbcType=VARCHAR}, #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL},
+            #{item.aaa129,jdbcType=VARCHAR}, #{item.akb021,jdbcType=VARCHAR}, '0', #{item.reason,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )a
+    </insert>
 
-  <!--正常流程-->
-  <insert id="doProcedure" parameterType="java.util.Map" statementType="CALLABLE">
-    {call PRO_ZW_KSLW_DATAS(
-    #{result, mode=OUT, jdbcType=VARCHAR}
-    )}
-  </insert>
-
-
-  <select id="selectZwKslwTempInsert" resultMap="BaseResultMap">
-    select AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
-    from (
-    select rownum as rowno ,a.* from (
-    select /*+parallel(20)+*/ * from zw_kslw where 1=1
-    <if test="aaa027 != null and aaa027 != ''">
-      and aaa027 = #{aaa027,jdbcType=VARCHAR}
-    </if>
-    and ywbz00='1'
-    <if test="beginTime != null and beginTime != '' and  endTime != null and endTime != '' ">
-      and (aae035 between to_date(#{beginTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss') and
-      to_date(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss'))
-    </if>
-    order by aac002,aaa027, aac003
-    )a where rownum &lt;= #{end} ) T
-    where T.rowno > #{begin}
-  </select>
+    <!--正常流程-->
+    <insert id="doProcedure" parameterType="java.util.Map" statementType="CALLABLE">
+        {call PRO_ZW_KSLW_DATAS(
+        #{result, mode=OUT, jdbcType=VARCHAR}
+        )}
+    </insert>
 
 
-  <select id="selectZwKslwTempUpdate" resultMap="BaseResultMap">
-    select AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
-    from (
-    select rownum as rowno ,a.* from (
-    select /*+parallel(20)+*/ * from zw_kslw where 1=1
-    <if test="aaa027 != null and aaa027 != ''">
-      and aaa027 = #{aaa027,jdbcType=VARCHAR}
-    </if>
-    and ywbz00='2'
-    <if test="beginTime != null and beginTime != '' and  endTime != null and endTime != '' ">
-      and (aae035 between to_date(#{beginTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss') and
-      to_date(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss'))
-    </if>
-    order by aac002,aaa027, aac003
-    )a where rownum &lt;= #{end} ) T
-    where T.rowno > #{begin}
-  </select>
-
-  <select id="selectZwKslwTempDelete" resultMap="BaseResultMap">
-    select AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
-    from (
-    select rownum as rowno ,a.* from (
-    select /*+parallel(20)+*/ * from zw_kslw where 1=1
-    <if test="aaa027 != null and aaa027 != ''">
-      and aaa027 = #{aaa027,jdbcType=VARCHAR}
-    </if>
-    and ywbz00='3'
-    <if test="beginTime != null and beginTime != '' and  endTime != null and endTime != '' ">
-      and (aae035 between to_date(#{beginTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss') and
-      to_date(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss'))
-    </if>
-    order by aac002,aaa027, aac003
-    )a where rownum &lt;= #{end} ) T
-    where T.rowno > #{begin}
-  </select>
+    <select id="selectZwKslwTempInsert" resultMap="BaseResultMap">
+        select AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
+        from (
+        select rownum as rowno ,a.* from (
+        select /*+parallel(20)+*/ * from zw_kslw where 1=1
+        <if test="aaa027 != null and aaa027 != ''">
+            and aaa027 = #{aaa027,jdbcType=VARCHAR}
+        </if>
+        and ywbz00='1'
+        <if test="beginTime != null and beginTime != '' and  endTime != null and endTime != '' ">
+            and (aae035 between to_date(#{beginTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss') and
+            to_date(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss'))
+        </if>
+        order by aac002,aaa027, aac003
+        )a where rownum &lt;= #{end} ) T
+        where T.rowno > #{begin}
+    </select>
 
 
-  <insert id="insertZwKslw" parameterType="java.util.List">
-    insert into test_ZW_Kslw (AAA027, AAC003, AAC002, BAE033, AAE030, AAE031,AAA129, AKB021)
-    select a.* from (
-    <foreach collection="list" item="item" index="index" separator="union all">select
-      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
-      #{item.bae033,jdbcType=VARCHAR}, #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL},
-      #{item.aaa129,jdbcType=VARCHAR}, #{item.akb021,jdbcType=VARCHAR}
-      from dual
-    </foreach>
-    )a
-  </insert>
+    <select id="selectZwKslwTempUpdate" resultMap="BaseResultMap">
+        select AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
+        from (
+        select rownum as rowno ,a.* from (
+        select /*+parallel(20)+*/ * from zw_kslw where 1=1
+        <if test="aaa027 != null and aaa027 != ''">
+            and aaa027 = #{aaa027,jdbcType=VARCHAR}
+        </if>
+        and ywbz00='2'
+        <if test="beginTime != null and beginTime != '' and  endTime != null and endTime != '' ">
+            and (aae035 between to_date(#{beginTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss') and
+            to_date(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss'))
+        </if>
+        order by aac002,aaa027, aac003
+        )a where rownum &lt;= #{end} ) T
+        where T.rowno > #{begin}
+    </select>
+
+    <select id="selectZwKslwTempDelete" resultMap="BaseResultMap">
+        select AAA027, AAC003, AAC002, BAE033, AAE030, AAE031, AAA129, AKB021
+        from (
+        select rownum as rowno ,a.* from (
+        select /*+parallel(20)+*/ * from zw_kslw where 1=1
+        <if test="aaa027 != null and aaa027 != ''">
+            and aaa027 = #{aaa027,jdbcType=VARCHAR}
+        </if>
+        and ywbz00='3'
+        <if test="beginTime != null and beginTime != '' and  endTime != null and endTime != '' ">
+            and (aae035 between to_date(#{beginTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss') and
+            to_date(#{endTime,jdbcType=VARCHAR},'yyyy-MM-dd hh24:mi:ss'))
+        </if>
+        order by aac002,aaa027, aac003
+        )a where rownum &lt;= #{end} ) T
+        where T.rowno > #{begin}
+    </select>
+
+
+    <insert id="insertZwKslw" parameterType="java.util.List">
+        insert into test_ZW_Kslw (AAA027, AAC003, AAC002, BAE033, AAE030, AAE031,AAA129, AKB021)
+        select a.* from (
+        <foreach collection="list" item="item" index="index" separator="union all">select
+            #{item.aaa027,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR},
+            #{item.bae033,jdbcType=VARCHAR}, #{item.aae030,jdbcType=DECIMAL}, #{item.aae031,jdbcType=DECIMAL},
+            #{item.aaa129,jdbcType=VARCHAR}, #{item.akb021,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )a
+    </insert>
 
 
 </mapper>

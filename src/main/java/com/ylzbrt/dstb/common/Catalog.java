@@ -22,7 +22,7 @@ public class Catalog {
     public static final String kc26="WEB2385";
     public static final String kslw="WEB2384";
     public static final String ka08="WEB2387";
-
+    public static final String temp_trrymx_yd_zw = "WEB6064";
 
     public static final String clock="0 0/1 9-23 ? * *";
     public static final int fixedRate = 1000000000;

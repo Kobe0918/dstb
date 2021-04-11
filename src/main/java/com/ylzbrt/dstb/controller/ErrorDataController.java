@@ -55,15 +55,18 @@ public class ErrorDataController {
     public String passErrorDataToZw(@RequestParam("action") String action) {
         //推送错误数据到政务平台删除
         //IDstbService.zwKc01ErrorData(action);
-        IDstbService.zwKc99ErrorData(action);
+//        IDstbService.zwKc01ErrorData(action);
+//        IDstbService.zwAc43ErrorData(action);
 //        try {
-//            IDstbService.zwAc01ErrorData(action);
+//           IDstbService.zwAc01ErrorData(action);
 //            IDstbService.zwKa08ErrorData(action);
-//            IDstbService.zwKc99ErrorData(action);
+//             IDstbService.zwKc99ErrorData(action);
 //            IDstbService.zwKslwErrorData(action);
-//            IDstbService.zwKc01ErrorData(action);
-////            IDstbService.zwAc43ErrorData(flag);
-////            IDstbService.zwKc26ErrorData(flag);
+
+        IDstbService.zwKc01ErrorData(action);
+//            IDstbService.zwAc43ErrorData(action);
+
+////            IDstbService.zwKc26ErrorData(action);
 //
 //            String format = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 //            IDstbService.zwSjtsLog(Integer.valueOf(format),true);

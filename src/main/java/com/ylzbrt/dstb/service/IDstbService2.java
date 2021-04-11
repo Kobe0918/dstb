@@ -19,6 +19,8 @@ public interface IDstbService2 {
 
     void zwKa08IncrementData();
 
+    void zwTrrymxYdIncrementData();
+
     void zwSjtsLog();
 
 

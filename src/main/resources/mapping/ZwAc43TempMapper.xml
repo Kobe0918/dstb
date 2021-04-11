@@ -1,307 +1,323 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ylzbrt.dstb.mapper.ZwAc43TempMapper">
-  <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwAc43Temp">
-    <result column="AAA027" jdbcType="VARCHAR" property="aaa027" />
-    <result column="AAZ223" jdbcType="DECIMAL" property="aaz223"/>
-    <result column="AAC002" jdbcType="VARCHAR" property="aac002" />
-    <result column="AAC003" jdbcType="VARCHAR" property="aac003" />
-    <result column="AAE140" jdbcType="VARCHAR" property="aae140" />
-    <result column="AAE023" jdbcType="DECIMAL" property="aae023" />
-    <result column="AAA119" jdbcType="VARCHAR" property="aaa119" />
-    <result column="AAE340" jdbcType="DECIMAL" property="aae340" />
-    <result column="AAE206" jdbcType="DECIMAL" property="aae206" />
-    <result column="AAE035" jdbcType="VARCHAR" property="aae035" />
-    <result column="ZMNY00" jdbcType="DECIMAL" property="zmny00" />
-    <result column="GRJFJE" jdbcType="DECIMAL" property="grjfje" />
-    <result column="DWJFJE" jdbcType="DECIMAL" property="dwjfje" />
-    <result column="HBRQ00" jdbcType="DECIMAL" property="hbrq00" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.ylzbrt.dstb.entity.ZwAc43Temp">
+        <result column="AAA027" jdbcType="VARCHAR" property="aaa027"/>
+        <result column="AAZ223" jdbcType="DECIMAL" property="aaz223"/>
+        <result column="AAC002" jdbcType="VARCHAR" property="aac002"/>
+        <result column="AAC003" jdbcType="VARCHAR" property="aac003"/>
+        <result column="AAE140" jdbcType="VARCHAR" property="aae140"/>
+        <result column="AAE023" jdbcType="DECIMAL" property="aae023"/>
+        <result column="AAA119" jdbcType="VARCHAR" property="aaa119"/>
+        <result column="AAE340" jdbcType="DECIMAL" property="aae340"/>
+        <result column="AAE206" jdbcType="DECIMAL" property="aae206"/>
+        <result column="AAE035" jdbcType="VARCHAR" property="aae035"/>
+        <result column="ZMNY00" jdbcType="DECIMAL" property="zmny00"/>
+        <result column="GRJFJE" jdbcType="DECIMAL" property="grjfje"/>
+        <result column="DWJFJE" jdbcType="DECIMAL" property="dwjfje"/>
+        <result column="HBRQ00" jdbcType="DECIMAL" property="hbrq00"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035,
+        ZMNY00, GRJFJE,
+        DWJFJE, HBRQ00, AAZ223, BAE536,YWBZ00
+    </sql>
+    <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwAc43TempExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, ZMNY00, GRJFJE,
-    DWJFJE, HBRQ00, AAZ223, BAE536,YWBZ00
-  </sql>
-  <select id="selectByExample" parameterType="com.ylzbrt.dstb.entity.ZwAc43TempExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'false' as QUERYID,
-    <include refid="Base_Column_List" />
-    from ZW_AC43_TEMP
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwAc43Temp">
-    insert into ZW_AC43_TEMP (AAA027, AAC002, AAC003, 
-      AAE140, AAE023, AAA119, 
-      AAE340, AAE206, AAE035, 
-      ZMNY00, GRJFJE, DWJFJE, 
-      HBRQ00)
-    values (#{aaa027,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR}, 
-      #{aae140,jdbcType=VARCHAR}, #{aae023,jdbcType=DECIMAL}, #{aaa119,jdbcType=VARCHAR}, 
-      #{aae340,jdbcType=DECIMAL}, #{aae206,jdbcType=DECIMAL}, #{aae035,jdbcType=TIMESTAMP}, 
-      #{zmny00,jdbcType=DECIMAL}, #{grjfje,jdbcType=DECIMAL}, #{dwjfje,jdbcType=DECIMAL}, 
-      #{hbrq00,jdbcType=DECIMAL})
-  </insert>
-  <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwAc43Temp">
-    insert into ZW_AC43_TEMP
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="aaa027 != null">
-        AAA027,
-      </if>
-      <if test="aac002 != null">
-        AAC002,
-      </if>
-      <if test="aac003 != null">
-        AAC003,
-      </if>
-      <if test="aae140 != null">
-        AAE140,
-      </if>
-      <if test="aae023 != null">
-        AAE023,
-      </if>
-      <if test="aaa119 != null">
-        AAA119,
-      </if>
-      <if test="aae340 != null">
-        AAE340,
-      </if>
-      <if test="aae206 != null">
-        AAE206,
-      </if>
-      <if test="aae035 != null">
-        AAE035,
-      </if>
-      <if test="zmny00 != null">
-        ZMNY00,
-      </if>
-      <if test="grjfje != null">
-        GRJFJE,
-      </if>
-      <if test="dwjfje != null">
-        DWJFJE,
-      </if>
-      <if test="hbrq00 != null">
-        HBRQ00,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="aaa027 != null">
-        #{aaa027,jdbcType=VARCHAR},
-      </if>
-      <if test="aac002 != null">
-        #{aac002,jdbcType=VARCHAR},
-      </if>
-      <if test="aac003 != null">
-        #{aac003,jdbcType=VARCHAR},
-      </if>
-      <if test="aae140 != null">
-        #{aae140,jdbcType=VARCHAR},
-      </if>
-      <if test="aae023 != null">
-        #{aae023,jdbcType=DECIMAL},
-      </if>
-      <if test="aaa119 != null">
-        #{aaa119,jdbcType=VARCHAR},
-      </if>
-      <if test="aae340 != null">
-        #{aae340,jdbcType=DECIMAL},
-      </if>
-      <if test="aae206 != null">
-        #{aae206,jdbcType=DECIMAL},
-      </if>
-      <if test="aae035 != null">
-        #{aae035,jdbcType=TIMESTAMP},
-      </if>
-      <if test="zmny00 != null">
-        #{zmny00,jdbcType=DECIMAL},
-      </if>
-      <if test="grjfje != null">
-        #{grjfje,jdbcType=DECIMAL},
-      </if>
-      <if test="dwjfje != null">
-        #{dwjfje,jdbcType=DECIMAL},
-      </if>
-      <if test="hbrq00 != null">
-        #{hbrq00,jdbcType=DECIMAL},
-      </if>
-    </trim>
-  </insert>
+        'false' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from ZW_AC43_TEMP
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <insert id="insert" parameterType="com.ylzbrt.dstb.entity.ZwAc43Temp">
+        insert into ZW_AC43_TEMP (AAA027, AAC002, AAC003,
+        AAE140, AAE023, AAA119,
+        AAE340, AAE206, AAE035,
+        ZMNY00, GRJFJE, DWJFJE,
+        HBRQ00)
+        values (#{aaa027,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR},
+        #{aae140,jdbcType=VARCHAR}, #{aae023,jdbcType=DECIMAL}, #{aaa119,jdbcType=VARCHAR},
+        #{aae340,jdbcType=DECIMAL}, #{aae206,jdbcType=DECIMAL}, #{aae035,jdbcType=TIMESTAMP},
+        #{zmny00,jdbcType=DECIMAL}, #{grjfje,jdbcType=DECIMAL}, #{dwjfje,jdbcType=DECIMAL},
+        #{hbrq00,jdbcType=DECIMAL})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ylzbrt.dstb.entity.ZwAc43Temp">
+        insert into ZW_AC43_TEMP
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="aaa027 != null">
+                AAA027,
+            </if>
+            <if test="aac002 != null">
+                AAC002,
+            </if>
+            <if test="aac003 != null">
+                AAC003,
+            </if>
+            <if test="aae140 != null">
+                AAE140,
+            </if>
+            <if test="aae023 != null">
+                AAE023,
+            </if>
+            <if test="aaa119 != null">
+                AAA119,
+            </if>
+            <if test="aae340 != null">
+                AAE340,
+            </if>
+            <if test="aae206 != null">
+                AAE206,
+            </if>
+            <if test="aae035 != null">
+                AAE035,
+            </if>
+            <if test="zmny00 != null">
+                ZMNY00,
+            </if>
+            <if test="grjfje != null">
+                GRJFJE,
+            </if>
+            <if test="dwjfje != null">
+                DWJFJE,
+            </if>
+            <if test="hbrq00 != null">
+                HBRQ00,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="aaa027 != null">
+                #{aaa027,jdbcType=VARCHAR},
+            </if>
+            <if test="aac002 != null">
+                #{aac002,jdbcType=VARCHAR},
+            </if>
+            <if test="aac003 != null">
+                #{aac003,jdbcType=VARCHAR},
+            </if>
+            <if test="aae140 != null">
+                #{aae140,jdbcType=VARCHAR},
+            </if>
+            <if test="aae023 != null">
+                #{aae023,jdbcType=DECIMAL},
+            </if>
+            <if test="aaa119 != null">
+                #{aaa119,jdbcType=VARCHAR},
+            </if>
+            <if test="aae340 != null">
+                #{aae340,jdbcType=DECIMAL},
+            </if>
+            <if test="aae206 != null">
+                #{aae206,jdbcType=DECIMAL},
+            </if>
+            <if test="aae035 != null">
+                #{aae035,jdbcType=TIMESTAMP},
+            </if>
+            <if test="zmny00 != null">
+                #{zmny00,jdbcType=DECIMAL},
+            </if>
+            <if test="grjfje != null">
+                #{grjfje,jdbcType=DECIMAL},
+            </if>
+            <if test="dwjfje != null">
+                #{dwjfje,jdbcType=DECIMAL},
+            </if>
+            <if test="hbrq00 != null">
+                #{hbrq00,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
 
 
-  <insert id="ProZwAc43" parameterType="java.util.Map" statementType="CALLABLE">
-    {call PRO_ZW_AC43_DATAS(
-    #{updator,mode=IN, jdbcType=VARCHAR},
-    #{aaa027,mode=IN, jdbcType=VARCHAR},
-    #{result, mode=OUT, jdbcType=VARCHAR}
-    )}
-  </insert>
+    <insert id="ProZwAc43" parameterType="java.util.Map" statementType="CALLABLE">
+        {call PRO_ZW_AC43_DATAS(
+        #{updator,mode=IN, jdbcType=VARCHAR},
+        #{aaa027,mode=IN, jdbcType=VARCHAR},
+        #{result, mode=OUT, jdbcType=VARCHAR}
+        )}
+    </insert>
 
     <insert id="ProZwAc43390" parameterType="java.util.Map" statementType="CALLABLE">
-    {call PRO_ZW_AC43_390_DATAS(
-    #{updator,mode=IN, jdbcType=VARCHAR},
-    #{aaa027,mode=IN, jdbcType=VARCHAR},
-    #{result, mode=OUT, jdbcType=VARCHAR}
-    )}
-  </insert>
+        {call PRO_ZW_AC43_390_DATAS(
+        #{updator,mode=IN, jdbcType=VARCHAR},
+        #{aaa027,mode=IN, jdbcType=VARCHAR},
+        #{result, mode=OUT, jdbcType=VARCHAR}
+        )}
+    </insert>
 
 
-  <!--错误数据批量插入-->
-  <insert id="insertErrorList" parameterType="java.util.List" useGeneratedKeys="false">
-    insert into zw_ac43_error (AAA027, AAC002, AAC003, AAE140, AAE023, AAA119,
-    AAE340, AAE206, ZMNY00, GRJFJE, DWJFJE, HBRQ00, status, reason)
-    select a.* from (
-    <foreach collection="list" item="item" index="index" separator="union all">select
-      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR},
-      #{item.aae140,jdbcType=VARCHAR}, #{item.aae023,jdbcType=DECIMAL}, #{item.aaa119,jdbcType=VARCHAR},
-      #{item.aae340,jdbcType=DECIMAL}, #{item.aae206,jdbcType=DECIMAL}, #{item.zmny00,jdbcType=DECIMAL},
-      #{item.grjfje,jdbcType=DECIMAL}, #{item.dwjfje,jdbcType=DECIMAL}, #{item.hbrq00,jdbcType=DECIMAL},
-      '0', #{item.reason,jdbcType=VARCHAR}
-      from dual
-    </foreach>
-    )a
-  </insert>
+    <!--错误数据批量插入-->
+    <insert id="insertErrorList" parameterType="java.util.List" useGeneratedKeys="false">
+        insert into zw_ac43_error (id, AAA027, AAC002, AAC003, AAE140, AAE023, AAA119,
+        AAE340, AAE206, ZMNY00, GRJFJE, DWJFJE, HBRQ00,AAZ223, status, reason)
+        select sq_zw_error_log.nextval, a.* from (
+        <foreach collection="list" item="item" index="index" separator="union all">select
+            sf_aa10_tocode('AAA027',#{item.aaa027,jdbcType=VARCHAR}), #{item.aac002,jdbcType=VARCHAR},
+            #{item.aac003,jdbcType=VARCHAR},
+            sf_aa10_tocode('AAE140',#{item.aae140,jdbcType=VARCHAR}), #{item.aae023,jdbcType=DECIMAL},
+            sf_aa10_tocode('AAA115',#{item.aaa119,jdbcType=VARCHAR}),
+            #{item.aae340,jdbcType=DECIMAL}, #{item.aae206,jdbcType=DECIMAL}, #{item.zmny00,jdbcType=DECIMAL},
+            #{item.grjfje,jdbcType=DECIMAL}, #{item.dwjfje,jdbcType=DECIMAL}, #{item.hbrq00,jdbcType=DECIMAL},
+            #{item.aaz223,jdbcType=DECIMAL},'0', #{item.reason,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )a
+    </insert>
 
-  <select id="selectZwAc43ErrorDataByPage" resultMap="BaseResultMap" parameterType="java.lang.Long">
- SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, ZMNY00, GRJFJE,
-    DWJFJE, HBRQ00, AAZ223 FROM(
-    select rownum as rowno ,a.* from
-    (select /*+parallel(20)*/ * from zw_ac43_error a where 1=1   order by a.aaz223,a.aaa027)
-    where 1=1  and rownum &lt;= #{end}
-    ) t_table where rowno > #{begin}
-  </select>
-
-
-  <!--正常流程-->
-  <insert id="doProcedure" parameterType="java.util.Map" statementType="CALLABLE">
-    {call PRO_ZW_AC43(
-    #{result, mode=OUT, jdbcType=VARCHAR}
-    )}
-  </insert>
-  <insert id="doProcedure390" parameterType="java.util.Map" statementType="CALLABLE">
-    {call PRO_ZW_AC43_390(
-    #{result, mode=OUT, jdbcType=VARCHAR}
-    )}
-  </insert>
+    <select id="selectZwAc43ErrorDataByPage" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss')
+        AAE035, ZMNY00, GRJFJE,
+        DWJFJE, HBRQ00, AAZ223 FROM(
+        select rownum as rowno ,b.* from
+        (select /*+parallel(20)*/ * from zw_ac43_error a where 1=1 and a.status = '0' order by a.aaz223,a.aaa027)b
+        where 1=1 and rownum &lt;= #{end}
+        ) t_table where rowno > #{begin}
+    </select>
 
 
-  <select id="selectCountToZw" resultType="int">
-    select count(*) from zw_ac43
-     where    1=1   and aaa027 = #{aaa027}
-       and  (aae035 between to_date(#{beginTime},'yyyy-MM-dd hh24:mi:ss') and  to_date(#{endTime},'yyyy-MM-dd hh24:mi:ss'))
-  </select>
-  <select id="selectCountToZw390" resultType="int">
-    select count(*) from zw_ac43_390
-     where    1=1   and aaa027 = #{aaa027}
-       and  (aae035 between to_date(#{beginTime},'yyyy-MM-dd hh24:mi:ss') and  to_date(#{endTime},'yyyy-MM-dd hh24:mi:ss'))
-  </select>
+    <!--正常流程-->
+    <insert id="doProcedure" parameterType="java.util.Map" statementType="CALLABLE">
+        {call PRO_ZW_AC43(
+        #{result, mode=OUT, jdbcType=VARCHAR}
+        )}
+    </insert>
+    <insert id="doProcedure390" parameterType="java.util.Map" statementType="CALLABLE">
+        {call PRO_ZW_AC43_390(
+        #{result, mode=OUT, jdbcType=VARCHAR}
+        )}
+    </insert>
 
 
-  <select id="selectZwAc43TempInsert" resultMap="BaseResultMap">
-    SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, ZMNY00, GRJFJE,
-    DWJFJE, HBRQ00, AAZ223 FROM(
-    select rownum as rowno ,a.* from
-    (select /*+parallel(20)*/ * from zw_ac43_temp a where 1=1 and a.ywbz00 = '1'  order by a.aaz223,a.aaa027)
-    where 1=1  and rownum &lt;= #{end}
-    ) t_table where rowno > #{begin}
-  </select>
-
-  <select id="selectZwAc43TempDelete" resultMap="BaseResultMap">
-    SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, ZMNY00, GRJFJE,
-    DWJFJE, HBRQ00, AAZ223 FROM(
-    select rownum as rowno ,a.* from
-    (select /*+parallel(20)*/ * from zw_ac43_temp a where 1=1 and a.ywbz00 = '3'  order by a.aaz223,a.aaa027)
-    where 1=1  and rownum &lt;= #{end}
-    ) t_table where rowno > #{begin}
-  </select>
-
-  <select id="selectZwAc43TempUpdate" resultMap="BaseResultMap">
-    SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, ZMNY00, GRJFJE,
-    DWJFJE, HBRQ00, AAZ223 FROM(
-    select rownum as rowno ,a.* from
-    (select /*+parallel(20)*/ * from zw_ac43_temp a where 1=1 and a.ywbz00 = '2'  order by a.aaz223,a.aaa027)
-    where 1=1  and rownum &lt;= #{end}
-    ) t_table where rowno > #{begin}
-  </select>
+    <select id="selectCountToZw" resultType="int">
+        select count(*) from zw_ac43
+        where 1=1 and aaa027 = #{aaa027}
+        and (aae035 between to_date(#{beginTime},'yyyy-MM-dd hh24:mi:ss') and to_date(#{endTime},'yyyy-MM-dd
+        hh24:mi:ss'))
+    </select>
+    <select id="selectCountToZw390" resultType="int">
+        select count(*) from zw_ac43_390
+        where 1=1 and aaa027 = #{aaa027}
+        and (aae035 between to_date(#{beginTime},'yyyy-MM-dd hh24:mi:ss') and to_date(#{endTime},'yyyy-MM-dd
+        hh24:mi:ss'))
+    </select>
 
 
-  <select id="selectZwAc43TempInsert390" resultMap="BaseResultMap">
-    SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, ZMNY00, GRJFJE,
-    DWJFJE, HBRQ00, AAZ223 FROM(
-    select rownum as rowno ,a.* from
-    (select /*+parallel(20)*/ * from zw_ac43_390_temp a where 1=1 and a.ywbz00 = '1'  order by a.aaz223,a.aaa027)
-    where 1=1  and rownum &lt;= #{end}
-    ) t_table where rowno > #{begin}
-  </select>
+    <select id="selectZwAc43TempInsert" resultMap="BaseResultMap">
+        SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss')
+        AAE035, ZMNY00, GRJFJE,
+        DWJFJE, HBRQ00, AAZ223 FROM(
+        select rownum as rowno ,b.* from
+        (select /*+parallel(20)*/ * from test_zw_ac43_temp a where 1=1 and a.ywbz00 = '1' order by a.aaz223,a.aaa027) b
+        where 1=1 and rownum &lt;= #{end}
+        ) t_table where rowno > #{begin}
+    </select>
 
-  <select id="selectZwAc43TempDelete390" resultMap="BaseResultMap">
-    SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, ZMNY00, GRJFJE,
-    DWJFJE, HBRQ00, AAZ223 FROM(
-    select rownum as rowno ,a.* from
-    (select /*+parallel(20)*/ * from zw_ac43_390_temp a where 1=1 and a.ywbz00 = '3'  order by a.aaz223,a.aaa027)
-    where 1=1  and rownum &lt;= #{end}
-    ) t_table where rowno > #{begin}
-  </select>
+    <select id="selectZwAc43TempDelete" resultMap="BaseResultMap">
+        SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss')
+        AAE035, ZMNY00, GRJFJE,
+        DWJFJE, HBRQ00, AAZ223 FROM(
+        select rownum as rowno ,b.* from
+        (select /*+parallel(20)*/ * from test_zw_ac43_temp a where 1=1 and a.ywbz00 = '3' order by a.aaz223,a.aaa027) b
+        where 1=1 and rownum &lt;= #{end}
+        ) t_table where rowno > #{begin}
+    </select>
 
-  <select id="selectZwAc43TempUpdate390" resultMap="BaseResultMap">
-    SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss') AAE035, ZMNY00, GRJFJE,
-    DWJFJE, HBRQ00, AAZ223 FROM(
-    select rownum as rowno ,a.* from
-    (select /*+parallel(20)*/ * from zw_ac43_390_temp a where 1=1 and a.ywbz00 = '2'  order by a.aaz223,a.aaa027)
-    where 1=1  and rownum &lt;= #{end}
-    ) t_table where rowno > #{begin}
-  </select>
+    <select id="selectZwAc43TempUpdate" resultMap="BaseResultMap">
+        SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss')
+        AAE035, ZMNY00, GRJFJE,
+        DWJFJE, HBRQ00, AAZ223 FROM(
+        select rownum as rowno ,b.* from
+        (select /*+parallel(20)*/ * from test_zw_ac43_temp a where 1=1 and a.ywbz00 = '2' order by a.aaz223,a.aaa027) b
+        where 1=1 and rownum &lt;= #{end}
+        ) t_table where rowno > #{begin}
+    </select>
 
-  <!---->
-  <insert id="insertZwAc43" parameterType="java.util.List">
-    insert into /*+parallel(20)*/ zw_ac43_1009 (AAA027, AAC002, AAC003, AAE140, AAE023, AAA119,
-    AAE340, AAE206, ZMNY00, GRJFJE, DWJFJE, HBRQ00, AAZ223, BAE536, YWBZ00)
-    select a.* from (
-    <foreach collection="list" item="item" index="index" separator="union all">select
-      #{item.aaa027,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR},
-      #{item.aae140,jdbcType=VARCHAR}, #{item.aae023,jdbcType=DECIMAL}, #{item.aaa119,jdbcType=VARCHAR},
-      #{item.aae340,jdbcType=DECIMAL}, #{item.aae206,jdbcType=DECIMAL}, #{item.zmny00,jdbcType=DECIMAL},
-      #{item.grjfje,jdbcType=DECIMAL}, #{item.dwjfje,jdbcType=DECIMAL}, #{item.hbrq00,jdbcType=DECIMAL},
-      #{item.aaz223,jdbcType=DECIMAL}, #{item.bae536,jdbcType=VARCHAR}, #{item.ywbz00,jdbcType=VARCHAR}
-      from dual
-    </foreach>
-    )a
-  </insert>
+
+    <select id="selectZwAc43TempInsert390" resultMap="BaseResultMap">
+        SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss')
+        AAE035, ZMNY00, GRJFJE,
+        DWJFJE, HBRQ00, AAZ223 FROM(
+        select rownum as rowno ,b.* from
+        (select /*+parallel(20)*/ * from test_zw_ac43_390_temp a where 1=1 and a.ywbz00 = '1' order by
+        a.aaz223,a.aaa027) b
+        where 1=1 and rownum &lt;= #{end}
+        ) t_table where rowno > #{begin}
+    </select>
+
+    <select id="selectZwAc43TempDelete390" resultMap="BaseResultMap">
+        SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss')
+        AAE035, ZMNY00, GRJFJE,
+        DWJFJE, HBRQ00, AAZ223 FROM(
+        select rownum as rowno ,b.* from
+        (select /*+parallel(20)*/ * from test_zw_ac43_390_temp a where 1=1 and a.ywbz00 = '3' order by
+        a.aaz223,a.aaa027) b
+        where 1=1 and rownum &lt;= #{end}
+        ) t_table where rowno > #{begin}
+    </select>
+
+    <select id="selectZwAc43TempUpdate390" resultMap="BaseResultMap">
+        SELECT AAA027, AAC002, AAC003, AAE140, AAE023, AAA119, AAE340, AAE206, to_char(AAE035,'yyyy/MM/dd HH:mm:ss')
+        AAE035, ZMNY00, GRJFJE,
+        DWJFJE, HBRQ00, AAZ223 FROM(
+        select rownum as rowno ,b.* from
+        (select /*+parallel(20)*/ * from test_zw_ac43_390_temp a where 1=1 and a.ywbz00 = '2' order by
+        a.aaz223,a.aaa027) b
+        where 1=1 and rownum &lt;= #{end}
+        ) t_table where rowno > #{begin}
+    </select>
+
+    <!---->
+    <insert id="insertZwAc43" parameterType="java.util.List">
+        insert into /*+parallel(20)*/ zw_ac43_1009 (AAA027, AAC002, AAC003, AAE140, AAE023, AAA119,
+        AAE340, AAE206, ZMNY00, GRJFJE, DWJFJE, HBRQ00, AAZ223, BAE536, YWBZ00)
+        select a.* from (
+        <foreach collection="list" item="item" index="index" separator="union all">select
+            #{item.aaa027,jdbcType=VARCHAR}, #{item.aac002,jdbcType=VARCHAR}, #{item.aac003,jdbcType=VARCHAR},
+            #{item.aae140,jdbcType=VARCHAR}, #{item.aae023,jdbcType=DECIMAL}, #{item.aaa119,jdbcType=VARCHAR},
+            #{item.aae340,jdbcType=DECIMAL}, #{item.aae206,jdbcType=DECIMAL}, #{item.zmny00,jdbcType=DECIMAL},
+            #{item.grjfje,jdbcType=DECIMAL}, #{item.dwjfje,jdbcType=DECIMAL}, #{item.hbrq00,jdbcType=DECIMAL},
+            #{item.aaz223,jdbcType=DECIMAL}, #{item.bae536,jdbcType=VARCHAR}, #{item.ywbz00,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )a
+    </insert>
 
 
 </mapper>

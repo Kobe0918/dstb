@@ -1,5 +1,6 @@
 package com.ylzbrt.dstb.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.ylzbrt.dstb.annotion.ClassAnnotation;
 import com.ylzbrt.dstb.annotion.FieldsAnnotation;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ public class ZwAc43Temp {
     private String aae140;
 
     @FieldsAnnotation(value = "个人缴费划入账户金额")
-    private Short aae023;
+    private BigDecimal aae023;
 
     @FieldsAnnotation(value = "账目类型")
     private String aaa119;
@@ -55,6 +56,8 @@ public class ZwAc43Temp {
     @FieldsAnnotation(value = "缴费划拨id")
     private BigDecimal aaz223;
 
+    @ExcelProperty(value = {"问题描述（内部）"}, index = 15)
+    private String reason;
     private String bae536;
     private String ywbz00;
 
