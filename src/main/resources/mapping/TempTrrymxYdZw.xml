@@ -14,6 +14,7 @@
         <result column="AKE001" jdbcType="VARCHAR" property="ake001"/>
         <result column="AKE002" jdbcType="VARCHAR" property="ake002"/>
         <result column="AKE004" jdbcType="VARCHAR" property="ake004"/>
+        <result column="WDXZQH" jdbcType="VARCHAR" property="wdxzqh"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -61,11 +62,11 @@
     <select id="selectIncrementData" resultMap="BaseResultMap">
         select
         DECODE(aaa027,'350000','省本级','350100','福州市','350200','厦门市','350300','莆田市','350400','三明市','350500','泉州市','350600','漳州市','350700','南平市','350800','龙岩市','350900','宁德市','350128','平潭综合实验区') aaa027 ,
-        aac003 ,aac002 ,aae005 ,aae006 ,akc023 ,akb020 ,akb021 ,ake056 ,ake001 ,ake002 ,ake004
+        aac003 ,aac002 ,aae005 ,aae006 ,akc023 ,akb020 ,akb021 ,ake056 ,ake001 ,ake002 ,ake004, wdxzqh
         from (
           select rownum as rowno ,a.* from (
               select /*+parallel(20)+*/ *
-              from test_temp_trrymx_yd_zw
+              from temp_trrymx_yd_zw
               where 1=1 and ake056 = to_char(TRUNC(SYSDATE - 1),'YYYYMMDD') and aaa027 = #{aaa027}
               order by aaa027,aae072 )a
           where rownum &lt;= #{end}  ) T

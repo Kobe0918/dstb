@@ -60,5 +60,7 @@ public class TempTrrymxYdZw {
     @ExcelProperty(value = {"标准名称"}, index = 1)
     private String ake004;
 
-
+    @FieldsAnnotation("网点行政区划")
+    @ExcelProperty(value = {"网点行政区划"}, index = 1)
+    private String wdxzqh;
 }
